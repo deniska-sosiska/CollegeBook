@@ -6,7 +6,7 @@ const port = 8887
 
 
 app.get('/', function(req, res) {
-  // res.sendFile('./public/index.html');
+  res.sendFile(__dirname + "/public/index.html");
 })
 
 app.listen(port, (error) => {
