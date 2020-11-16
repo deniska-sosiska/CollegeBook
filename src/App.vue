@@ -1,13 +1,18 @@
 <template>
   <div id="app">
-    <h1>hello</h1>
+    <vHeader />
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
+import vHeader from "./components/V-header.vue"
 
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    vHeader
+  }
 
 }
 </script>
