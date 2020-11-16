@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <vHeader />
+    <div class = "container">
+      <vHeader />
+    </div>
   </div>
 </template>
 
@@ -28,5 +30,12 @@ export default {
   box-sizing: border-box;
   color: #2c3e50;
   font-family: "Comfortaa";
+}
+.container {
+  width: 1200px;
+  margin: 0 auto;
+}
+.myBorder {
+  border: solid 1px;
 }
 </style>
