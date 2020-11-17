@@ -5,8 +5,8 @@
       <p>Запорізький електротехнічний фаховий коледж</p>
     </a>
     <nav class="menu">
-      <div class="hover">Главная</div>
-      <div class="hover">Авторизация</div>
+      <router-link :to = "'/'" class="hover">Головна</router-link>
+      <router-link :to = "'/'" class="hover">Авторизацiя</router-link>
     </nav>
   </div>
 </template>
@@ -49,10 +49,9 @@ export default {
     display: flex;
     /* align-items: center; */
   }
-  .menu > div {
+  .menu > .hover {
     font-size: 18px;
     padding: 31px 20px;
-    margin-left: 15px;
     user-select: none;
   }
 </style>

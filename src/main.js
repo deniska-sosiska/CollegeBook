@@ -4,19 +4,18 @@ import VueAxios from 'vue-axios'
 import VueRouter from 'vue-router'
 
 import App from './App.vue'
-import vContent from './components/V-body-content.vue'
-import vChooseGrop from './components/V-body-choose-group.vue'
+import vChooseGroups from './components/V-body-choose-groups.vue'
+import vChooseGroup from './components/V-body-choose-group.vue'
+import vChooseMagazines from './components/V-body-choose-magazines.vue'
 
-
-const routes = [
-  {  path: '/', component: vChooseGrop },
-  {  path: '/chooseGroup/', component: vChooseGrop, props: true }
-]
 
 const router  = new VueRouter({
-  routes: routes
+  routes: [
+    {  path: '/', component: vChooseGroups },
+    {  path: '/:groups/', component: vChooseGroup, props: true},
+    {  path: '/:magazines/', component: vChooseMagazines, props: true}
+  ]
 })
-
 
 Vue.config.productionTip = false
 Vue.use(VueRouter, VueAxios, axios)

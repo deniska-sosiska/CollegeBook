@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "b": "webpack --mode production",
-    "dev": "webpack serve --mode development"
+    "dev": "webpack serve --mode development",
+    "jsonS": "json-server --watch ./src/assets/myDB.json"
   },
   "dependencies": {
     "axios": "^0.21.0",
