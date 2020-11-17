@@ -2,19 +2,23 @@
   <div id="app">
     <div class = "container">
       <vHeader />
-      
-      <vContent />
+       <router-view></router-view>
     </div>
   </div>
 </template>
 
 <script>
 import Vue from 'vue'
+import axios from 'axios'
 import vHeader from "./components/V-header.vue"
 import vContent from "./components/V-body-content.vue"
 
 export default {
   name: 'App',
+  data() {
+    return {
+    }
+  },
   components: {
     vHeader,
     vContent
