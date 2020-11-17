@@ -2,6 +2,8 @@
   <div id="app">
     <div class = "container">
       <vHeader />
+      
+      <vContent />
     </div>
   </div>
 </template>
@@ -9,11 +11,13 @@
 <script>
 import Vue from 'vue'
 import vHeader from "./components/V-header.vue"
+import vContent from "./components/V-body-content.vue"
 
 export default {
   name: 'App',
   components: {
-    vHeader
+    vHeader,
+    vContent
   }
 
 }
@@ -22,7 +26,7 @@ export default {
 <style>
 @font-face {
   font-family: 'Comfortaa';
-  src:url('./fonts/Comfortaa-Regular.ttf');
+  src:url('./assets/Comfortaa-Regular.ttf');
 }
 * {
   margin: 0;
@@ -37,5 +41,9 @@ export default {
 }
 .myBorder {
   border: solid 1px;
+}
+.hover:hover {
+  cursor: pointer;
+  background: #e6f7ff;
 }
 </style>

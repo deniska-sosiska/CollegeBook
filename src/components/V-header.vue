@@ -1,9 +1,9 @@
 <template>
   <div class="header">
-    <div class="logo hover">
+    <a :href=linkToCollege target="_blank" class="logo hover">
       <img :src="logo_src">
-      <p class="">Запорізький електротехнічний фаховий коледж</p>
-    </div>
+      <p>Запорізький електротехнічний фаховий коледж</p>
+    </a>
     <nav class="menu">
       <div class="hover">Главная</div>
       <div class="hover">Авторизация</div>
@@ -14,11 +14,11 @@
 <script>
 import Vue from 'vue'
 
-
 export default {
   data() {
     return {
-      logo_src: '../assets/logo-removebg-preview.png'
+      logo_src: '../assets/logo.png',
+      linkToCollege: "http://zetk.com.ua/"
     }
   }
 }
@@ -34,24 +34,25 @@ export default {
     padding: 0px 20px;
     display: flex;
     align-items: center;
+    text-decoration: none;
   }
   .logo > img {
     width: 60px;
     height: 60px;
     margin-right: 5px;
   }
-  .logo > p {padding: 0px 20px;}
+  .logo > p {
+    padding: 0px 20px;
+    font-size: 18px;
+  }
   .menu {
     display: flex;
     /* align-items: center; */
   }
   .menu > div {
-    padding: 30px 20px;
-    margin-left: 35px;
-  }
-  .hover:hover {
-    padding: 30px 20px;
-    cursor: pointer;
-    background: #e6f7ff;
+    font-size: 18px;
+    padding: 31px 20px;
+    margin-left: 15px;
+    user-select: none;
   }
 </style>
