@@ -1,6 +1,10 @@
 <template>
   <div class="group">
-    <h2 style="text-align: center;">It is => {{group}}</h2> 
+    <router-link 
+      v-for="(group, name, index) in groupsCurrentSpecialty.groups"
+      :key="index">
+        {{name}}
+    </router-link> 
   </div>
 </template>
 
@@ -11,17 +15,16 @@
   export default {
     data() {
       return {
-        dbUrl: 'http://127.0.0.1:3000/dateBase'
+        dbUrl: 'http://127.0.0.1:3000/dateBase',
+        groupsCurrentSpecialty: {}
       }
     },
     props: {
-      group: ''
+      id: ''
     },
     mounted: function(){
-      axios.get(this.dbUrl + "/" + this.group + "/") // <-- Помилка
-        .then((res) => {
-          console.log(res.data)
-        })
+      axios.get(this.dbUrl + "/" + this.id + "/") // <-- Помилка
+        .then((res) => { this.groupsCurrentSpecialty = res.data })
     },
     methods: {
       getGroup: function(){}
