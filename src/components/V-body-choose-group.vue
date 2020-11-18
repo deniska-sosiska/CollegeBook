@@ -1,6 +1,6 @@
 <template>
   <div class="group">
-    <h2 style="text-align: center;">It is => {{}}</h2> 
+    <h2 style="text-align: center;">It is => {{group}}</h2> 
   </div>
 </template>
 
@@ -15,21 +15,18 @@
       }
     },
     props: {
-      forLink: ''
+      group: ''
     },
     mounted: function(){
-      this.getGroup
+      axios.get(this.dbUrl + "/" + this.group + "/") // <-- Помилка
+        .then((res) => {
+          console.log(res.data)
+        })
     },
     methods: {
       getGroup: function(){
-        axios.get(this.dbUrl + forLink).then((res) => {
-          console.log(res.data)
-        })
+
       }
     }
   }
 </script>
-
-<style scoped>
-
-</style>

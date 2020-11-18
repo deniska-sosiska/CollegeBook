@@ -2,7 +2,7 @@
   <div class="choseGroup ">
     <router-link  v-for = "(groups, name, index) in dateBase"
     @click = "showDB(groups)"
-    :to = "'/' + groups.forLink"
+    :to = "'/' + name + '/'"
     :key = "index"
     class="group hover">
         <img :src="groups.linkImage" alt="">

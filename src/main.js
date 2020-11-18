@@ -12,7 +12,7 @@ import vChooseMagazines from './components/V-body-choose-magazines.vue'
 const router  = new VueRouter({
   routes: [
     {  path: '/', component: vChooseGroups },
-    {  path: '/:groups/', component: vChooseGroup, props: true},
+    {  path: '/:group/', component: vChooseGroup, props: true},
     {  path: '/:magazines/', component: vChooseMagazines, props: true}
   ]
 })
