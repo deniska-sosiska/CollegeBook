@@ -1,12 +1,12 @@
 <template>
   <div class="choseGroup ">
-    <router-link  v-for = "(groups, name, index) in dateBase"
+    <router-link  v-for = "(groups, index) in dateBase"
     @click = "showDB(groups)"
-    :to = "'/' + name + '/'"
+    :to = "'/' + groups.forLink + '/'"
     :key = "index"
     class="group hover">
         <img :src="groups.linkImage" alt="">
-        <p>{{name}}</p>
+        <p>{{groups.forLink}}</p>
     </router-link>
   </div>
 </template>

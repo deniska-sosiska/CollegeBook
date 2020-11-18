@@ -24,9 +24,7 @@
         })
     },
     methods: {
-      getGroup: function(){
-
-      }
+      getGroup: function(){}
     }
   }
 </script>
