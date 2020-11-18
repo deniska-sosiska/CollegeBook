@@ -1,0 +1,55 @@
+{
+  "dateBase": {
+    "Розробка програмного забезпечення": {
+      "groups": {
+        "RPZ 17 1/9": {
+          "11": {"Name": "Кульченко Я.Е.", "attendance": {}},
+          "12": {"Name": "Мовлян В.Л.", "attendance": {}},
+          "13": {"Name": "Надточий В.Е.", "attendance": {}},
+          "14": {"Name": "Нестеренко О.О.", "attendance": {}},
+          "15": {"Name": "Палієнко Д.С.", "attendance": {}},
+          "16": {"Name": "Петунін О.В.", "attendance": {}},
+          "17": {"Name": "Рекашов І.В.", "attendance": {}},
+          "18": {"Name": "Тищенко С.С.", "attendance": {}},
+          "19": {"Name": "Целіщев Д.О.", "attendance": {}},
+          "20": {"Name": "Шумілкін М.О.", "attendance": {}}
+        },
+        "RPZ 17 2/9": {
+          "1": {"Name": "Бабанський Я.С.", "attendance": {}},
+          "2": {"Name": "Батанова М.С.", "attendance": {}},
+          "3": {"Name": "Берков Д.С.", "attendance": {}},
+          "4": {"Name": "Біляк В.В.", "attendance": {}},
+          "5": {"Name": "Бойко О.О.", "attendance": {}},
+          "6": {"Name": "Денисенко К.I.", "attendance": {}},
+          "7": {"Name": "Дорошенко О.В.", "attendance": {}},
+          "8": {"Name": "Дробіняк М.В.", "attendance": {}},
+          "9": {"Name": "Колчев А.О.", "attendance": {}},
+          "10": {"Name": "Кочев М.О.", "attendance": {}}
+        }
+      },
+      "linkImage": "../assets/Інженерія програмного забезпечення.jpg",
+      "forLink": "RPZ"
+    },
+    "Галузеве машинобудування": {
+      "linkImage": "../assets/Галузеве машинобудування.jpg",
+      "forLink": "noname" 
+    },
+    "Електроенергетика, електротехніка та електромеханіка": {
+      "linkImage": "../assets/Електроенергетика, електротехніка та електромеханіка.jpg",
+      "forLink": "noname"
+    },
+    "Дизайн": {
+      "linkImage": "../assets/Дизайн.jpg",
+      "forLink": "DZ" 
+    },
+    "Електроніка": {
+      "linkImage": "../assets/Електроніка.jpg",
+      "forLink": "MEO"
+    },
+    "Економіка": {
+      "linkImage": "../assets/Економіка.jpg",
+      "forLink": "KVET"
+
+    }
+  }
+}
