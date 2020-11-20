@@ -49,7 +49,10 @@ export default {
   .myBorder {
     border: solid 1px;
   }
-  .hover {border: 1px solid #fff;}
+  .hover {
+    user-select: none;
+    border: 1px solid #fff;
+  }
   .hover:hover {
     cursor: pointer;
     background: #e6f7ff;

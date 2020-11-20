@@ -1,13 +1,19 @@
 <template>
   <div class="choseGroup ">
-    <router-link  v-for = "(groups, index) in dateBase"
-    @click = "showDB(groups)"
-    :to = "'/' + groups.id + '/'"
-    :key = "index"
-    class="group hover">
-        <img :src="groups.linkImage" alt="">
-        <p>{{groups.name}}</p>
-    </router-link>
+    <div v-for = "(groups, index) in dateBase" :key = "index">
+      <div v-if="!groups.groups" class="group hover"> <!--якщо вона порожня-->
+          <img v-if="!groups.groups" :src="hrefImageBlock" class="blocked" title="на етапі розробки">
+          <img :src="groups.linkImage">
+          <p>{{groups.name}}</p>
+      </div>
+      <!-- /:specialty/:group/magazines/:academicAttendance -->
+      <router-link  v-else  
+        :to = "'/' + groups.id + '/'"
+        class="group hover">
+          <img :src="groups.linkImage">
+          <p>{{groups.name}}</p>
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -20,7 +26,7 @@ export default {
     return {
       dbUrl: 'http://127.0.0.1:3000/dateBase',
       dateBase: [],
-      chooseGroup: ''
+      hrefImageBlock: '../assets/blocked.png'
     }
   },
   mounted: function() {
@@ -50,13 +56,20 @@ export default {
   .group {
     padding: 40px 20px 20px 20px;
     width: 400px;
+    height: 360px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
   }
   .group > p {
     text-align: center;
     margin-top: 10px;
+  }
+  .blocked {
+    position: absolute;
+    width: 250px;
+    top: 65px;
   }
 
 </style>
