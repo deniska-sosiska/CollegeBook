@@ -8,11 +8,13 @@ import ChooseGroups from './components/Choose-groups.vue'
 import ChooseGroup from './components/Choose-group.vue'
 import ChooseMagazines from './components/Choose-magazines.vue'
 import ChooseAcademicAttendance from './components/Academic-attendance.vue'
+import Authorization from './components/Authorization.vue'
 
 
 const router  = new VueRouter({
   routes: [
     {  path: '/', component: ChooseGroups },
+    {  path: '/Authorization/', component: Authorization},
     {  path: '/:specialty/', component: ChooseGroup, props: true},
     {  path: '/:specialty/:group/', component: ChooseMagazines, props: true},
     {  path: '/:specialty/:group/:magazines', component: ChooseAcademicAttendance, props: true}

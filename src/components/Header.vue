@@ -6,7 +6,7 @@
     </a>
     <nav class="menu">
       <router-link :to = "'/'" class="hover">Головна</router-link>
-      <router-link :to = "'/'" class="hover">Авторизацiя</router-link>
+      <router-link :to = "'/Authorization/'" class="hover">Авторизацiя</router-link>
     </nav>
   </div>
 </template>
