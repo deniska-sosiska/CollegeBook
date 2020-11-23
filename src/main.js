@@ -4,18 +4,18 @@ import VueAxios from 'vue-axios'
 import VueRouter from 'vue-router'
 
 import App from './App.vue'
-import vChooseGroups from './components/V-body-choose-groups.vue'
-import vChooseGroup from './components/V-body-choose-group.vue'
-import vChooseMagazines from './components/V-body-choose-magazines.vue'
-import vChooseAcademicAttendance from './components/V-body-academic-attendance.vue'
+import ChooseGroups from './components/Choose-groups.vue'
+import ChooseGroup from './components/Choose-group.vue'
+import ChooseMagazines from './components/Choose-magazines.vue'
+import ChooseAcademicAttendance from './components/Academic-attendance.vue'
 
 
 const router  = new VueRouter({
   routes: [
-    {  path: '/', component: vChooseGroups },
-    {  path: '/:specialty/', component: vChooseGroup, props: true},
-    {  path: '/:specialty/:group/', component: vChooseMagazines, props: true},
-    {  path: '/:specialty/:group/:magazines', component: vChooseAcademicAttendance, props: true}
+    {  path: '/', component: ChooseGroups },
+    {  path: '/:specialty/', component: ChooseGroup, props: true},
+    {  path: '/:specialty/:group/', component: ChooseMagazines, props: true},
+    {  path: '/:specialty/:group/:magazines', component: ChooseAcademicAttendance, props: true}
   ]
 })
 

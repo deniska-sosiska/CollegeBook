@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class = "container">
-      <vHeader />
+      <Header />
        <router-view></router-view>
     </div>
   </div>
@@ -10,8 +10,8 @@
 <script>
 import Vue from 'vue'
 import axios from 'axios'
-import vHeader from "./components/V-header.vue"
-import vChooseMagazines from "./components/V-body-choose-magazines.vue"
+import Header from "./components/Header.vue"
+import ChooseMagazines from "./components/Choose-magazines.vue"
 
 export default {
   name: 'App',
@@ -20,8 +20,8 @@ export default {
     }
   },
   components: {
-    vHeader,
-    vChooseMagazines
+    Header,
+    ChooseMagazines
   }
 
 }
