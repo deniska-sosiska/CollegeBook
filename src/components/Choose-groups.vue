@@ -24,7 +24,8 @@ import axios from 'axios'
 export default {
   data(){
     return {
-      dbUrl: 'http://127.0.0.1:3000/dateBase',
+      dbGroupsUrl: 'http://127.0.0.1:3000/dateBase',
+      dbAuthorizUrl: 'http://127.0.0.1:3000/registeredUser',
       dateBase: [],
       hrefImageBlock: '../assets/blocked.png'
     }
@@ -34,7 +35,7 @@ export default {
   },
   methods: {
      getDB: function() {
-      axios.get(this.dbUrl).then((response) => {
+      axios.get(this.dbGroupsUrl).then((response) => {
         this.dateBase = response.data
         console.log("Отримання даних з БД: Успішно")
       })

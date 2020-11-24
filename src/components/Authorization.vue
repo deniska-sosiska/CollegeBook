@@ -3,11 +3,11 @@
     <form>
         <div>
             <label for="login">Логiн: </label>
-            <input id="login" type="text">
+            <input id="login" v-model="userLogin" type="text">
         </div>
         <div>
             <label for="pass">Пароль: </label>
-            <input id="pass" type="password">
+            <input id="pass" v-model="userPassword" type="password">
         </div>
         <div>
             <input type="submit" @click="authorization(); return false;">
@@ -25,11 +25,24 @@
 
   export default {
     data () {
-      return {}
+      return {
+        dbAuthorizUrl: 'http://127.0.0.1:3000/registeredUser',
+        userLogin: '',
+        userPassword: '',
+        userRegistered: false
+      }
     },
     methods: {
       authorization: function(){
-        console.log("gi")
+        axios.get(this.dbAuthorizUrl).then((response) => {
+          console.log("Перевірка даних в БД...")
+          response.data.forEach(registeredUser => {
+            if (registeredUser.login == this.userLogin && registeredUser.password == this.userPassword ){
+              userRegistered = true
+              console.log("Перевірка успішна")
+            }
+          });
+        })
       }
     }
   }

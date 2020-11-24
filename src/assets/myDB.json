@@ -70,8 +70,9 @@
       "id": "MEO"
     }
   ],
-  
-  "registеredUser": [
-    {"name": "denis"}
+  "registeredUser": [
+    {"login": "denis", "password": "1", "id": 1},
+    {"name": "denis", "password": "2", "id": 2},
+    {"name": "denis", "id": 3}
   ]
 }
