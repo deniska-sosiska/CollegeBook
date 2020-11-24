@@ -69,5 +69,9 @@
       "name": "Електроніка",
       "id": "MEO"
     }
+  ],
+  
+  "registеredUser": [
+    {"name": "denis"}
   ]
 }
