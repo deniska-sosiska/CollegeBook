@@ -10,10 +10,10 @@
             <input id="pass" type="password">
         </div>
         <div>
-            <input type="submit">
+            <input type="submit" @click="authorization(); return false;">
         </div>
         <div>
-            <p>Ще не зареєстровані? <span>Реєстрація</span></p>
+            <p class="forCenter">Ще не зареєстровані? <span>Реєстрація</span></p>
         </div>
     </form>
   </div>
@@ -27,8 +27,10 @@
     data () {
       return {}
     },
-    mounted: function(){
-
+    methods: {
+      authorization: function(){
+        console.log("gi")
+      }
     }
   }
 </script>
@@ -37,18 +39,21 @@
     .Authorization  {
         display: flex;
         justify-content: center;
-        /* align-items: center; */
     }
     form {
+      margin-top: 70px;
       width: 500px;
-      padding: 20px;
+      padding: 30px 20px;
       border-radius: 25px;
-      background: #e6f7ff;
+      border: 1px solid #ccc;
     }
     form > div {
-      margin-bottom: 20px;
-       padding: 0px 20px;
-       display: flex;
+      margin-bottom: 15px;
+      padding: 0px 20px;
+      display: flex;
+    }
+    form > div:last-child {
+      margin: 0px;
     }
     form > div > label {
       padding-right: 15px;
@@ -57,5 +62,12 @@
     form > div > input {
       font-size: 17px;
       flex-grow: 3;
+    }
+    input {
+      padding: 2px 0px 0px 0px;
+    }
+    .forCenter {
+      font-size: 16px;
+      padding: 0px 57px;
     }
 </style>
