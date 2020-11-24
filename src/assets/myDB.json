@@ -1,73 +1,81 @@
 {
-  "dateBase": [
-    {
-      "groups": {
-        "RPZ 17 1/9": {
-          "students": {
-            "11": {"Name": "Кульченко Я.Е.", "attendance": {}},
-            "12": {"Name": "Мовлян В.Л.", "attendance": {}},
-            "13": {"Name": "Надточий В.Е.", "attendance": {}},
-            "14": {"Name": "Нестеренко О.О.", "attendance": {}},
-            "15": {"Name": "Палієнко Д.С.", "attendance": {}},
-            "16": {"Name": "Петунін О.В.", "attendance": {}},
-            "17": {"Name": "Рекашов І.В.", "attendance": {}},
-            "18": {"Name": "Тищенко С.С.", "attendance": {}},
-            "19": {"Name": "Целіщев Д.О.", "attendance": {}},
-            "20": {"Name": "Шумілкін М.О.", "attendance": {}}
+  "dateBase": {
+    "groupsData": [
+      {
+        "groups": {
+          "RPZ 17 1/9": {
+            "students": {
+              "11": {"Name": "Кульченко Я.Е.", "attendance": {}},
+              "12": {"Name": "Мовлян В.Л.", "attendance": {}},
+              "13": {"Name": "Надточий В.Е.", "attendance": {}},
+              "14": {"Name": "Нестеренко О.О.", "attendance": {}},
+              "15": {"Name": "Палієнко Д.С.", "attendance": {}},
+              "16": {"Name": "Петунін О.В.", "attendance": {}},
+              "17": {"Name": "Рекашов І.В.", "attendance": {}},
+              "18": {"Name": "Тищенко С.С.", "attendance": {}},
+              "19": {"Name": "Целіщев Д.О.", "attendance": {}},
+              "20": {"Name": "Шумілкін М.О.", "attendance": {}}
+            },
+            "headman": "Гуляева А.B.",
+            "leader": "Саєнко І.В.",
+            "id": "RPZ17_1-9",
+            "academicAttendance": {
+              "hi": "hi"
+            }
           },
-          "headman": "Гуляева А.B.",
-          "leader": "Саєнко І.В.",
-          "id": "RPZ17_1-9",
-          "academicAttendance": {
-            "hi": "hi"
+          "RPZ 17 2/9": {
+            "students": {
+              "1": {"Name": "Бабанський Я.С.", "attendance": {}},
+              "2": {"Name": "Батанова М.С.", "attendance": {}},
+              "3": {"Name": "Берков Д.С.", "attendance": {}},
+              "4": {"Name": "Біляк В.В.", "attendance": {}},
+              "5": {"Name": "Бойко О.О.", "attendance": {}},
+              "6": {"Name": "Денисенко К.I.", "attendance": {}},
+              "7": {"Name": "Дорошенко О.В.", "attendance": {}},
+              "8": {"Name": "Дробіняк М.В.", "attendance": {}},
+              "9": {"Name": "Колчев А.О.", "attendance": {}},
+              "10": {"Name": "Кочев М.О.", "attendance": {}}
+            },
+            "headman": "Батанова М.С.",
+            "leader": "Короткий О.В.",
+            "id": "RPZ17_2-9"
           }
         },
-        "RPZ 17 2/9": {
-          "students": {
-            "1": {"Name": "Бабанський Я.С.", "attendance": {}},
-            "2": {"Name": "Батанова М.С.", "attendance": {}},
-            "3": {"Name": "Берков Д.С.", "attendance": {}},
-            "4": {"Name": "Біляк В.В.", "attendance": {}},
-            "5": {"Name": "Бойко О.О.", "attendance": {}},
-            "6": {"Name": "Денисенко К.I.", "attendance": {}},
-            "7": {"Name": "Дорошенко О.В.", "attendance": {}},
-            "8": {"Name": "Дробіняк М.В.", "attendance": {}},
-            "9": {"Name": "Колчев А.О.", "attendance": {}},
-            "10": {"Name": "Кочев М.О.", "attendance": {}}
-          },
-          "headman": "Батанова М.С.",
-          "leader": "Короткий О.В.",
-          "id": "RPZ17_2-9"
-        }
+        "linkImage": "../assets/Розробка програмного забезпечення.jpg",
+        "name": "Розробка програмного забезпечення",
+        "id": "RPZ"
       },
-      "linkImage": "../assets/Розробка програмного забезпечення.jpg",
-      "name": "Розробка програмного забезпечення",
-      "id": "RPZ"
-    },
-    {
-      "linkImage": "../assets/Дизайн.jpg",
-      "name": "Дизайн",
-      "id": "DZ"
-    },
-    {
-      "linkImage": "../assets/Електроенергетика, електротехніка та електромеханіка.jpg",
-      "name": "Електроенергетика, електротехніка та електромеханіка",
-      "id": "noname2"
-    },
-    {
-      "linkImage": "../assets/Галузеве машинобудування.jpg",
-      "name": "Галузеве машинобудування",
-      "id": "noname"
-    },
-    {
-      "linkImage": "../assets/Економіка.jpg",
-      "name": "Економіка",
-      "id": "KVET"
-    },
-    {
-      "linkImage": "../assets/Електроніка.jpg",
-      "name": "Електроніка",
-      "id": "MEO"
-    }
-  ]
+      {
+        "linkImage": "../assets/Дизайн.jpg",
+        "name": "Дизайн",
+        "id": "DZ"
+      },
+      {
+        "linkImage": "../assets/Електроенергетика, електротехніка та електромеханіка.jpg",
+        "name": "Електроенергетика, електротехніка та електромеханіка",
+        "id": "noname2"
+      },
+      {
+        "linkImage": "../assets/Галузеве машинобудування.jpg",
+        "name": "Галузеве машинобудування",
+        "id": "noname"
+      },
+      {
+        "linkImage": "../assets/Економіка.jpg",
+        "name": "Економіка",
+        "id": "KVET"
+      },
+      {
+        "linkImage": "../assets/Електроніка.jpg",
+        "name": "Електроніка",
+        "id": "MEO"
+      }
+    ],
+    "registeredUsers": [
+      {"students": [
+        {"login": "1", "password": "1"}
+      ]},
+      {"teachers": {}}
+    ]
+  }
 }
