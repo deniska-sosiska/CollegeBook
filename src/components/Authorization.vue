@@ -9,6 +9,9 @@
             <label for="pass">Пароль: </label>
             <input id="pass" v-model="userPassword" type="password">
         </div>
+        <div v-if="isFake"  style="display: block">
+            <p class="isFake">Пароль або логiн не збігаються, спробуйте ще</p>
+        </div>
         <div>
             <input type="submit" @click="authorization(); return false;">
         </div>
@@ -29,7 +32,8 @@
         dbAuthorizUrl: 'http://127.0.0.1:3000/registeredUser',
         userLogin: '',
         userPassword: '',
-        userRegistered: false
+        userRegistered: false,
+        isFake: false 
       }
     },
     methods: {
@@ -37,11 +41,17 @@
         axios.get(this.dbAuthorizUrl).then((response) => {
           console.log("Перевірка даних в БД...")
           response.data.forEach(registeredUser => {
-            if (registeredUser.login == this.userLogin && registeredUser.password == this.userPassword ){
-              userRegistered = true
+            if (registeredUser.login == this.userLogin && registeredUser.password == this.userPassword){
+              this.userRegistered = true
+              this.isFake = false
               console.log("Перевірка успішна")
             }
-          });
+          })
+          if (this.userRegistered == false) {
+            console.log("Перевірка неуспішна")
+            this.isFake = true
+            setTimeout(() => this.isFake = false, 3000)
+          }
         })
       }
     }
@@ -82,5 +92,13 @@
     .forCenter {
       font-size: 16px;
       padding: 0px 57px;
+    }
+    span {
+      color: #3366ff;
+    }
+    .isFake {
+      color: red;
+      text-align: center;
+      /* display: none */
     }
 </style>
