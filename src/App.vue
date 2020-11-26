@@ -43,7 +43,7 @@ export default {
     font-family: "Comfortaa";
   }
   .container {
-    width: 1200px;
+    max-width: 1200px;
     margin: 0 auto;
   }
   .myBorder {

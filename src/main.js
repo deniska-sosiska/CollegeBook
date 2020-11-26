@@ -8,7 +8,7 @@ import ChooseGroups from './components/Choose-groups.vue'
 import ChooseGroup from './components/Choose-group.vue'
 import ChooseMagazines from './components/Choose-magazines.vue'
 import ChooseAcademicAttendance from './components/Academic-attendance.vue'
-import Authorization from './components/Authorization.vue'
+import Authorization from './components/Authorization/Authorization.vue'
 
 
 const router  = new VueRouter({
