@@ -6,7 +6,8 @@
     </a>
     <nav class="menu">
       <router-link :to = "'/'" class="hover">Головна</router-link>
-      <router-link :to = "'/Authorization/'" class="hover">Авторизацiя</router-link>
+      <router-link v-if="getUser === null" :to = "'/Authorization/'" class="hover">Авторизацiя</router-link>
+      <div v-else class="hover" @click="clearCurrentUser">Вийти з аккаунту: {{getUser.login}}</div>
     </nav>
   </div>
 </template>
@@ -19,6 +20,16 @@ export default {
     return {
       logo_src: '../assets/logo.png',
       linkToCollege: "http://zetk.com.ua/"
+    }
+  },
+  computed: {
+    getUser() {
+      return this.$store.getters.getUser
+    }
+  },
+  methods: {
+    clearCurrentUser: function() {
+      this.$store.commit('clearCurrentUser')
     }
   }
 }

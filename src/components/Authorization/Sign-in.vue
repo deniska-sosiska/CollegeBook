@@ -34,12 +34,6 @@
           userRegistered: false,
         },
         isFake: false,
-        
-        list: [
-          "Студент",
-          "Староста групи",
-          "Вчитель"
-        ]
       }
     },
     methods: {
@@ -51,8 +45,13 @@
             if ((registeredUser.login == this.currentUser.userLogin) &&
               (registeredUser.password == this.currentUser.userPassword)){
                 this.currentUser.userRegistered = true
-                this.isFake = false
                 console.log("Перевірка успішна")
+                let currentUser = {
+                  login: registeredUser.login,
+                  password: registeredUser.password
+                }
+                this.$store.commit('setCurrentUser', currentUser)
+                this.$router.push('/')
             }
           })
           if (!this.currentUser.userRegistered) {

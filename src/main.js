@@ -17,11 +17,30 @@ const router  = new VueRouter({
   routes: [
     {  path: '/', component: ChooseGroups },
     {  path: '/Authorization/', component: Authorization},
-    {  path: '/:specialty/', component: ChooseGroup, props: true},
-    {  path: '/:specialty/:group/', component: ChooseMagazines, props: true},
-    {  path: '/:specialty/:group/:magazines', component: ChooseAcademicAttendance, props: true}
+    {  path: '/:specialty/', component: ChooseGroup, props: true, meta: {  requiresAuth: true  }  },
+    {  path: '/:specialty/:group/', component: ChooseMagazines, props: true, meta: {  requiresAuth: true  } },
+    {  path: '/:specialty/:group/:magazines', component: ChooseAcademicAttendance, props: true, meta: {  requiresAuth: true  }  }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if(to.matched.some(record => record.meta.requiresAuth)) {
+    if (store.getters.getUser === null) {
+      next({
+        path: '/Authorization/',
+        query: {  redirect: to.fullPath  }
+      })
+    }
+    else {
+      next()
+    }
+  }
+  else {
+    next()
+  }
+})
+
+
 
 Vue.config.productionTip = false
 Vue.use(VueRouter, VueAxios, axios)
