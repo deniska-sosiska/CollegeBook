@@ -1,10 +1,10 @@
 <template>
   <div class="group">
-    <h2>Усі групи за спеціальністю: <span>{{groupsCurrentSpecialty.name}}</span></h2>
+    <h2>Усі групи за спеціальністю: <span>{{getDataOfCurrentGroup.name}}</span></h2>
     <router-link 
-      v-for="(group, name, index) in groupsCurrentSpecialty.groups"
+      v-for="(group, name, index) in getDataOfCurrentGroup.groups"
       :key="index"
-      :to = "'/' + groupsCurrentSpecialty.id + '/' + group.id + '/'">
+      :to = "'/' + getDataOfCurrentGroup.id + '/' + group.id + '/'">
         <p class="infoGroup hover">Група: {{name}} || Староста: {{group.headman}} || Класний керівник: {{group.leader}}</p>
     </router-link> 
   </div>
@@ -15,18 +15,16 @@
   import axios from 'axios'
 
   export default {
-    data() {
-      return {
-        dbUrl: 'http://127.0.0.1:3000/dataOfGroups',
-        groupsCurrentSpecialty: {}
-      }
-    },
     props: {
       specialty: ''
     },
+    computed: {
+      getDataOfCurrentGroup: function() {
+        return this.$store.getters.getDataOfCurrentGroup
+      }
+    },
     mounted: function(){
-      axios.get(this.dbUrl + "/" + this.specialty + "/") 
-        .then((res) => { this.groupsCurrentSpecialty = res.data })
+      this.$store.dispatch('updateDataOfCurrentGroup', this.specialty)
     },
     methods: {
       getGroup: function(){}
