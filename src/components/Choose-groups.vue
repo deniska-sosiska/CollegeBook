@@ -31,7 +31,7 @@ export default {
       return this.$store.getters.getDataOfGroups
     }
   },
-  mounted () {
+  mounted() {
     this.$store.dispatch('updateDataOfGroups')
   }
 }

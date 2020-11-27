@@ -30,7 +30,8 @@ export default {
   methods: {
     clearCurrentUser: function() {
       this.$store.commit('clearCurrentUser')
-      this.$router.push('/')
+      if (document.URL != "http://localhost:9999/#/")
+        this.$router.push('/')
     }
   }
 }

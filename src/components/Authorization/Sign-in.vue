@@ -1,4 +1,5 @@
 <template>
+  <div class="Authorization">
     <form @submit.prevent="authorization" class="signIn">
         <div>
             <label for="login">Логiн: </label>
@@ -15,9 +16,10 @@
             <input type="submit">
         </div>
         <div>
-            <p class="forCenter">Ще не зареєстровані? <span class="regist" @click="newUserWantsToRegister()">Реєстрація</span></p>
+            <p class="forCenter">Ще не зареєстровані? <router-link :to="'/Authorization/signUP'" class="regist" @click="newUserWantsToRegister()">Реєстрація</router-link></p>
         </div>
     </form>
+  </div>
 </template>
 
 <script>
@@ -27,7 +29,6 @@
   export default {
     data () {
       return {
-        dbAuthorizUrl: 'http://127.0.0.1:3000/registeredUser',
         currentUser: {
           userLogin: '',
           userPassword: '',
@@ -36,33 +37,37 @@
         isFake: false,
       }
     },
+    computed: {
+      getRegisteredUser: function(){
+        return this.$store.getters.getRegisteredUser
+      }    
+    },
+    mounted(){
+      this.$store.dispatch('setAllRegisteredUser')
+    },
     methods: {
-      authorization: function(){
-        axios.get(this.dbAuthorizUrl).then((response) => {
-          console.log("Перевірка даних в БД...")
-
-          response.data.forEach(registeredUser => {
-            if ((registeredUser.login == this.currentUser.userLogin) &&
-              (registeredUser.password == this.currentUser.userPassword)){
-                this.currentUser.userRegistered = true
-                this.currentUser.userLogin = this.currentUser.userPassword = '',
-                console.log("Перевірка успішна")
-                let currentUser = {
-                  login: registeredUser.login,
-                  password: registeredUser.password
-                }
-                this.$store.commit('setCurrentUser', currentUser)
-                this.$router.push('/')
+      authorization: function() {
+        this.getRegisteredUser.forEach(registeredUser => {
+          if ((registeredUser.login == this.currentUser.userLogin) && 
+            (registeredUser.password == this.currentUser.userPassword)){
+              this.currentUser.userRegistered = true
+              this.currentUser.userLogin = this.currentUser.userPassword = '',
+              console.log("Перевірка успішна")
+              let currentUser = {
+                login: registeredUser.login,
+                password: registeredUser.password
+              }
+              this.$store.commit('setCurrentUser', currentUser)
+              this.$router.push('/')
             }
-          })
-          if (!this.currentUser.userRegistered) {
-            console.log("Перевірка неуспішна")
-            this.isFake = true
-            this.currentUser.userRegistered = false
-            this.currentUser.userLogin = this.currentUser.userPassword = ''
-            setTimeout(() => this.isFake = false, 3000)
-          }
         })
+        if (!this.currentUser.userRegistered) {
+          console.log("Перевірка неуспішна")
+          this.isFake = true
+          this.currentUser.userRegistered = false
+          this.currentUser.userLogin = this.currentUser.userPassword = ''
+          setTimeout(() => this.isFake = false, 3000)
+        }
       },
       newUserWantsToRegister: function(){
         this.$emit("newUserWantsToRegister", true)
@@ -73,3 +78,51 @@
     }
   }
 </script>
+
+<style>
+    .Authorization  {
+        display: flex;
+        justify-content: center;
+    }
+    form {
+      margin-top: 70px;
+      width: 500px;
+      padding: 30px 20px;
+      border-radius: 25px;
+      border: 1px solid #ccc;
+    }
+    form > div {
+      margin-bottom: 15px;
+      padding: 0px 20px;
+      display: flex;
+    }
+    form > div:last-child {
+      margin: 0px;
+    }
+    form > div > label {
+      padding-right: 15px;
+      font-size: 19px;
+    }
+    form > div > input,
+    form > div > select {
+      font-size: 17px;
+      flex-grow: 3;
+    }
+    input {
+      padding: 2px 0px 0px 0px;
+    }
+    .forCenter {
+      font-size: 16px;
+      padding: 0px 57px;
+    }
+    .regist {
+      color: #3366ff;
+      cursor: pointer;
+    }
+    .isFake {
+      color: red;
+      text-align: center;
+      margin: 0 auto;
+      /* display: none */
+    }
+</style>

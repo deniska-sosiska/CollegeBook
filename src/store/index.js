@@ -10,6 +10,7 @@ export default new Vuex.Store({
   state: {
     dataOfGroups: {},
     dataOfCurrentGroup: {},
+    dataOfRegisteredUser: {},
     currentUser: null,
     dbGroupsUrl: 'http://127.0.0.1:3000/dataOfGroups', // База даних усіх груп
     dbAuthorizUrl: 'http://127.0.0.1:3000/registeredUser' // База даних авторизованних користувачів
@@ -27,6 +28,9 @@ export default new Vuex.Store({
         password: currentUser.password
       }
     },
+    setAllRegisteredUser(state, allRegisteredUser) {
+      state.dataOfRegisteredUser = allRegisteredUser
+    },
     clearCurrentUser(state) {
       state.currentUser.login = state.currentUser.password = state.currentUser = null
     }
@@ -41,6 +45,11 @@ export default new Vuex.Store({
       axios.get(ctx.state.dbGroupsUrl + '/' + specialty).then(response => {
         ctx.commit('setDataOfCurrentGroup', response.data)
       })
+    },
+    setAllRegisteredUser(ctx) {
+      axios.get(ctx.state.dbAuthorizUrl).then((response) => {
+        ctx.commit('setAllRegisteredUser', response.data)
+      })
     }
   },
   getters: {
@@ -52,6 +61,9 @@ export default new Vuex.Store({
     },
     getUser(state) {
       return state.currentUser
+    },
+    getRegisteredUser(state) {
+      return state.dataOfRegisteredUser
     }
   }
 })
