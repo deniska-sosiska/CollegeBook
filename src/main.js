@@ -3,6 +3,8 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueRouter from 'vue-router'
 
+import store from './store/index'
+
 import App from './App.vue'
 import ChooseGroups from './components/Choose-groups.vue'
 import ChooseGroup from './components/Choose-group.vue'
@@ -26,5 +28,6 @@ Vue.use(VueRouter, VueAxios, axios)
 
 new Vue({
   render: h => h(App),
-  router
+  router,
+  store
 }).$mount('#app')

@@ -17,7 +17,7 @@
   export default {
     data() {
       return {
-        dbUrl: 'http://127.0.0.1:3000/dateBase',
+        dbUrl: 'http://127.0.0.1:3000/dataOfGroups',
         groupsCurrentSpecialty: {}
       }
     },

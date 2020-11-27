@@ -66,7 +66,7 @@
       font-size: 16px;
       padding: 0px 57px;
     }
-    span {
+    .regist {
       color: #3366ff;
       cursor: pointer;
     }

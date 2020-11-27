@@ -1,5 +1,5 @@
 <template>
-    <form class="signIn">
+    <form @submit.prevent="authorization" class="signIn">
         <div>
             <label for="login">Логiн: </label>
             <input id="login" v-model="currentUser.userLogin" type="text">
@@ -12,10 +12,10 @@
             <p class="isFake">Пароль або логiн не збігаються, спробуйте ще</p>
         </div>
         <div>
-            <input type="submit" @click="authorization(); return false;">
+            <input type="submit">
         </div>
         <div>
-            <p class="forCenter">Ще не зареєстровані? <span @click="newUserWantsToRegister()">Реєстрація</span></p>
+            <p class="forCenter">Ще не зареєстровані? <span class="regist" @click="newUserWantsToRegister()">Реєстрація</span></p>
         </div>
     </form>
 </template>
