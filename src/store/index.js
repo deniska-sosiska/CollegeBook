@@ -28,7 +28,7 @@ export default new Vuex.Store({
       }
     },
     clearCurrentUser(state) {
-      state.currentUser = null
+      state.currentUser.login = state.currentUser.password = state.currentUser = null
     }
   },
   actions: {

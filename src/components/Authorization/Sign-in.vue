@@ -8,7 +8,7 @@
             <label for="pass">Пароль: </label>
             <input id="pass" v-model="currentUser.userPassword" type="password">
         </div>
-        <div v-if="isFake"  style="display: block">
+        <div v-if="isFake"  style="display: block; margin-bottom: 5px;">
             <p class="isFake">Пароль або логiн не збігаються, спробуйте ще</p>
         </div>
         <div>
@@ -45,6 +45,7 @@
             if ((registeredUser.login == this.currentUser.userLogin) &&
               (registeredUser.password == this.currentUser.userPassword)){
                 this.currentUser.userRegistered = true
+                this.currentUser.userLogin = this.currentUser.userPassword = '',
                 console.log("Перевірка успішна")
                 let currentUser = {
                   login: registeredUser.login,
@@ -57,6 +58,8 @@
           if (!this.currentUser.userRegistered) {
             console.log("Перевірка неуспішна")
             this.isFake = true
+            this.currentUser.userRegistered = false
+            this.currentUser.userLogin = this.currentUser.userPassword = ''
             setTimeout(() => this.isFake = false, 3000)
           }
         })

@@ -73,6 +73,7 @@
     .isFake {
       color: red;
       text-align: center;
+      margin: 0 auto;
       /* display: none */
     }
 </style>

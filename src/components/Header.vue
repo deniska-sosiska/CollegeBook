@@ -30,6 +30,7 @@ export default {
   methods: {
     clearCurrentUser: function() {
       this.$store.commit('clearCurrentUser')
+      this.$router.push('/')
     }
   }
 }
