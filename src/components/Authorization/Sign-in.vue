@@ -16,7 +16,7 @@
             <input type="submit">
         </div>
         <div>
-            <p class="forCenter">Ще не зареєстровані? <router-link :to="'/Authorization/signUP'" class="regist" @click="newUserWantsToRegister()">Реєстрація</router-link></p>
+            <p class="forCenter">Ще не зареєстровані? <router-link :to="'/Authorization/signUP'" class="regist">Реєстрація</router-link></p>
         </div>
     </form>
   </div>
@@ -68,18 +68,12 @@
           this.currentUser.userLogin = this.currentUser.userPassword = ''
           setTimeout(() => this.isFake = false, 3000)
         }
-      },
-      newUserWantsToRegister: function(){
-        this.$emit("newUserWantsToRegister", true)
-      },
-      qwe: function(){
-        console.log("hi")
       }
     }
   }
 </script>
 
-<style>
+<style scoped>
     .Authorization  {
         display: flex;
         justify-content: center;

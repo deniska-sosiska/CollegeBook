@@ -2,7 +2,7 @@
   <div class="choseGroup ">
     <div v-for = "(groups, index) in getDataOfGroups" :key = "index">
       <div v-if="!groups.groups" class="group hover"> <!--якщо вона порожня-->
-          <img v-if="!groups.groups" :src="hrefImageBlock" class="blocked" title="на етапі розробки">
+          <img :src="hrefImageBlock" class="blocked" title="на етапі розробки">
           <img :src="groups.linkImage">
           <p>{{groups.name}}</p>
       </div>

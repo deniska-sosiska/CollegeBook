@@ -10,16 +10,15 @@ import ChooseGroups from './components/Choose-groups.vue'
 import ChooseGroup from './components/Choose-group.vue'
 import ChooseMagazines from './components/Choose-magazines.vue'
 import ChooseAcademicAttendance from './components/Academic-attendance.vue'
-// import Authorization from './components/Authorization/Authorization.vue'
 import signIn from "./components/Authorization/Sign-in.vue"
 import signUP from "./components/Authorization/Sign-up.vue"
 
 
 const router  = new VueRouter({
   routes: [
-    {  path: '/', component: ChooseGroups },
-    {  path: '/Authorization/', component: signIn},
-    {  path: '/Authorization/signUP', component: signUP},
+    {  path: '/', component: ChooseGroups  },
+    {  path: '/Authorization/', component: signIn  },
+    {  path: '/Authorization/signUP', component: signUP  },
     {  path: '/:specialty/', component: ChooseGroup, props: true, meta: {  requiresAuth: true  }  },
     {  path: '/:specialty/:group/', component: ChooseMagazines, props: true, meta: {  requiresAuth: true  } },
     {  path: '/:specialty/:group/:magazines', component: ChooseAcademicAttendance, props: true, meta: {  requiresAuth: true  }  }
@@ -42,8 +41,6 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
-
-
 
 Vue.config.productionTip = false
 Vue.use(VueRouter, VueAxios, axios)
