@@ -50,6 +50,11 @@ export default new Vuex.Store({
       axios.get(ctx.state.dbAuthorizUrl).then((response) => {
         ctx.commit('setAllRegisteredUser', response.data)
       })
+    },
+    setNewRegisteredUser(ctx, newUser) {
+      axios.post(ctx.state.dbAuthorizUrl, newUser).then((response) => {
+        console.log(response.data)
+      })
     }
   },
   getters: {
