@@ -12,18 +12,18 @@
         <template v-if="newUser.role.name == list[0] || newUser.role.name == list[1]">
           <div>
             <label for="">Cпеціальність: </label>
-            <select v-model="newUser.role.specialty" @change="updateDataOfCurrentGroup()" style="width: 240px;" required>
+            <select v-model="newUser.role.specialty" @change="updateDataOfCurrentSpecialty()" style="width: 240px;" required>
               <option disabled value="">Варiанти</option>
               <option v-for="(value, name, index) in dataOfGroups" :key="index" :value="value.id">{{value.name}}</option>
             </select>
           </div>
         </template>
-        <template v-if="newUser.role.specialty">
+        <template v-if="(newUser.role.specialty && newUser.role.name != list[2])">
           <div>
             <label for="">Ваша група: </label>
             <select v-model="newUser.role.group" required  style="width: 240px;">
               <option disabled value="">Варiанти</option>
-              <option v-for="(value, name, index) in getDataOfCurrentGroup.groups" :key="index" :value="name">{{name}}</option>
+              <option v-for="(value, index) in getDataOfCurrentSpecialty.groups" :key="index" :value="value.nameGroup">{{value.nameGroup}}</option>
             </select>
           </div>
         </template>
@@ -103,8 +103,8 @@
       }
     },
     computed: {
-      getDataOfCurrentGroup: function() {
-        return this.$store.getters.getDataOfCurrentGroup
+      getDataOfCurrentSpecialty: function() {
+        return this.$store.getters.getDataOfCurrentSpecialty
       }
     },
     mounted: function() {
@@ -127,8 +127,8 @@
           this.$router.push('/')
         }
       },
-      updateDataOfCurrentGroup: function() {
-        this.$store.dispatch('updateDataOfCurrentGroup', this.newUser.role.specialty)
+      updateDataOfCurrentSpecialty: function() {
+        this.$store.dispatch('updateDataOfCurrentSpecialty', this.newUser.role.specialty)
       },
       isFirst: function() {
         if (!this.newUser.role.name) {

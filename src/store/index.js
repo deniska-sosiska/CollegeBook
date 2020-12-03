@@ -10,6 +10,7 @@ export default new Vuex.Store({
   state: {
     dataOfGroups: {},
     dataOfCurrentGroup: {},
+    dataOfCurrentSpecialty: {},
     dataOfRegisteredUser: {},
     currentUser: null,
     dbGroupsUrl: 'http://127.0.0.1:3000/dataOfGroups', // База даних усіх груп
@@ -21,6 +22,9 @@ export default new Vuex.Store({
     },
     setDataOfCurrentGroup(state, dataOfCurrentGroup) {
       state.dataOfCurrentGroup = dataOfCurrentGroup
+    },
+    setDataOfCurrentSpecialty(state, dataOfCurrentSpecialty) {
+      state.dataOfCurrentSpecialty = dataOfCurrentSpecialty
     },
     setCurrentUser(state, currentUser) {
       state.currentUser = {
@@ -41,9 +45,17 @@ export default new Vuex.Store({
         ctx.commit('setDataOfGroups', response.data)
       })
     },
-    updateDataOfCurrentGroup(ctx, specialty) {
+    updateDataOfCurrentGroup(ctx, box) {
+      axios.get(ctx.state.dbGroupsUrl + '/' + box.specialty).then(response => {
+        response.data.groups.forEach(elem => {
+          if (elem.id == box.group)
+            ctx.commit('setDataOfCurrentGroup', elem)
+        })
+      })
+    },
+    updateDataOfCurrentSpecialty(ctx, specialty) {
       axios.get(ctx.state.dbGroupsUrl + '/' + specialty).then(response => {
-        ctx.commit('setDataOfCurrentGroup', response.data)
+        ctx.commit('setDataOfCurrentSpecialty', response.data)
       })
     },
     setAllRegisteredUser(ctx) {
@@ -63,6 +75,9 @@ export default new Vuex.Store({
     },
     getDataOfCurrentGroup(state) {
       return state.dataOfCurrentGroup
+    },
+    getDataOfCurrentSpecialty(state) {
+      return state.dataOfCurrentSpecialty
     },
     getUser(state) {
       return state.currentUser

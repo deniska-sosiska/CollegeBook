@@ -1,11 +1,13 @@
 <template>
   <div class="group">
-    <h2>Усі групи за спеціальністю: <span>{{getDataOfCurrentGroup.name}}</span></h2>
+    <h2>Усі групи за спеціальністю: <span>{{getDataOfCurrentSpecialty.name}}</span></h2>
     <router-link 
-      v-for="(group, name, index) in getDataOfCurrentGroup.groups"
+      v-for="(group, index) in getDataOfCurrentSpecialty.groups"
       :key="index"
-      :to = "'/' + getDataOfCurrentGroup.id + '/' + group.id + '/'">
-        <p class="infoGroup hover">Група: {{name}} || Староста: {{group.headman}} || Класний керівник: {{group.leader}}</p>
+      :spesialty="getDataOfCurrentSpecialty.id"
+      :group="group.id"
+      :to = "'/' + getDataOfCurrentSpecialty.id + '/' + group.id + '/'">
+        <p class="infoGroup hover">Група: {{group.nameGroup}} || Староста: {{group.headman}} || Класний керівник: {{group.leader}}</p>
     </router-link> 
   </div>
 </template>
@@ -19,16 +21,14 @@
       specialty: ''
     },
     computed: {
-      getDataOfCurrentGroup: function() {
-        return this.$store.getters.getDataOfCurrentGroup
+      getDataOfCurrentSpecialty: function() {
+        return this.$store.getters.getDataOfCurrentSpecialty
       }
     },
     mounted: function(){
-      this.$store.dispatch('updateDataOfCurrentGroup', this.specialty)
+      this.$store.dispatch('updateDataOfCurrentSpecialty', this.specialty)
     },
-    methods: {
-      getGroup: function(){}
-    }
+    methods: {}
   }
 </script>
 

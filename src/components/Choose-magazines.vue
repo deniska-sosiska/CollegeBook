@@ -2,7 +2,9 @@
   <div class="body">
     <h2>Вибiр журналу</h2>
     <div class="magazines">
-      <router-link class="imageBlock hover" :to = "'/'"> <!-- :specialty/:group/:academicAttendance -->
+      <router-link class="imageBlock hover"
+       :specialty="specialty" :group="group"
+       :to = "'/' + specialty + '/' + group + '/AcademicAttendance'">
         <img :src="hrefAcademicAttendance">
         <p>Журнал відвідувань</p>
       </router-link>
@@ -21,20 +23,14 @@ import Vue from 'vue'
 export default {
   data() {
     return {
-      hrefAcademicAttendance: '../assets/hrefAcademicAttendance.jpg',
-      hrefAcademicProgress: '../assets/hrefAcademicAttendance.jpg',
-      hrefImageBlock: '../assets/blocked.png',
-
-      dbUrl: 'http://127.0.0.1:3000/dateBase',
-      groupsCurrentSpecialty: {}
+        hrefAcademicAttendance: '../assets/hrefAcademicAttendance.jpg',
+        hrefAcademicProgress: '../assets/hrefAcademicAttendance.jpg',
+        hrefImageBlock: '../assets/blocked.png',
       }
     },
     props: {
-      // specialty: ''
-    },
-    mounted: function(){
-      // axios.get(this.dbUrl + "/" + this.specialty + "/") 
-        // .then((res) => { this.groupsCurrentSpecialty = res.data })
+      specialty: '',
+      group: ''
     }
   }
 </script>
