@@ -3,12 +3,15 @@
     <table>
       <thead>
         <tr><th>№</th><th>ПІБ</th>
-        <th>Математика</th><th>Дискретна математика</th><th>Лінійна алгебра</th><th>Математичний аналіз</th>
+        <th>{{getCurrentLesson(0)}}</th>
+        <th>{{getCurrentLesson(1)}}</th>
+        <th>{{getCurrentLesson(2)}}</th>
+        <th>{{getCurrentLesson(3)}}</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(student, index) in getDataOfCurrentGroup.students" :key="index">
-          <td>{{index}}</td><td>{{student.name}}</td>
+          <td>{{++index}}</td><td>{{student.name}}</td>
           <td class="para">✓</td>
           <td class="para">✓</td>
           <td class="para">✓</td>
@@ -26,21 +29,50 @@
   export default {
     data () {
       return {
+        dayNow: '',
+        nameDays: [
+          "Неділя",
+          "Понеділок",
+          "Вівторок",
+          "Середа",
+          "Четвер",
+          "friday",
+          "Субота",
+        ],
+        currentPara: [
+          "1","2","3","4"
+        ]
       }
-    },
-    props: {
-      specialty: '',
-      group: ''
     },
     computed: {
       getDataOfCurrentGroup(){
         return this.$store.getters.getDataOfCurrentGroup
       }
     },
-    mounted: function(){
+    mounted: function() {
+      // this.dayNow = new Date().getDate() + '.' + new Date().getMonth() + '.' + new Date().getFullYear()
+      // console.log(this.dayNow)
       let box = {"specialty": this.specialty, "group": this.group}
       this.$store.dispatch('updateDataOfCurrentGroup', box)
-    }
+    },
+    methods: {
+      getCurrentLesson(index) {
+        if (new Date().getDay() == 0 || new Date().getDay() == 6)
+          return "Сьогодні вихідний"
+        else {
+          let currentDay = this.nameDays[new Date().getDay()]
+          let currentLesson = this.currentPara[index]
+          let answer = this.getDataOfCurrentGroup.schedule[currentDay][currentLesson]
+          if (answer == "Вікно") {}
+          else 
+            return answer
+        } 
+      }
+    },
+    props: {
+      specialty: '',
+      group: ''
+    },
   }
 </script>
 
