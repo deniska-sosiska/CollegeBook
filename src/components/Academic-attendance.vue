@@ -16,11 +16,10 @@
           <td>{{index + 1}}</td><td>{{stud.name}}</td>
           <td class="para" style="display: none;">{{attandanceCurrentStud(index)}}</td>
            <!-- перевіряє чи є об'єкт для поточної дати, якщо ні - створює -->
-          <td class="para">{{stud.attandance[getNowDate].first}}</td>
-          <td class="para">{{stud.attandance[getNowDate].second}}</td>
-          <td class="para">{{stud.attandance[getNowDate].third}}</td>
-          <td class="para">{{stud.attandance[getNowDate].fourth}}</td>
-           
+          <td class="para" @click="changeAttandance(index, 'first')">{{zxc(stud.attandance[getNowDate].first)}}</td>
+          <td class="para" @click="changeAttandance(index, 'second')">{{zxc(stud.attandance[getNowDate].second)}}</td>
+          <td class="para" @click="changeAttandance(index, 'third')">{{zxc(stud.attandance[getNowDate].third)}}</td>
+          <td class="para" @click="changeAttandance(index, 'fourth')">{{zxc(stud.attandance[getNowDate].fourth)}}</td>
         </tr>
 
       </tbody>
@@ -65,22 +64,18 @@
     methods: {
       attandanceCurrentStud(indexStud) {
         if (!this.getDataOfStud[indexStud].attandance[this.getNowDate]) {
-          let data = {indexStud: indexStud ,info: {first: false, second: false, third: false, fourth: false}}
+          let data = {indexStud: indexStud ,info: {"first": false, "second": false, "third": false, "fourth": false}}
           this.$store.dispatch('updateStud', data)
         }
       },
-      qwe2(index) {
-        if (this.qwe[index]) {
-          return "✓"
-        }
-        else {
-          console.log("false")
-          return " "
-        }
+      zxc(data) {
+        let response  = data ?  "✓" :  " "
+        return response
       },
-      click(index) {
-        Vue.set(this.qwe, index, !this.qwe[index])
-        console.log(`index: ${index}`, this.qwe[index])
+      changeAttandance(indexStud, indexPara) {
+        console.log(indexStud, ": ",this.getDataOfStud[indexStud].attandance[this.getNowDate][indexPara])
+        let box = {indexStud, indexPara}
+        this.$store.dispatch('changeAttandance', box)
       },
       getCurrentLesson(index) {
         if (new Date().getDay() == 0 || new Date().getDay() == 6)

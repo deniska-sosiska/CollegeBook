@@ -72,11 +72,17 @@ export default new Vuex.Store({
       })
     },
     updateStud(ctx, data) {
-      let currentSrud =  ctx.state.dataOfStud[data.indexStud]
-      let newData = currentSrud.attandance
+      let currentStud =  ctx.state.dataOfStud[data.indexStud]
+      let newData = currentStud.attandance
       newData[getNowDate()] = (data.info)
-      currentSrud.attandance = newData
-      axios.put(ctx.state.dbStudents + `/${currentSrud.id}`, currentSrud)
+      currentStud.attandance = newData
+      axios.put(ctx.state.dbStudents + `/${currentStud.id}`, currentStud)
+    },
+    changeAttandance(ctx, box) {
+      let currentStud = ctx.state.dataOfStud[box.indexStud]
+      currentStud.attandance[getNowDate()][box.indexPara] = !currentStud.attandance[getNowDate()][box.indexPara]
+      console.log(currentStud)
+      axios.put(ctx.state.dbStudents + `/${currentStud.id}`, currentStud)
     },
     updateDataOfCurrentSpecialty(ctx, specialty) {
       axios.get(ctx.state.dbGroupsUrl + '/' + specialty).then(response => {

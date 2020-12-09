@@ -252,7 +252,7 @@
       "attandance": {
         "9.12.2020": {
           "first": false,
-          "second": false,
+          "second": true,
           "third": false,
           "fourth": false
         }
@@ -266,10 +266,10 @@
       "name": "Берков Д.С.",
       "attandance": {
         "9.12.2020": {
-          "first": false,
+          "first": true,
           "second": false,
-          "third": false,
-          "fourth": false
+          "third": true,
+          "fourth": true
         }
       },
       "headman": false,
@@ -299,7 +299,7 @@
           "first": false,
           "second": false,
           "third": false,
-          "fourth": false
+          "fourth": true
         }
       },
       "headman": false,
@@ -341,10 +341,10 @@
       "name": "Дробіняк М.В.",
       "attandance": {
         "9.12.2020": {
-          "first": false,
-          "second": false,
+          "first": true,
+          "second": true,
           "third": false,
-          "fourth": false
+          "fourth": true
         }
       },
       "headman": false,
@@ -461,9 +461,9 @@
       "name": "Петунін О.В.",
       "attandance": {
         "9.12.2020": {
-          "first": false,
+          "first": true,
           "second": false,
-          "third": false,
+          "third": true,
           "fourth": false
         }
       },
