@@ -12,18 +12,19 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(stud, index) in getDataOfStud" :key="index">
+        <tr v-for="(stud, index) in dataOfStud" :key="index">
           <td>{{index + 1}}</td><td>{{stud.name}}</td>
-          <td class="para" style="display: none;">{{attandanceCurrentStud(index)}}</td>
-           <!-- перевіряє чи є об'єкт для поточної дати, якщо ні - створює -->
           <td class="para" @click="changeAttandance(index, 'first')">{{zxc(stud.attandance[getNowDate].first)}}</td>
           <td class="para" @click="changeAttandance(index, 'second')">{{zxc(stud.attandance[getNowDate].second)}}</td>
           <td class="para" @click="changeAttandance(index, 'third')">{{zxc(stud.attandance[getNowDate].third)}}</td>
           <td class="para" @click="changeAttandance(index, 'fourth')">{{zxc(stud.attandance[getNowDate].fourth)}}</td>
         </tr>
-
       </tbody>
     </table>
+    <div class="buttons">
+      <p class="hover" @click="submit"  v-if="getUser.role.name == 'Староста групи'">Відправити нові дані</p>
+      <router-link class="hover" :to="'/' + specialty + '/' + group + '/AcademicAttendance/info'">Переглянути усю інформацію</router-link>
+    </div>
   </div>
 </template>
 
@@ -36,10 +37,14 @@
       return {
         nameDays: ["Неділя","Понеділок","Вівторок","Середа","Четвер","П'ятниця","Субота"],
         months: ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"],
-        qwe: [true, false, false, false]
+        qwe: [true, false, false, false],
+        dataOfStud: []
       }
     },
     computed: {
+      getUser() {
+        return this.$store.getters.getUser 
+      },
       getCurrentTime() {  
         let hours = new Date().getHours(); let min = new Date().getMinutes()
         hours < 10 ? hours = '0'+ hours : hours; min < 10 ? min = '0'+ min : min 
@@ -50,7 +55,7 @@
         let data = new Date().getDate() + '.' + (new Date().getMonth() + 1) + '.' + new Date().getFullYear()
         return data
       },
-      getDataOfCurrentGroup(){  
+      getDataOfCurrentGroup(){  //для пар
         return this.$store.getters.getDataOfCurrentGroup
       },
       getDataOfStud(){
@@ -60,32 +65,37 @@
     mounted: function() {
       let box = {"specialty": this.specialty, "group": this.group}
       this.$store.dispatch('updateDataOfCurrentGroup', box)
-    },
-    methods: {
-      attandanceCurrentStud(indexStud) {
-        if (!this.getDataOfStud[indexStud].attandance[this.getNowDate]) {
-          let data = {indexStud: indexStud ,info: {"first": false, "second": false, "third": false, "fourth": false}}
+
+      this.getDataOfStud.forEach((elem, index) => {
+        if (!elem.attandance[this.getNowDate]) {
+          let data = {indexStud: index ,info: {"first": false, "second": false, "third": false, "fourth": false}}
           this.$store.dispatch('updateStud', data)
         }
-      },
+      })
+      setTimeout(() => {
+        this.dataOfStud = this.getDataOfStud
+      }, 80)
+    },
+    methods: {
       zxc(data) {
         let response  = data ?  "✓" :  " "
         return response
       },
       changeAttandance(indexStud, indexPara) {
-        console.log(indexStud, ": ",this.getDataOfStud[indexStud].attandance[this.getNowDate][indexPara])
-        let box = {indexStud, indexPara}
-        this.$store.dispatch('changeAttandance', box)
+        this.dataOfStud[indexStud].attandance[this.getNowDate][indexPara] 
+        = !this.dataOfStud[indexStud].attandance[this.getNowDate][indexPara]
+      },
+      submit() {
+        this.$store.dispatch('changeAttandance', this.dataOfStud)
       },
       getCurrentLesson(index) {
         if (new Date().getDay() == 0 || new Date().getDay() == 6)
           return "Сьогодні вихідний"
         else {
           let currentDay = this.nameDays[new Date().getDay()]
+          
           let answer = this.getDataOfCurrentGroup.schedule[currentDay][index]
-          // if (answer == "Вікно") {}
-          // else
-            return answer
+          return answer
         } 
       }
     },
@@ -136,5 +146,16 @@
   }
   .firstTR:hover {
     background: #fff;
+  }
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 20px 20px;
+  }
+  .buttons > p,
+  .buttons > a {
+    padding: 4px 8px;
+    cursor: pointer;
   }
 </style>

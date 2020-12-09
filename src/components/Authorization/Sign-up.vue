@@ -108,7 +108,7 @@
       }
     },
     mounted: function() {
-      this.dataOfGroups = this.$store.getters.getDataOfGroups
+      this.dataOfGroups = this.$store.getters.getDataOfSpecialty
     },
     methods:{
       registred: function() {

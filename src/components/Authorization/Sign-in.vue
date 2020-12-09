@@ -55,8 +55,10 @@
               console.log("Перевірка успішна")
               let currentUser = {
                 login: registeredUser.login,
-                password: registeredUser.password
+                password: registeredUser.password,
+                role: registeredUser.role
               }
+              console.log(registeredUser)
               this.$store.commit('setCurrentUser', currentUser)
               this.$router.push('/')
             }

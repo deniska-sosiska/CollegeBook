@@ -1,6 +1,6 @@
 <template>
   <div class="choseGroup ">
-    <div v-for = "(groups, index) in getDataOfGroups" :key = "index">
+    <div v-for = "(groups, index) in getDataOfSpecialty" :key = "index">
       <div v-if="!groups.groups" class="group hover"> <!--якщо вона порожня-->
           <img :src="hrefImageBlock" class="blocked" title="на етапі розробки">
           <img :src="groups.linkImage">
@@ -27,12 +27,12 @@ export default {
     }
   },
   computed: {
-    getDataOfGroups: function() {
-      return this.$store.getters.getDataOfGroups
+    getDataOfSpecialty: function() {
+      return this.$store.getters.getDataOfSpecialty
     }
   },
   mounted() {
-    this.$store.dispatch('updateDataOfGroups')
+    this.$store.dispatch('updateDataOfSpecialty')
   }
 }
 </script>

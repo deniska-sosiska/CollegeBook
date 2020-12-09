@@ -195,7 +195,7 @@
       "password": "s",
       "name": "Берков Д.С.",
       "role": {
-        "name": "student",
+        "name": "Студент",
         "group": "RPZ",
         "groupName": "RPZ 17 2/9"
       }
@@ -205,7 +205,7 @@
       "password": "t",
       "name": "teacher",
       "role": {
-        "name": "teacher",
+        "name": "Вчитель",
         "subject": "математика"
       }
     },
@@ -220,13 +220,44 @@
       "password": "denis",
       "email": "denis",
       "id": 1607359601132
+    },
+    {
+      "name": "denis",
+      "role": {
+        "name": "Староста групи",
+        "specialty": "RPZ",
+        "group": "RPZ 17 2/9"
+      },
+      "login": "denis",
+      "password": "denis",
+      "email": "denis",
+      "id": 1607542375895
+    },
+    {
+      "name": "denisStud",
+      "role": {
+        "name": "Студент",
+        "specialty": "RPZ",
+        "group": "RPZ 17 2/9"
+      },
+      "login": "denisStud",
+      "password": "denisStud",
+      "email": "denisStud",
+      "id": 1607542457904
     }
   ],
   "students": [
     {
       "id": 123123,
       "name": "qwewqewq",
-      "attandance": {},
+      "attandance": {
+        "9.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        }
+      },
       "headman": false,
       "specialty": "RPZ",
       "group": "RPZ17_1-9"
@@ -237,9 +268,9 @@
       "attandance": {
         "9.12.2020": {
           "first": false,
-          "second": false,
-          "third": false,
-          "fourth": false
+          "second": true,
+          "third": true,
+          "fourth": true
         }
       },
       "headman": false,
@@ -268,8 +299,8 @@
         "9.12.2020": {
           "first": true,
           "second": false,
-          "third": true,
-          "fourth": true
+          "third": false,
+          "fourth": false
         }
       },
       "headman": false,
@@ -295,10 +326,22 @@
       "id": 5,
       "name": "Бойко О.О.",
       "attandance": {
-        "9.12.2020": {
-          "first": false,
-          "second": false,
+        "7.12.2020": {
+          "first": true,
+          "second": true,
           "third": false,
+          "fourth": true
+        },
+        "9.12.2020": {
+          "first": true,
+          "second": true,
+          "third": true,
+          "fourth": true
+        },
+        "8.12.2020": {
+          "first": true,
+          "second": true,
+          "third": true,
           "fourth": true
         }
       },
@@ -311,10 +354,10 @@
       "name": "Денисенко К.I.",
       "attandance": {
         "9.12.2020": {
-          "first": false,
-          "second": false,
-          "third": false,
-          "fourth": false
+          "first": true,
+          "second": true,
+          "third": true,
+          "fourth": true
         }
       },
       "headman": false,
@@ -326,10 +369,10 @@
       "name": "Дорошенко О.В.",
       "attandance": {
         "9.12.2020": {
-          "first": false,
-          "second": false,
-          "third": false,
-          "fourth": false
+          "first": true,
+          "second": true,
+          "third": true,
+          "fourth": true
         }
       },
       "headman": false,
@@ -343,7 +386,7 @@
         "9.12.2020": {
           "first": true,
           "second": true,
-          "third": false,
+          "third": true,
           "fourth": true
         }
       },
@@ -356,10 +399,10 @@
       "name": "Колчев А.О.",
       "attandance": {
         "9.12.2020": {
-          "first": false,
-          "second": false,
-          "third": false,
-          "fourth": false
+          "first": true,
+          "second": true,
+          "third": true,
+          "fourth": true
         }
       },
       "headman": false,
@@ -371,10 +414,10 @@
       "name": "Кочев М.О.",
       "attandance": {
         "9.12.2020": {
-          "first": false,
-          "second": false,
-          "third": false,
-          "fourth": false
+          "first": true,
+          "second": true,
+          "third": true,
+          "fourth": true
         }
       },
       "headman": false,
@@ -462,9 +505,9 @@
       "attandance": {
         "9.12.2020": {
           "first": true,
-          "second": false,
+          "second": true,
           "third": true,
-          "fourth": false
+          "fourth": true
         }
       },
       "headman": false,
@@ -524,7 +567,7 @@
           "first": false,
           "second": false,
           "third": false,
-          "fourth": false
+          "fourth": true
         }
       },
       "headman": false,
