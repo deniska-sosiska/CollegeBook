@@ -7,22 +7,22 @@
     </div>
     <table>
       <thead>
-          <!-- <tr class="tr"><th style="border: 0px;" colspan="2"> </th>
-          <th>1 Пара</th><th>2 Пара</th><th>3 Пара</th><th>4 Пара</th> ✓-->
-        <!-- </tr> -->
         <tr class="firstTR"><th>№</th><th>ПІБ</th>
         <th v-for="(i, index) in 4" :key="index">{{getCurrentLesson(i)}}</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(student, index) in getDataOfCurrentGroup.students" :key="index">
-          <td>{{++index}}</td><td>{{student.name}}</td>
-
-          <td class="para" @click="click(0)">{{qwe2(0)}}</td>
-          <td class="para" @click="click(1)">{{qwe2(1)}}</td>
-          <td class="para" @click="click(2)">{{qwe2(2)}}</td>
-          <td class="para" @click="click(3)">{{qwe2(3)}}</td>
+        <tr v-for="(stud, index) in getDataOfStud" :key="index">
+          <td>{{index + 1}}</td><td>{{stud.name}}</td>
+          <td class="para" style="display: none;">{{attandanceCurrentStud(index)}}</td>
+           <!-- перевіряє чи є об'єкт для поточної дати, якщо ні - створює -->
+          <td class="para">{{stud.attandance[getNowDate].first}}</td>
+          <td class="para">{{stud.attandance[getNowDate].second}}</td>
+          <td class="para">{{stud.attandance[getNowDate].third}}</td>
+          <td class="para">{{stud.attandance[getNowDate].fourth}}</td>
+           
         </tr>
+
       </tbody>
     </table>
   </div>
@@ -47,17 +47,30 @@
         return hours + ':' +  min
       },
       getNowDay() {  return this.nameDays[new Date().getDay()]  },
-      getNowDate() {  return new Date().getDate() + '.' + new Date().getMonth() + '.' + new Date().getFullYear()  },
-      getDataOfCurrentGroup(){  return this.$store.getters.getDataOfCurrentGroup  }
+      getNowDate() {  
+        let data = new Date().getDate() + '.' + (new Date().getMonth() + 1) + '.' + new Date().getFullYear()
+        return data
+      },
+      getDataOfCurrentGroup(){  
+        return this.$store.getters.getDataOfCurrentGroup
+      },
+      getDataOfStud(){
+        return this.$store.getters.getDataOfStud
+      }
     },
     mounted: function() {
       let box = {"specialty": this.specialty, "group": this.group}
       this.$store.dispatch('updateDataOfCurrentGroup', box)
     },
     methods: {
+      attandanceCurrentStud(indexStud) {
+        if (!this.getDataOfStud[indexStud].attandance[this.getNowDate]) {
+          let data = {indexStud: indexStud ,info: {first: false, second: false, third: false, fourth: false}}
+          this.$store.dispatch('updateStud', data)
+        }
+      },
       qwe2(index) {
         if (this.qwe[index]) {
-          console.log(this.qwe[index])
           return "✓"
         }
         else {
@@ -109,10 +122,11 @@
   td {  
     border-bottom: solid 1px #ccc;
     padding: 10px 20px 4px 20px;
+    font-size: 20px;
   }
   .para {
     text-align: center;
-    font-size: 12px;
+    font-size: 16px;
   }
   .para:hover {
     background: #ccefff;

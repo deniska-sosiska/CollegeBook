@@ -5,6 +5,11 @@ import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
+function getNowDate() {  
+  let data = new Date().getDate() + '.' + (new Date().getMonth() + 1) + '.' + new Date().getFullYear()
+  return data
+}
+
 export default new Vuex.Store({
   plugins: [createPersistedState()],
   state: {
@@ -12,16 +17,18 @@ export default new Vuex.Store({
     dataOfCurrentGroup: {},
     dataOfCurrentSpecialty: {},
     dataOfRegisteredUser: {},
+    dataOfStud: {}, //
     currentUser: null,
     dbGroupsUrl: 'http://127.0.0.1:3000/dataOfGroups', // База даних усіх груп
-    dbAuthorizUrl: 'http://127.0.0.1:3000/registeredUser' // База даних авторизованних користувачів
+    dbAuthorizUrl: 'http://127.0.0.1:3000/registeredUser', // База даних авторизованних користувачів
+    dbStudents: 'http://localhost:3000/students/' //  База даних авторизованних students
   },
   mutations: {
     setDataOfGroups(state, dataOfGroups) {
       state.dataOfGroups = dataOfGroups
     },
-    setDataOfCurrentGroup(state, dataOfCurrentGroup) {
-      state.dataOfCurrentGroup = dataOfCurrentGroup
+    setDataOfCurrentGroup(state, dataOfCurrentGroup) {//
+      state.dataOfStud = dataOfCurrentGroup
     },
     setDataOfCurrentSpecialty(state, dataOfCurrentSpecialty) {
       state.dataOfCurrentSpecialty = dataOfCurrentSpecialty
@@ -45,13 +52,31 @@ export default new Vuex.Store({
         ctx.commit('setDataOfGroups', response.data)
       })
     },
+    // updateDataOfCurrentGroup(ctx, box) {
+    //   axios.get(ctx.state.dbGroupsUrl + '/' + box.specialty).then(response => {
+    //     response.data.groups.forEach(elem => {
+    //       if (elem.id == box.group)
+    //         ctx.commit('setDataOfCurrentGroup', elem)
+    //     })
+    //   })
+    // },
     updateDataOfCurrentGroup(ctx, box) {
-      axios.get(ctx.state.dbGroupsUrl + '/' + box.specialty).then(response => {
-        response.data.groups.forEach(elem => {
-          if (elem.id == box.group)
-            ctx.commit('setDataOfCurrentGroup', elem)
+      let arrayStud = []
+      axios.get(ctx.state.dbStudents).then(response => {
+        response.data.forEach(elem => {
+          if (elem.specialty == box.specialty && elem.group == box.group) 
+            arrayStud.push(elem)
         })
+        ctx.commit('setDataOfCurrentGroup', arrayStud)
+
       })
+    },
+    updateStud(ctx, data) {
+      let currentSrud =  ctx.state.dataOfStud[data.indexStud]
+      let newData = currentSrud.attandance
+      newData[getNowDate()] = (data.info)
+      currentSrud.attandance = newData
+      axios.put(ctx.state.dbStudents + `/${currentSrud.id}`, currentSrud)
     },
     updateDataOfCurrentSpecialty(ctx, specialty) {
       axios.get(ctx.state.dbGroupsUrl + '/' + specialty).then(response => {
@@ -84,6 +109,9 @@ export default new Vuex.Store({
     },
     getRegisteredUser(state) {
       return state.dataOfRegisteredUser
+    },
+    getDataOfStud(state) {
+      return state.dataOfStud
     }
   }
 })

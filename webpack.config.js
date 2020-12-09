@@ -11,44 +11,11 @@ context: path.resolve(__dirname, 'src'),
   },
   module: {
     rules: [
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader'
-      },
-      {
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader']
-      },
-      {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        use: [
-          'url-loader?limit=10000',
-          'img-loader'
-        ]
-      },
-      {
-        test: /\.(png|jpg|gif)$/i,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 8192,
-            },
-          },
-        ],
-      },
-      {
-        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: 'fonts/'
-            }
-          }
-        ]
-      }
+      {test: /\.vue$/,loader: 'vue-loader'},
+      {test: /\.css$/i,use: ['style-loader', 'css-loader']},
+      {test: /\.(jpe?g|png|gif|svg)$/i,use: ['url-loader?limit=10000','img-loader']},
+      {test: /\.(png|jpg|gif)$/i,use: [{loader: 'url-loader',options: {limit: 8192,},},],},
+      {test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,use: [{loader: 'file-loader',options: {name: '[name].[ext]',outputPath: 'fonts/'}}]}
     ]
   },
   plugins: [
