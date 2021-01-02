@@ -12,68 +12,6 @@
           }
         },
         {
-          "students": [
-            {
-              "name": "Бабанський Я.С."
-            },
-            {
-              "name": "Батанова М.С."
-            },
-            {
-              "name": "Берков Д.С."
-            },
-            {
-              "name": "Біляк В.В."
-            },
-            {
-              "name": "Бойко О.О."
-            },
-            {
-              "name": "Денисенко К.I."
-            },
-            {
-              "name": "Дорошенко О.В."
-            },
-            {
-              "name": "Дробіняк М.В."
-            },
-            {
-              "name": "Колчев А.О."
-            },
-            {
-              "name": "Кочев М.О."
-            },
-            {
-              "name": "Кульченко Я.Е."
-            },
-            {
-              "name": "Мовлян В.Л."
-            },
-            {
-              "name": "Надточий В.Е."
-            },
-            {
-              "name": "Нестеренко О.О."
-            },
-            {
-              "name": "Палієнко Д.С."
-            },
-            {
-              "name": "Петунін О.В."
-            },
-            {
-              "name": "Рекашов І.В."
-            },
-            {
-              "name": "Тищенко С.С."
-            },
-            {
-              "name": "Целіщев Д.О."
-            },
-            {
-              "name": "Шумілкін М.О."
-            }
-          ],
           "schedule": {
             "Понеділок": {
               "1": "Вікно",
@@ -249,9 +187,21 @@
   "students": [
     {
       "id": 123123,
-      "name": "qwewqewq",
+      "name": "Студент Д.Д",
       "attandance": {
         "9.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "10.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "2.1.2021": {
           "first": false,
           "second": false,
           "third": false,
@@ -271,6 +221,24 @@
           "second": true,
           "third": true,
           "fourth": true
+        },
+        "10.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "11.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "2.1.2021": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
         }
       },
       "headman": false,
@@ -284,6 +252,24 @@
         "9.12.2020": {
           "first": false,
           "second": true,
+          "third": false,
+          "fourth": false
+        },
+        "10.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "11.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "2.1.2021": {
+          "first": false,
+          "second": false,
           "third": false,
           "fourth": false
         }
@@ -301,6 +287,24 @@
           "second": false,
           "third": false,
           "fourth": false
+        },
+        "10.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "11.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "2.1.2021": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
         }
       },
       "headman": false,
@@ -312,6 +316,24 @@
       "name": "Біляк В.В.",
       "attandance": {
         "9.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "10.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "11.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "2.1.2021": {
           "first": false,
           "second": false,
           "third": false,
@@ -343,6 +365,24 @@
           "second": true,
           "third": true,
           "fourth": true
+        },
+        "10.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "11.12.2020": {
+          "first": true,
+          "second": true,
+          "third": true,
+          "fourth": true
+        },
+        "2.1.2021": {
+          "first": true,
+          "second": true,
+          "third": false,
+          "fourth": true
         }
       },
       "headman": false,
@@ -358,6 +398,24 @@
           "second": true,
           "third": true,
           "fourth": true
+        },
+        "10.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "11.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "2.1.2021": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
         }
       },
       "headman": false,
@@ -373,6 +431,24 @@
           "second": true,
           "third": true,
           "fourth": true
+        },
+        "10.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "11.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "2.1.2021": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
         }
       },
       "headman": false,
@@ -388,6 +464,24 @@
           "second": true,
           "third": true,
           "fourth": true
+        },
+        "10.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "11.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "2.1.2021": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
         }
       },
       "headman": false,
@@ -403,6 +497,24 @@
           "second": true,
           "third": true,
           "fourth": true
+        },
+        "10.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "11.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "2.1.2021": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
         }
       },
       "headman": false,
@@ -418,6 +530,24 @@
           "second": true,
           "third": true,
           "fourth": true
+        },
+        "10.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "11.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "2.1.2021": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
         }
       },
       "headman": false,
@@ -429,6 +559,24 @@
       "name": "Кульченко Я.Е.",
       "attandance": {
         "9.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "10.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "11.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "2.1.2021": {
           "first": false,
           "second": false,
           "third": false,
@@ -448,6 +596,24 @@
           "second": false,
           "third": false,
           "fourth": false
+        },
+        "10.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "11.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "2.1.2021": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
         }
       },
       "headman": false,
@@ -459,6 +625,24 @@
       "name": "Надточий В.Е.",
       "attandance": {
         "9.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "10.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "11.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "2.1.2021": {
           "first": false,
           "second": false,
           "third": false,
@@ -478,6 +662,24 @@
           "second": false,
           "third": false,
           "fourth": false
+        },
+        "10.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "11.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "2.1.2021": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
         }
       },
       "headman": false,
@@ -489,6 +691,24 @@
       "name": "Палієнко Д.С.",
       "attandance": {
         "9.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "10.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "11.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "2.1.2021": {
           "first": false,
           "second": false,
           "third": false,
@@ -508,6 +728,24 @@
           "second": true,
           "third": true,
           "fourth": true
+        },
+        "10.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "11.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "2.1.2021": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
         }
       },
       "headman": false,
@@ -523,6 +761,24 @@
           "second": false,
           "third": false,
           "fourth": false
+        },
+        "10.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "11.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "2.1.2021": {
+          "first": true,
+          "second": true,
+          "third": true,
+          "fourth": true
         }
       },
       "headman": false,
@@ -534,6 +790,24 @@
       "name": "Тищенко С.С.",
       "attandance": {
         "9.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "10.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "11.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "2.1.2021": {
           "first": false,
           "second": false,
           "third": false,
@@ -553,6 +827,24 @@
           "second": false,
           "third": false,
           "fourth": false
+        },
+        "10.12.2020": {
+          "first": true,
+          "second": true,
+          "third": true,
+          "fourth": true
+        },
+        "11.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "2.1.2021": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
         }
       },
       "headman": false,
@@ -568,11 +860,71 @@
           "second": false,
           "third": false,
           "fourth": true
+        },
+        "10.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "11.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "2.1.2021": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
         }
       },
       "headman": false,
       "specialty": "RPZ",
       "group": "RPZ17_2-9"
+    },
+    {
+      "id": 23,
+      "name": "Студент C.C.",
+      "attandance": {
+        "10.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "2.1.2021": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        }
+      },
+      "headman": false,
+      "specialty": "RPZ",
+      "group": "RPZ17_1-9"
+    },
+    {
+      "id": 24,
+      "name": "Студент М.О.",
+      "attandance": {
+        "10.12.2020": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": false
+        },
+        "2.1.2021": {
+          "first": false,
+          "second": false,
+          "third": false,
+          "fourth": true
+        }
+      },
+      "headman": false,
+      "specialty": "RPZ",
+      "group": "RPZ17_1-9"
     }
   ]
 }

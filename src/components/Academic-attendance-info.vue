@@ -53,8 +53,9 @@ export default {
   mounted: function() {
     let box = {"specialty": this.specialty, "group": this.group}
     this.$store.dispatch('updateDataOfCurrentGroup', box)
-
-    this.dataOfStud = this.getDataOfStud
+    setTimeout(() => {      
+      this.dataOfStud = this.getDataOfStud
+    }, 100);
   },
   methods: {
     output(data, indexStud) {
