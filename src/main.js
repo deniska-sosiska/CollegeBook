@@ -14,7 +14,6 @@ import academicAttendanceInfo from './components/Academic-attendance-info.vue'
 import signIn from "./components/Authorization/Sign-in.vue"
 import signUP from "./components/Authorization/Sign-up.vue"
 
-
 const router  = new VueRouter({
   routes: [
     {  path: '/', component: ChooseGroups  },
