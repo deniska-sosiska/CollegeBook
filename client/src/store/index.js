@@ -1,7 +1,9 @@
 import Vue from 'vue'
-import axios from 'axios'
 import Vuex from 'vuex'
+import axios from 'axios'
 import createPersistedState from 'vuex-persistedstate'
+
+import modules from './modules'
 
 Vue.use(Vuex)
 
@@ -12,6 +14,9 @@ function getNowDate() {
 
 export default new Vuex.Store({
   plugins: [createPersistedState()],
+  modules: {
+    specialty: modules.specialty
+  },
   state: {
     dataOfSpecialty: {},
     dataOfCurrentGroup: {},

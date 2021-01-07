@@ -1,16 +1,16 @@
 <template>
   <div class="choseGroup ">
-    <div v-for = "(groups, index) in getDataOfSpecialty" :key = "index">
-      <div v-if="!groups.groups" class="group hover"> <!--якщо вона порожня-->
+    <div v-for = "(specialty, key) in getSpecialties" :key = "key">
+      <div v-if="specialty.groups.length == 0" class="specialty hover"> <!--якщо вона порожня-->
           <img :src="hrefImageBlock" class="blocked" title="на етапі розробки">
-          <img :src="groups.linkImage">
-          <p>{{groups.name}}</p>
+          <img :src="specialty.linkImage">
+          <p>{{specialty.name}}</p>
       </div>
       <router-link  v-else  
-        :to = "'/' + groups.id + '/'"
-        class="group hover">
-          <img :src="groups.linkImage">
-          <p>{{groups.name}}</p>
+        :to = "'/' + specialty.id + '/'"
+        class="specialty hover">
+          <img :src="specialty.linkImage">
+          <p>{{specialty.name}}</p>
       </router-link>
     </div>
   </div>
@@ -19,6 +19,7 @@
 <script>
 import Vue from 'vue'
 import axios from 'axios'
+import { mapGetters, mapActions} from 'vuex'
 
 export default {
   data(){
@@ -27,12 +28,12 @@ export default {
     }
   },
   computed: {
-    getDataOfSpecialty: function() {
-      return this.$store.getters.getDataOfSpecialty
-    }
+    ...mapGetters(['getSpecialties', 'getDataOfSpecialty']),
   },
+  methods: mapActions(['fetchSpesialties', 'updateDataOfSpecialty']),
   mounted() {
-    this.$store.dispatch('updateDataOfSpecialty')
+    this.fetchSpesialties()
+    this.updateDataOfSpecialty()
   }
 }
 </script>
@@ -44,7 +45,7 @@ export default {
     /* justify-content: space-around; */
     flex-wrap: wrap;
   }
-  .group {
+  .specialty {
     padding: 40px 20px 20px 20px;
     width: 400px;
     height: 360px;
@@ -53,7 +54,7 @@ export default {
     align-items: center;
     position: relative;
   }
-  .group > p {
+  .specialty > p {
     text-align: center;
     margin-top: 10px;
   }
