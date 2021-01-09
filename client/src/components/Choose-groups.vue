@@ -1,6 +1,6 @@
 <template>
   <div class="choseGroup ">
-    <div v-for = "(specialty, key) in getSpecialties" :key = "key">
+    <div v-for = "(specialty, key) in specialties" :key = "key">
       <div v-if="specialty.groups.length == 0" class="specialty hover"> <!--якщо вона порожня-->
           <img :src="hrefImageBlock" class="blocked" title="на етапі розробки">
           <img :src="specialty.linkImage">
@@ -28,12 +28,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getSpecialties', 'getDataOfSpecialty']),
+    ...mapGetters(['specialties']),
   },
-  methods: mapActions(['fetchSpesialties', 'updateDataOfSpecialty']),
+  methods: mapActions(['fetchSpesialties']),
   mounted() {
     this.fetchSpesialties()
-    this.updateDataOfSpecialty()
   }
 }
 </script>
@@ -63,5 +62,4 @@ export default {
     width: 250px;
     top: 65px;
   }
-
 </style>

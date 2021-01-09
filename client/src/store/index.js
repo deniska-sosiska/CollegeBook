@@ -17,6 +17,7 @@ export default new Vuex.Store({
   modules: {
     specialty: modules.specialty
   },
+  // ↓↓↓ Потрібно розбити на модулі ↓↓↓
   state: {
     dataOfSpecialty: {},
     dataOfCurrentGroup: {},
