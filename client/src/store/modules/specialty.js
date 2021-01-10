@@ -9,16 +9,18 @@ const mutations = {
   }
 }
 const actions = {
-  async fetchSpesialty({commit}) {
+  async fetchSpecialty({commit, dispatch}, id) { // 
     try {
+      console.log(id)
       const res = await getSpecialty(id)
       commit('updateSpecialty', res.data)
+      dispatch('fetchFewGroup', res.data.groups)
     }
     catch (error) {
       console.error("Error with API. File: store > specialty:fetchSpesialty\n" ,error)
     }
   },
-  async fetchSpesialties({commit}) {
+  async fetchSpecialties({commit}) {
     try {
       const res = await getSpecialties()
       commit('updateSpecialties', res.data)
@@ -29,8 +31,8 @@ const actions = {
   }
 }
 const getters = {
-  specialty: ({specialty}) => specialty,
-  specialties: ({specialties}) => specialties
+  currentSpecialty: ({specialty}) => specialty,
+  allSpecialties: ({specialties}) => specialties
 }
 
 const state = () => ({

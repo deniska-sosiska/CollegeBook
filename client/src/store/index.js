@@ -15,7 +15,8 @@ function getNowDate() {
 export default new Vuex.Store({
   plugins: [createPersistedState()],
   modules: {
-    specialty: modules.specialty
+    specialty: modules.specialty,
+    group: modules.group
   },
   // ↓↓↓ Потрібно розбити на модулі ↓↓↓
   state: {
@@ -94,28 +95,15 @@ export default new Vuex.Store({
     },
     setNewRegisteredUser(ctx, newUser) {
       axios.post(ctx.state.dbAuthorizUrl, newUser).then((response) => {
-        console.log(response.data)
       })
     }
   },
   getters: {
-    getDataOfSpecialty(state) {
-      return state.dataOfSpecialty
-    },
-    getDataOfCurrentGroup(state) {
-      return state.dataOfCurrentGroup
-    },
-    getDataOfCurrentSpecialty(state) {
-      return state.dataOfCurrentSpecialty
-    },
-    getUser(state) {
-      return state.currentUser
-    },
-    getRegisteredUser(state) {
-      return state.dataOfRegisteredUser
-    },
-    getDataOfStud(state) {
-      return state.dataOfStud
-    }
+    getDataOfSpecialty: ({dataOfSpecialty}) => dataOfSpecialty,
+    getDataOfCurrentGroup: ({dataOfCurrentGroup}) => dataOfCurrentGroup,
+    getDataOfCurrentSpecialty: ({dataOfCurrentSpecialty}) => dataOfCurrentSpecialty,
+    getUser: ({currentUser}) => currentUser,
+    getRegisteredUser: ({dataOfRegisteredUser}) => dataOfRegisteredUser,
+    getDataOfStud: ({dataOfStud}) => dataOfStud
   }
 })

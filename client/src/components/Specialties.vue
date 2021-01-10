@@ -1,14 +1,15 @@
 <template>
   <div class="choseGroup ">
-    <div v-for = "(specialty, key) in specialties" :key = "key">
+    <div v-for = "(specialty, key) in allSpecialties" :key = "key">
       <div v-if="specialty.groups.length == 0" class="specialty hover"> <!--якщо вона порожня-->
           <img :src="hrefImageBlock" class="blocked" title="на етапі розробки">
           <img :src="specialty.linkImage">
           <p>{{specialty.name}}</p>
       </div>
-      <router-link  v-else  
-        :to = "'/' + specialty.id + '/'"
-        class="specialty hover">
+      <router-link  v-else
+        :to="'/' + specialty.id + '/' + specialty._id + '/'"
+        class="specialty hover"
+        >
           <img :src="specialty.linkImage">
           <p>{{specialty.name}}</p>
       </router-link>
@@ -28,11 +29,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['specialties']),
+    ...mapGetters(['allSpecialties']),
   },
-  methods: mapActions(['fetchSpesialties']),
+  methods: mapActions(['fetchSpecialties']),
   mounted() {
-    this.fetchSpesialties()
+    this.fetchSpecialties()
   }
 }
 </script>

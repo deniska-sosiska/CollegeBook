@@ -11,7 +11,6 @@
 import Vue from 'vue'
 import axios from 'axios'
 import Header from "./components/Header.vue"
-import ChooseMagazines from "./components/Choose-magazines.vue"
 
 export default {
   name: 'App',
@@ -20,8 +19,7 @@ export default {
     }
   },
   components: {
-    Header,
-    ChooseMagazines
+    Header
   }
 }
 </script>

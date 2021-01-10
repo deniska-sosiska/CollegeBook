@@ -1,12 +1,12 @@
 <template>
   <div class="group">
-    <h2>Усі групи за спеціальністю: <span>{{getDataOfCurrentSpecialty.name}}</span></h2>
+    <h2>Усі групи за спеціальністю: <span>{{currentSpecialty.name}}</span></h2>
     <router-link 
-      v-for="(group, index) in getDataOfCurrentSpecialty.groups"
+      v-for="(group, index) in currentSpecialty.groups"
       :key="index"
-      :spesialty="getDataOfCurrentSpecialty.id"
+      :spesialty="currentSpecialty.id"
       :group="group.id"
-      :to = "'/' + getDataOfCurrentSpecialty.id + '/' + group.id + '/'">
+      :to = "'/' + currentSpecialty.id + '/' + group.id + '/'">
         <p class="infoGroup hover">Група: {{group.nameGroup}} || Староста: {{group.headman}} || Класний керівник: {{group.leader}}</p>
     </router-link> 
   </div>
@@ -16,19 +16,22 @@
   import Vue from 'vue'
   import axios from 'axios'
 
+  import { mapActions, mapGetters } from 'vuex'
+
   export default {
     props: {
-      specialty: ''
+      specialty: '',
+      idSpecialty: ''
     },
     computed: {
-      getDataOfCurrentSpecialty: function() {
-        return this.$store.getters.getDataOfCurrentSpecialty
-      }
+      ...mapGetters(['currentSpecialty'])
     },
     mounted: function(){
-      this.$store.dispatch('updateDataOfCurrentSpecialty', this.specialty)
+      this.fetchSpecialty(this.idSpecialty)
     },
-    methods: {}
+    methods: {
+      ...mapActions(['fetchSpecialty'])
+    }
   }
 </script>
 
