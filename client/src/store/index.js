@@ -31,15 +31,6 @@ export default new Vuex.Store({
     dbStudents: 'http://localhost:3000/students/' //  База даних авторизованних students
   },
   mutations: {
-    setDataOfSpecialty(state, dataOfSpecialty) {
-      state.dataOfSpecialty = dataOfSpecialty
-    },
-    setDataOfCurrentGroup(state, dataOfCurrentGroup) {//
-      state.dataOfStud = dataOfCurrentGroup
-    },
-    setDataOfCurrentSpecialty(state, dataOfCurrentSpecialty) {
-      state.dataOfCurrentSpecialty = dataOfCurrentSpecialty
-    },
     setCurrentUser(state, currentUser) {
       state.currentUser = {
         login: currentUser.login,

@@ -15,7 +15,7 @@ const router  = new VueRouter({
     {  path: '/Authorization/', component: signIn  },
     {  path: '/Authorization/signUP', component: signUP  },
     {  path: '/:specialty/:idSpecialty', component: Groups, props: true, meta: {  requiresAuth: true  }  },
-    {  path: '/:specialty/:group/', component: Magazines, props: true, meta: {  requiresAuth: true  } },
+    {  path: '/:specialty/:group/:idGroup', component: Magazines, props: true, meta: {  requiresAuth: true  } },
     {  path: '/:specialty/:group/:magazines', component: academicAttendance, props: true, meta: {  requiresAuth: true  }  },
     {  path: '/:specialty/:group/:magazines/info', component: academicAttendanceInfo, props: true, meta: {  requiresAuth: true  }  }
   ]

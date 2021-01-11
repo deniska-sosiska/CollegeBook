@@ -33,8 +33,8 @@ export default {
       group: ''
     },
     mounted() {
-      let box = {"specialty": this.specialty, "group": this.group}
-      this.$store.dispatch('updateDataOfCurrentGroup', box)
+      // let box = {"specialty": this.specialty, "group": this.group}
+      // this.$store.dispatch('updateDataOfCurrentGroup', box)
     }
   }
 </script>

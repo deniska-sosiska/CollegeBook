@@ -2,17 +2,18 @@
   <div class="group">
     <h2>Усі групи за спеціальністю: <span>{{currentSpecialty.name}}</span></h2>
     <router-link 
-      v-for="(group, key) in allGroups"
+      v-for="(group, key) in cringe"
       :key="key"
       :spesialty="currentSpecialty.id"
       :group="group.id"
-      :to = "'/' + currentSpecialty.id + '/' + group.id + '/'">
+      :to="'/' + currentSpecialty.id + '/' + group.id + '/' + group._id + '/'">
         <p class="infoGroup hover">Група: {{group.nameGroup}} || Староста: {{group.headman}} || Класний керівник: {{group.leader}}</p>
     </router-link>
   </div>
 </template>
 
 <script>
+//////
   import Vue from 'vue'
   import axios from 'axios'
 
@@ -24,13 +25,20 @@
       idSpecialty: ''
     },
     computed: {
-      ...mapGetters(['currentSpecialty', 'allGroups'])
+      ...mapGetters(['currentSpecialty', 'allGroups']),
+      cringe() {
+        return this.allGroups.sort((a, b) => {
+          if (a.nameGroup > b.nameGroup) return 1
+          if (a.nameGroup == b.nameGroup) return 0
+          if (a.nameGroup < b.nameGroup) return -1
+        })
+      }
     },
     mounted: function(){
       this.fetchSpecialty(this.idSpecialty)
     },
     methods: {
-      ...mapActions(['fetchSpecialty'])
+      ...mapActions(['fetchSpecialty']),
     }
   }
 </script>
