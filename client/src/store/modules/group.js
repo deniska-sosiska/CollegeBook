@@ -1,4 +1,4 @@
-import { getGroup, getFewGroups, getGroups } from "../../services/specialty.service"
+import { getGroup, getGroups } from "../../services/group.service"
 
 const mutations = {
   updateGroup(state, data) {
@@ -8,6 +8,7 @@ const mutations = {
     state.groups = data
   }
 }
+
 const actions = {
   async fetchGroup({commit}, id) {
     try {
@@ -18,24 +19,20 @@ const actions = {
       console.error("Error with API. File: store > group:fetchGroup\n" ,error)
     }
   },
-  async fetchFewGroup({commit}, body) {
-    const res = await getFewGroups(body)
-    console.log(res)
-  },
-  async fetchGroups({commit}) {
+  async fetchGroups({commit}, body) { 
     try {
-      const res = await getGroups() 
-      commit('updateGroups', res.data)
+      const res = await getGroups(body)
+      commit('updateGroups', res)
     }
     catch (error) {
-      console.error("Error with API. File: store > group:fetchGroups\n" ,error)
+      console.warn("Error with API. File: store > group:fetchGroups\n" ,error)
     }
   }
 }
 
 const getters = {
-  group: ({group}) => group,
-  groups: ({groups}) => groups
+  currentGroup: ({group}) => group,
+  allGroups: ({groups}) => groups
 }
 
 const state = () => ({

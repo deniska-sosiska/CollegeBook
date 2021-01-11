@@ -11,10 +11,9 @@ const mutations = {
 const actions = {
   async fetchSpecialty({commit, dispatch}, id) { // 
     try {
-      console.log(id)
       const res = await getSpecialty(id)
       commit('updateSpecialty', res.data)
-      dispatch('fetchFewGroup', res.data.groups)
+      dispatch('fetchGroups', res.data.groups)
     }
     catch (error) {
       console.error("Error with API. File: store > specialty:fetchSpesialty\n" ,error)

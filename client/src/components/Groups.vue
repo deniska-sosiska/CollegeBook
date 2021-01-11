@@ -2,13 +2,13 @@
   <div class="group">
     <h2>Усі групи за спеціальністю: <span>{{currentSpecialty.name}}</span></h2>
     <router-link 
-      v-for="(group, index) in currentSpecialty.groups"
-      :key="index"
+      v-for="(group, key) in allGroups"
+      :key="key"
       :spesialty="currentSpecialty.id"
       :group="group.id"
       :to = "'/' + currentSpecialty.id + '/' + group.id + '/'">
         <p class="infoGroup hover">Група: {{group.nameGroup}} || Староста: {{group.headman}} || Класний керівник: {{group.leader}}</p>
-    </router-link> 
+    </router-link>
   </div>
 </template>
 
@@ -24,7 +24,7 @@
       idSpecialty: ''
     },
     computed: {
-      ...mapGetters(['currentSpecialty'])
+      ...mapGetters(['currentSpecialty', 'allGroups'])
     },
     mounted: function(){
       this.fetchSpecialty(this.idSpecialty)
