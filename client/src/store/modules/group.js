@@ -32,7 +32,13 @@ const actions = {
 
 const getters = {
   currentGroup: ({group}) => group,
-  allGroups: ({groups}) => groups
+  allGroups: ({groups}) => {
+    return groups.sort((a, b) => {
+      if (a.nameGroup > b.nameGroup) return 1
+      if (a.nameGroup == b.nameGroup) return 0
+      if (a.nameGroup < b.nameGroup) return -1
+    })
+  }
 }
 
 const state = () => ({

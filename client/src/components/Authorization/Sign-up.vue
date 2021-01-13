@@ -12,18 +12,18 @@
         <template v-if="newUser.role.name == list[0] || newUser.role.name == list[1]">
           <div>
             <label for="">Cпеціальність: </label>
-            <select v-model="newUser.role.specialty" @change="updateDataOfCurrentSpecialty()" style="width: 240px;" required>
+            <select v-model="newUser.role.specialty" @change="setCurrentSpecialty()" style="width: 240px;" required>
               <option disabled value="">Варiанти</option>
-              <option v-for="(value, name, index) in dataOfGroups" :key="index" :value="value.id">{{value.name}}</option>
+              <option v-for="(value, name, index) in allSpecialties" :key="index" :value="value._id">{{value.name}}</option>
             </select>
           </div>
         </template>
         <template v-if="(newUser.role.specialty && newUser.role.name != list[2])">
           <div>
             <label for="">Ваша група: </label>
-            <select v-model="newUser.role.group" required  style="width: 240px;">
+            <select v-model="newUser.role.groupName" required  style="width: 240px;">
               <option disabled value="">Варiанти</option>
-              <option v-for="(value, index) in getDataOfCurrentSpecialty.groups" :key="index" :value="value.nameGroup">{{value.nameGroup}}</option>
+              <option v-for="(value, index) in allGroups" :key="index" :value="value._id">{{value.nameGroup}}</option>
             </select>
           </div>
         </template>
@@ -69,8 +69,7 @@
 </template>
 
 <script>
-  import Vue from 'vue'
-  import axios from 'axios'
+  import { mapGetters, mapActions, mapMutations } from 'vuex'
 
   export default {
     data () {
@@ -91,26 +90,21 @@
           "role": {
             "name": '',
             "specialty": '',
-            "group": ''
+            "groupName": ''
           },
           "login": '',
           "password": '',
-          "email": '',
-          "id": new Date().getTime()
+          "email": ''
         },
 
-      dataOfGroups: {}
       }
     },
     computed: {
-      getDataOfCurrentSpecialty: function() {
-        return this.$store.getters.getDataOfCurrentSpecialty
-      }
-    },
-    mounted: function() {
-      this.dataOfGroups = this.$store.getters.getDataOfSpecialty
+      ...mapGetters(['allSpecialties', 'allGroups']),
     },
     methods:{
+      ...mapMutations(['setCurrentUser']),
+      ...mapActions(['fetchSpecialty', 'setNewRegisteredUser']),
       registred: function() {
         if (!this.newUser.password || !this.newUser.login || !this.newUser.name || !this.newUser.email) {
           this.isFake = true
@@ -119,16 +113,17 @@
           }, 3000);
         }
         else {
-          this.$store.dispatch('setNewRegisteredUser', this.newUser)
-          this.$store.commit('setCurrentUser', {
-            "login": this.newUser.login, 
-            "password": this.newUser.password
+          this.setNewRegisteredUser(this.newUser)
+          this.setCurrentUser({
+            login: this.newUser.login, 
+            password: this.newUser.password,
+            role: this.newUser.role
           })
           this.$router.push('/')
         }
       },
-      updateDataOfCurrentSpecialty: function() {
-        this.$store.dispatch('updateDataOfCurrentSpecialty', this.newUser.role.specialty)
+      setCurrentSpecialty: function() {
+        this.fetchSpecialty(this.newUser.role.specialty)
       },
       isFirst: function() {
         if (!this.newUser.role.name) {
@@ -138,7 +133,7 @@
           }, 3000);
         }
         else if ((this.newUser.role.name == this.list[0] || this.newUser.role.name == this.list[1]) && 
-                (!this.newUser.role.group)){
+                (!this.newUser.role.groupName)){
           this.isFake = true
           setTimeout(() => {
             this.isFake = false

@@ -34,22 +34,6 @@ export default new Vuex.Store({
   },
   mutations: {},
   actions: {
-    updateDataOfSpecialty(ctx) { //оновлює дані по спеціальності '/#/'
-      axios.get(ctx.state.dbGroupsUrl).then(response => {
-        ctx.commit('setDataOfSpecialty', response.data)
-      })
-    },
-    updateDataOfCurrentGroup(ctx, box) { //оновлює дані поточної групи
-      let arrayStud = []
-      axios.get(ctx.state.dbStudents).then(response => {
-        response.data.forEach(elem => {
-          if (elem.specialty == box.specialty && elem.group == box.group) 
-            arrayStud.push(elem)
-        })
-        ctx.commit('setDataOfCurrentGroup', arrayStud)
-
-      })
-    },
     updateStud(ctx, data) {
       let currentStud =  ctx.state.dataOfStud[data.indexStud]
       let newData = currentStud.attandance
@@ -61,26 +45,9 @@ export default new Vuex.Store({
       dataOfStud.forEach(elem => {
         axios.put(ctx.state.dbStudents + `/${elem.id}`, elem)
       })
-    },
-    updateDataOfCurrentSpecialty(ctx, specialty) { //оновлює дані по обраній спеціальності '/RPZ/'
-      axios.get(ctx.state.dbGroupsUrl + '/' + specialty).then(response => {
-        ctx.commit('setDataOfCurrentSpecialty', response.data)
-      })
-    },
-    setAllRegisteredUser(ctx) {
-      axios.get(ctx.state.dbAuthorizUrl).then((response) => {
-        ctx.commit('setAllRegisteredUser', response.data)
-      })
-    },
-    setNewRegisteredUser(ctx, newUser) {
-      axios.post(ctx.state.dbAuthorizUrl, newUser).then((response) => {
-      })
     }
-  },
+},
   getters: {
-    getDataOfSpecialty: ({dataOfSpecialty}) => dataOfSpecialty,
-    getDataOfCurrentGroup: ({dataOfCurrentGroup}) => dataOfCurrentGroup,
-    getDataOfCurrentSpecialty: ({dataOfCurrentSpecialty}) => dataOfCurrentSpecialty,
     getDataOfStud: ({dataOfStud}) => dataOfStud
   }
 })

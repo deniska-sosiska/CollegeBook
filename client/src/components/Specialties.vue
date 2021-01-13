@@ -12,8 +12,8 @@
             <p>{{specialty.name}}</p>
         </div>
         <router-link  v-else
-          :to="'/' + specialty.id + '/' + specialty._id + '/'"
           class="specialty hover"
+          :to="'/' + specialty.id + '/' + specialty._id + '/'"
           >
             <img :src="specialty.linkImage">
             <p>{{specialty.name}}</p>

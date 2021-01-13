@@ -1,4 +1,4 @@
-const { model, Schema, Schema: { Types: { ObjectId } } } = require('mongoose')
+const { model, Schema } = require('mongoose')
 const typeStrReqTrue = { type: String, required: true }
 
 const schema = new Schema({

@@ -1,7 +1,6 @@
-import { getUsers } from "../../services/user.service"
+import { getUsers, setNewUser } from "../../services/user.service"
 
 const mutations = {
-
   setCurrentUser(state, currentUser) {
     state.currentUser = {
       login: currentUser.login,
@@ -14,6 +13,14 @@ const mutations = {
   }
 }
 const actions = {
+  async setNewRegisteredUser({commit}, data) {
+    try {
+      let res = await setNewUser(data)
+    }
+    catch (error) {
+      console.error("Error with API. File: store > user:setNewRegisteredUser\n" ,error)
+    }
+  },
   async fetchCurrentUser({commit}, existingUser) {
     let responseToComponent = false
     let res = await getUsers()

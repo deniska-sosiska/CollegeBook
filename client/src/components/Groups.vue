@@ -2,7 +2,7 @@
   <div class="group">
     <h2>Усі групи за спеціальністю: <span>{{currentSpecialty.name}}</span></h2>
     <router-link 
-      v-for="(group, key) in cringe"
+      v-for="(group, key) in allGroups"
       :key="key"
       :spesialty="currentSpecialty.id"
       :group="group.id"
@@ -13,8 +13,6 @@
 </template>
 
 <script>
-//////
-  import Vue from 'vue'
   import axios from 'axios'
 
   import { mapActions, mapGetters } from 'vuex'
@@ -25,14 +23,7 @@
       idSpecialty: ''
     },
     computed: {
-      ...mapGetters(['currentSpecialty', 'allGroups']),
-      cringe() {
-        return this.allGroups.sort((a, b) => {
-          if (a.nameGroup > b.nameGroup) return 1
-          if (a.nameGroup == b.nameGroup) return 0
-          if (a.nameGroup < b.nameGroup) return -1
-        })
-      }
+      ...mapGetters(['currentSpecialty', 'allGroups'])
     },
     mounted: function(){
       this.fetchSpecialty(this.idSpecialty)
