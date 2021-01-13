@@ -16,7 +16,9 @@ export default new Vuex.Store({
   plugins: [createPersistedState()],
   modules: {
     specialty: modules.specialty,
-    group: modules.group
+    group: modules.group,
+    preloader: modules.preloader,
+    user: modules.user
   },
   // ↓↓↓ Потрібно розбити на модулі ↓↓↓
   state: {
@@ -30,21 +32,7 @@ export default new Vuex.Store({
     dbAuthorizUrl: 'http://127.0.0.1:3000/registeredUser', // База даних авторизованних користувачів
     dbStudents: 'http://localhost:3000/students/' //  База даних авторизованних students
   },
-  mutations: {
-    setCurrentUser(state, currentUser) {
-      state.currentUser = {
-        login: currentUser.login,
-        password: currentUser.password,
-        role: currentUser.role
-      }
-    },
-    setAllRegisteredUser(state, allRegisteredUser) {
-      state.dataOfRegisteredUser = allRegisteredUser
-    },
-    clearCurrentUser(state) {
-      state.currentUser.login = state.currentUser.password = state.currentUser = null
-    }
-  },
+  mutations: {},
   actions: {
     updateDataOfSpecialty(ctx) { //оновлює дані по спеціальності '/#/'
       axios.get(ctx.state.dbGroupsUrl).then(response => {
@@ -93,8 +81,6 @@ export default new Vuex.Store({
     getDataOfSpecialty: ({dataOfSpecialty}) => dataOfSpecialty,
     getDataOfCurrentGroup: ({dataOfCurrentGroup}) => dataOfCurrentGroup,
     getDataOfCurrentSpecialty: ({dataOfCurrentSpecialty}) => dataOfCurrentSpecialty,
-    getUser: ({currentUser}) => currentUser,
-    getRegisteredUser: ({dataOfRegisteredUser}) => dataOfRegisteredUser,
     getDataOfStud: ({dataOfStud}) => dataOfStud
   }
 })

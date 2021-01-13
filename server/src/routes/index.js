@@ -1,6 +1,7 @@
 module.exports = {
   routes: [
     'specialty',
-    'group'
+    'group',
+    'user'
   ]
 }

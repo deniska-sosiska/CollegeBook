@@ -3,11 +3,11 @@
     <form @submit.prevent="authorization" class="signIn">
         <div>
             <label for="login">Логiн: </label>
-            <input id="login" v-model="currentUser.userLogin" type="text">
+            <input id="login" v-model="existingUser.userLogin" type="text">
         </div>
         <div>
             <label for="pass">Пароль: </label>
-            <input id="pass" v-model="currentUser.userPassword" type="password">
+            <input id="pass" v-model="existingUser.userPassword" type="password">
         </div>
         <div v-if="isFake"  style="display: block; margin-bottom: 5px;">
             <p class="isFake">Пароль або логiн не збігаються, спробуйте ще</p>
@@ -23,51 +23,35 @@
 </template>
 
 <script>
-  import Vue from 'vue'
   import axios from 'axios'
+  import { mapActions } from 'vuex'
 
   export default {
     data () {
       return {
-        currentUser: {
+        existingUser: {
           userLogin: '',
-          userPassword: '',
-          userRegistered: false,
+          userPassword: ''
         },
         isFake: false,
       }
     },
-    computed: {
-      getRegisteredUser: function(){
-        return this.$store.getters.getRegisteredUser
-      }    
-    },
-    mounted(){
-      this.$store.dispatch('setAllRegisteredUser')
-    },
     methods: {
-      authorization: function() {
-        this.getRegisteredUser.forEach(registeredUser => {
-          if ((registeredUser.login == this.currentUser.userLogin) && 
-            (registeredUser.password == this.currentUser.userPassword)){
-              this.currentUser.userRegistered = true
-              this.currentUser.userLogin = this.currentUser.userPassword = '',
-              console.log("Перевірка успішна")
-              let currentUser = {
-                login: registeredUser.login,
-                password: registeredUser.password,
-                role: registeredUser.role
-              }
-              console.log(registeredUser)
-              this.$store.commit('setCurrentUser', currentUser)
-              this.$router.push('/')
-            }
-        })
-        if (!this.currentUser.userRegistered) {
+      ...mapActions(['fetchCurrentUser']),
+      authorization: async function() {
+        let userRegistered = await this.fetchCurrentUser(this.existingUser)
+
+        if (userRegistered) {
+          this.existingUser.userLogin = this.existingUser.userPassword = '',
+          userRegistered = false
+          console.log("Перевірка успішна")
+          this.$router.push('/')
+        }
+       
+        else {
           console.log("Перевірка неуспішна")
           this.isFake = true
-          this.currentUser.userRegistered = false
-          this.currentUser.userLogin = this.currentUser.userPassword = ''
+          this.existingUser.userLogin = this.existingUser.userPassword = ''
           setTimeout(() => this.isFake = false, 3000)
         }
       }

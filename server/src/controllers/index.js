@@ -1,6 +1,5 @@
-const group = require('../models/group');
-
 module.exports = {
   specialty: require('./specialty.generic'),
-  group: require('./group.generic')
+  group: require('./group.generic'),
+  user: require('./user.generic')
 }

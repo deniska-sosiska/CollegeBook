@@ -1,26 +1,33 @@
 <template>
   <div class="choseGroup ">
-    <div v-for = "(specialty, key) in allSpecialties" :key = "key">
-      <div v-if="specialty.groups.length == 0" class="specialty hover"> <!--якщо вона порожня-->
-          <img :src="hrefImageBlock" class="blocked" title="на етапі розробки">
-          <img :src="specialty.linkImage">
-          <p>{{specialty.name}}</p>
+    <template  v-if="currentPreloaderMain">
+      <Preloader />
+    </template>
+
+    <template v-else>
+      <div v-for = "(specialty, key) in allSpecialties" :key = "key">
+        <div v-if="specialty.groups.length == 0" class="specialty hover"> <!--якщо вона порожня-->
+            <img :src="hrefImageBlock" class="blocked" title="на етапі розробки">
+            <img :src="specialty.linkImage">
+            <p>{{specialty.name}}</p>
+        </div>
+        <router-link  v-else
+          :to="'/' + specialty.id + '/' + specialty._id + '/'"
+          class="specialty hover"
+          >
+            <img :src="specialty.linkImage">
+            <p>{{specialty.name}}</p>
+        </router-link>
       </div>
-      <router-link  v-else
-        :to="'/' + specialty.id + '/' + specialty._id + '/'"
-        class="specialty hover"
-        >
-          <img :src="specialty.linkImage">
-          <p>{{specialty.name}}</p>
-      </router-link>
-    </div>
+    </template>
   </div>
 </template>
 
 <script>
 import Vue from 'vue'
 import axios from 'axios'
-import { mapGetters, mapActions} from 'vuex'
+
+import { mapGetters, mapActions, mapMutations} from 'vuex'
 
 export default {
   data(){
@@ -29,10 +36,14 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['allSpecialties']),
+    ...mapGetters(['allSpecialties', 'currentPreloaderMain']),
   },
-  methods: mapActions(['fetchSpecialties']),
+  methods: {
+    ...mapActions(['fetchSpecialties']),
+    ...mapMutations(['updatePreloaderMain'])
+  },
   mounted() {
+    this.updatePreloaderMain(true)
     this.fetchSpecialties()
   }
 }

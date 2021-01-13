@@ -23,6 +23,7 @@ const actions = {
     try {
       const res = await getSpecialties()
       commit('updateSpecialties', res.data)
+      commit('updatePreloaderMain', false)
     }
     catch (error) {
       console.error("Error with API. File: store > specialty:fetchSpesialties\n" ,error)

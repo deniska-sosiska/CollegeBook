@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Vue from 'vue'
+import { mapGetters } from 'vuex'
 
 export default {
   data() {
@@ -23,9 +23,7 @@ export default {
     }
   },
   computed: {
-    getUser() {
-      return this.$store.getters.getUser
-    }
+    ...mapGetters(['getUser'])
   },
   methods: {
     clearCurrentUser: function() {
