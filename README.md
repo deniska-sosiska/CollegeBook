@@ -20,3 +20,5 @@
 | VueJS      | Прогресивна фреймворк Javascript                                                      | https://vuejs.org/       |
 | NodeJS     | Середовище виконання Javascript, виконання коду Javascript на стороні сервера         | https://nodejs.org/uk/   |
 | Webpack    | Javascript збірник модулів                                                            | https://webpack.js.org/  |
+
+![Головна сторінка веб-додатку](https://github.com/deniska-sosiska/CollegeBook-MEVN-stack/blob/main/client/src/assets/main.png)
