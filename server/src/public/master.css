@@ -13,6 +13,7 @@ a {
   font-family: "Comfortaa";
 }
 .container {
+  padding: 100px 50px 30px 50px ;
   max-width: 1200px;
   margin: 0px auto;
 }
