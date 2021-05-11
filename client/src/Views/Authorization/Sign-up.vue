@@ -28,7 +28,7 @@
           </div>
         </template>
         <div class="inputs" style="margin-top: 30px;">
-          <input type="button" value="Відмінити реєстрацію" @click="$router.push('/Authorization/')" style="margin-right:10px;">
+          <input type="button" value="Відмінити реєстрацію" @click="canselRegistration()" style="margin-right:10px;">
           <input type="button" value="Продовжити" @click="isFirst()" style="margin-left:10px;">
         </div>
         <div v-if="isFake"  style="display: block; margin-bottom: 0px;">
@@ -54,14 +54,14 @@
           <input id="newPassword" v-model="newUser.password" placeholder="Наприклад: q1w2e3_BOBA" type="password" required>
         </div>
         <div class="inputs" style="margin-top: 30px;">
-          <input type="button" value="Відмінити реєстрацію" @click="$router.push('/Authorization/')" style="margin-right:10px;">
+          <input type="button" value="Відмінити реєстрацію" @click="canselRegistration()" style="margin-right:10px;">
           <input type="button" value="Повернутися" @click="() => {this.second = false; this.first = true}" style="margin-left:10px;">
         </div>
         <div>
           <input type="submit" value="Зареєструватися" @click="registred(); return false;">
         </div>
           <div v-if="isFake"  style="display: block; margin-bottom: 0px;">
-            <p class="isFake">Спочатку оберіть усі свої дані</p>
+            <p class="isFake">Спочатку заповнiть усі поля</p>
         </div>
       </template>
       </form>
@@ -72,33 +72,31 @@
   import { mapGetters, mapActions, mapMutations } from 'vuex'
 
   export default {
-    data () {
-      return {
+    name: "SignUp",
 
-        first: true,
-        second: false,
-        isFake: false,
+    data: () => ({
+      first: true,
+      second: false,
+      isFake: false,
 
-        list: [
-          "Студент",
-          "Староста групи",
-          "Вчитель"
-        ],
+      list: [
+        "Студент",
+        "Староста групи",
+        "Вчитель"
+      ],
 
-        newUser: {
+      newUser: {
+        "name": '',
+        "role": {
           "name": '',
-          "role": {
-            "name": '',
-            "specialty": '',
-            "groupName": ''
-          },
-          "login": '',
-          "password": '',
-          "email": ''
+          "specialty": '',
+          "groupName": ''
         },
-
+        "login": '',
+        "password": '',
+        "email": ''
       }
-    },
+    }),
     computed: {
       ...mapGetters(['allSpecialties', 'allGroups']),
     },
@@ -143,7 +141,10 @@
           this.first = false
           this.second = true
         }
-        
+      },
+
+      canselRegistration() {
+        this.$router.push({ name: 'SignIn' })
       }
     }
   }

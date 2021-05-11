@@ -1,4 +1,5 @@
 const { model, Schema, Schema: { Types: { ObjectId } } } = require('mongoose')
+const typeStrReqTrue = { type: String, required: true }
 
 const schema = new Schema({
   groups: [
@@ -7,10 +8,10 @@ const schema = new Schema({
       ref: 'Group'
     }
   ],
-  linkImage: String,
-  name: String,
-  id: String,
-  abbreviation: String,
+  imageLink: typeStrReqTrue,
+  name: typeStrReqTrue,
+  abbreviation: typeStrReqTrue,
+  abbreviation_ua: typeStrReqTrue
 })
 
 module.exports = model('Specialty', schema)

@@ -6,13 +6,20 @@
 </template>
 
 <script>
+  import { EllipsisLoader } from "vue-spinners-css";
+
   export default {
     name: 'Preloader',
+
     props: {
       str: {
         type: String,
         default: 'Завантаження даних'
       }
+    },
+
+    components: {
+      EllipsisLoader
     }
   }
 </script>

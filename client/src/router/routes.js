@@ -1,39 +1,52 @@
 const routes = [
-  {  
+  {
+    name: 'Spesialties',
     path: '/',
-    component: () => import("../components/Specialties.vue")
+    component: () => import("../Views/Specialties.vue")
   },
   {  
-    path: '/Authorization/',
-    component: () => import("../components/Authorization/Sign-in.vue")
+    name: 'SignIn',
+    path: '/Authorization/SignIn',
+    component: () => import("../Views/Authorization/Sign-in.vue")
   },
-  { 
-    path: '/Authorization/signUP',
-    component: () => import("../components/Authorization/Sign-up.vue")
+  {
+    name: 'SignUp',
+    path: '/Authorization/SignUp',
+    component: () => import("../Views/Authorization/Sign-up.vue")
   },
-  { 
+  {
+    name: 'Groups',
     path: '/:specialty/:idSpecialty',
-    component: () => import("../components/Groups.vue"),
+    component: () => import("../Views/Groups.vue"),
     props: true,
     meta: {  requiresAuth: true  }
   },
-  { 
+  {
+    name: 'ChoiseMagazines',
     path: '/:specialty/:group/:idGroup',
-    component: () => import("../components/Magazines.vue"),
+    component: () => import("../Views/Magazines.vue"),
     props: true,
     meta: {  requiresAuth: true  }
   },
-  { 
+  {
+    name: 'AcademicAttendance',
     path: '/:specialty/:group/:magazines',
-    component: () => import("../components/Academic-attendance/Academic-attendance.vue"),
+    component: () => import("../Views/Academic-attendance/Academic-attendance.vue"),
     props: true,
     meta: {  requiresAuth: true  }
   },
-  { 
+  {
+    name: 'AcademicAttendanceInfo',
     path: '/:specialty/:group/:magazines/info',
-    component: () => import("../components/Academic-attendance/Academic-attendance-info.vue"),
+    component: () => import("../Views/Academic-attendance/Academic-attendance-info.vue"),
     props: true,
     meta: {  requiresAuth: true  }
+  },
+  {
+    name: 'AdminPanel',
+    path: '/AdminPanel',
+    component: () => import("../Views/AdminPanel.vue"),
+    meta: {  requiresAuth: true, accountAdmin: true  }
   }
 ]
 

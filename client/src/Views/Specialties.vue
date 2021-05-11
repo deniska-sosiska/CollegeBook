@@ -8,14 +8,14 @@
       <div v-for = "(specialty, key) in allSpecialties" :key = "key">
         <div v-if="specialty.groups.length == 0" class="specialty hover"> <!--якщо вона порожня-->
             <img :src="hrefImageBlock" class="blocked" title="на етапі розробки">
-            <img :src="specialty.linkImage">
+            <img :src="specialty.imageLink">
             <p>{{specialty.name}}</p>
         </div>
         <router-link  v-else
           class="specialty hover"
-          :to="'/' + specialty.id + '/' + specialty._id + '/'"
+          :to="'/' + specialty.abbreviation + '/' + specialty._id + '/'"
           >
-            <img :src="specialty.linkImage">
+            <img :src="specialty.imageLink">
             <p>{{specialty.name}}</p>
         </router-link>
       </div>
@@ -24,29 +24,28 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import axios from 'axios'
+  import { mapGetters, mapActions, mapMutations} from 'vuex'
 
-import { mapGetters, mapActions, mapMutations} from 'vuex'
+  export default {
+    name: "Specialties",
 
-export default {
-  data(){
-    return {
-      hrefImageBlock: '../assets/blocked.png'
+    data(){
+      return {
+        hrefImageBlock: '../assets/blocked.png'
+      }
+    },
+    computed: {
+      ...mapGetters(['allSpecialties', 'currentPreloaderMain']),
+    },
+    methods: {
+      ...mapActions(['fetchSpecialties']),
+      ...mapMutations(['updatePreloaderMain'])
+    },
+    mounted() {
+      this.updatePreloaderMain(true)
+      this.fetchSpecialties()
     }
-  },
-  computed: {
-    ...mapGetters(['allSpecialties', 'currentPreloaderMain']),
-  },
-  methods: {
-    ...mapActions(['fetchSpecialties']),
-    ...mapMutations(['updatePreloaderMain'])
-  },
-  mounted() {
-    this.updatePreloaderMain(true)
-    this.fetchSpecialties()
   }
-}
 </script>
 
 <style scoped>

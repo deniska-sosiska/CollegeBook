@@ -1,27 +1,17 @@
 <template>
-  <div id="app">
-    <div class = "container">
-      <Header />
-       <router-view></router-view>
-    </div>
+  <div id="app" class = "container">
+    <Header />
+      <router-view></router-view>
   </div>
 </template>
 
 <script>
-// import Vue from 'vue'
-import axios from 'axios'
-import Header from "./components/Header.vue"
+  import Header from "/components/Header.vue"
 
-export default {
-  name: 'App',
-  data() {
-    return {
-    }
-  },
-  components: {
-    Header
+  export default {
+    name: 'App',
+    components: {  Header  }
   }
-}
 </script>
 
 <style>
@@ -49,6 +39,7 @@ export default {
   .hover {
     user-select: none;
     border: 1px solid #fff;
+    transition: ease-out 0.2s;
   }
   .hover:hover {
     cursor: pointer;

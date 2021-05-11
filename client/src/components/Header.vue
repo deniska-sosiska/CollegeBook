@@ -1,13 +1,40 @@
 <template>
   <div class="header">
-    <a :href=linkToCollege target="_blank" class="logo hover">
+    <a 
+      :href='collegeLinkUrl'
+      class="logo hover"
+      target="_blank"
+    >
       <img :src="logo_src">
       <p>Запорізький електротехнічний фаховий коледж</p>
     </a>
     <nav class="menu">
       <router-link :to = "'/'" class="hover">Головна</router-link>
-      <router-link v-if="getUser === null" :to = "'/Authorization/'" class="hover">Авторизацiя</router-link>
-      <div v-else class="hover" @click="clearCurrentUser">Вийти з аккаунту: {{getUser.login}}</div>
+      <!--  -->
+      <router-link v-if="getUser === null" :to ="{ name: 'SignIn' }" class="hover">Авторизацiя</router-link>
+
+      <div v-else class="dropdown">
+        <div class="hover" :class=' flag ? "headerHover": "" '>Меню аккаунту</div>
+        <div 
+          class="dropdown-content"
+          @mouseover="flag = !flag"
+          @mouseout="flag = !flag"
+        >
+          <div
+            class="hover"
+          >Логiн: {{ getUser.login }}</div>
+          <router-link
+            v-if="getUser.role.name === 'Admin' "
+            :to="{ name: 'AdminPanel' }"
+            class="hover"
+          >Адмiн панель</router-link>
+          <div 
+            @click="clearCurrentUser"
+            class="hover"
+          >Вийти з аккаунту</div>
+        </div>
+      </div>
+      <!--  -->
     </nav>
   </div>
 </template>
@@ -16,20 +43,23 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  data() {
-    return {
-      logo_src: '../assets/logo.png',
-      linkToCollege: "http://zetk.com.ua/"
-    }
-  },
+  name: "Header",
+
+  data: () => ({
+    flag: false,
+    
+    logo_src: '../assets/logo.png',
+    collegeLinkUrl: "http://zetk.com.ua/"
+  }),
+
   computed: {
     ...mapGetters(['getUser'])
   },
   methods: {
     clearCurrentUser: function() {
       this.$store.commit('clearCurrentUser')
-      if (this.$router.currentRoute.path != '/') 
-        this.$router.push("/");
+      this.$router.push("/").catch(() => {})
+      this.flag = false
     }
   }
 }
@@ -40,6 +70,8 @@ export default {
     display: flex;
     justify-content: space-between;
     height: 80px;
+    /* border: 1px solid; */
+
   }
   .logo {
     padding: 0px 20px;
@@ -56,13 +88,51 @@ export default {
     padding: 0px 20px;
     font-size: 18px;
   }
+
   .menu {
     display: flex;
-    /* align-items: center; */
+    /* border: 1px solid; */
   }
-  .menu > .hover {
+
+  .menu  .hover {
     font-size: 18px;
-    padding: 31px 20px;
+    padding: 29px 20px;
     user-select: none;
+    /* border: 1px solid; */
   }
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    padding-top: 2px;
+    width: 322px;
+    display: none;
+    position: absolute;
+    left: -125px;
+    z-index: 10;
+    background: #fff;
+
+  }
+  .dropdown-content > div.hover,
+  .dropdown-content > a.hover {
+    border: 4px solid #e6f7ff;
+    border-bottom: 0px;
+    display: block;
+    font-size: 20px;
+    padding: 20px;
+  }
+  .dropdown-content > div.hover:last-child {
+    border-bottom: 4px solid #e6f7ff;
+  }
+
+  .dropdown:hover .dropdown-content {display: block;}
+
+  .headerHover {
+    background: #e6f7ff;
+    border: 1px solid #e6e6e6 !important;
+  }
+  
 </style>

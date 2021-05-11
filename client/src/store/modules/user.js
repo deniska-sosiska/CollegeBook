@@ -1,4 +1,5 @@
 import { getUsers, setNewUser } from "../../services/user.service"
+// import axiosApiInstance from "/services/axiosApiInstance"
 
 const mutations = {
   setCurrentUser(state, currentUser) {
@@ -13,6 +14,16 @@ const mutations = {
   }
 }
 const actions = {
+  // async getAccountData() {
+  //   const res = await axiosApiInstance({
+  //     url: `user`,
+  //     method: 'post'
+  //   })
+  // },
+
+
+
+  //
   async setNewRegisteredUser({commit}, data) {
     try {
       let res = await setNewUser(data)
@@ -24,6 +35,8 @@ const actions = {
   async fetchCurrentUser({commit}, existingUser) {
     let responseToComponent = false
     let res = await getUsers()
+
+    // console.log(res.data)
     
     res.data.forEach(element => {
       if ((existingUser.userLogin == element.login) && (existingUser.userPassword == element.password)) {
@@ -40,10 +53,12 @@ const actions = {
 }
 
 const getters = {
-  getUser: ({currentUser}) => currentUser,
+  accountData: ({ accountData }) => accountData,
+  getUser: ({ currentUser }) => currentUser,
 }
 
 const state = () => ({
+  accountData: null,
   currentUser: null
 })
 

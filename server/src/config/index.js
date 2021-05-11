@@ -1,9 +1,9 @@
-const PORT = 3000
-const dataBaseUrl = 'mongodb://localhost:27017/CollegeDB'
-const dataBaseOptions = {
-  useCreateIndex: true,
-  useNewUrlParser: true,
-  useUnifiedTopology: true
+const MongoDB_URL = `${process.env.MONGODB_domen}${process.env.MONGODB_user}${process.env.MONGODB_options}`
+
+const DataBaseOptions = {
+  useCreateIndex: JSON.parse(process.env.UseCreateIndex),
+  useNewUrlParser: JSON.parse(process.env.UseNewUrlParser),
+  useUnifiedTopology: JSON.parse(process.env.UseUnifiedTopology)
 }
 
 const errorHandler = function(errorMessage, error) {
@@ -15,8 +15,7 @@ const errorHandler = function(errorMessage, error) {
 }
 
 module.exports = {
-  PORT,
-  dataBaseUrl,
-  dataBaseOptions,
+  MongoDB_URL,
+  DataBaseOptions,
   errorHandler
 }

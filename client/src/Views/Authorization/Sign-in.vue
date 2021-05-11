@@ -3,11 +3,11 @@
     <form @submit.prevent="authorization" class="signIn">
         <div>
             <label for="login">Логiн: </label>
-            <input id="login" v-model="existingUser.userLogin" type="text">
+            <input id="login" v-model="formAccountData.userLogin" type="text">
         </div>
         <div>
             <label for="pass">Пароль: </label>
-            <input id="pass" v-model="existingUser.userPassword" type="password">
+            <input id="pass" v-model="formAccountData.userPassword" type="password">
         </div>
         <div v-if="isFake"  style="display: block; margin-bottom: 5px;">
             <p class="isFake">Пароль або логiн не збігаються, спробуйте ще</p>
@@ -16,33 +16,32 @@
             <input type="submit">
         </div>
         <div>
-            <p class="forCenter">Ще не зареєстровані? <router-link :to="'/Authorization/signUP'" class="regist">Реєстрація</router-link></p>
+            <p class="forCenter">Ще не зареєстровані? <router-link :to="{ name: 'SignUp' }" class="regist">Реєстрація</router-link></p>
         </div>
     </form>
   </div>
 </template>
 
 <script>
-  import axios from 'axios'
   import { mapActions } from 'vuex'
 
   export default {
-    data () {
-      return {
-        existingUser: {
-          userLogin: '',
-          userPassword: ''
-        },
-        isFake: false,
-      }
-    },
+    name: "SignIn",
+
+    data: () => ({
+      formAccountData: {
+        userLogin: 'denisAdmin',
+        userPassword: '2001'
+      },
+      isFake: false,
+    }),
     methods: {
       ...mapActions(['fetchCurrentUser']),
       authorization: async function() {
-        let userRegistered = await this.fetchCurrentUser(this.existingUser)
+        let userRegistered = await this.fetchCurrentUser(this.formAccountData)
 
         if (userRegistered) {
-          this.existingUser.userLogin = this.existingUser.userPassword = '',
+          this.formAccountData.userLogin = this.formAccountData.userPassword = '',
           userRegistered = false
           console.log("Перевірка успішна")
           this.$router.push('/')
@@ -51,7 +50,7 @@
         else {
           console.log("Перевірка неуспішна")
           this.isFake = true
-          this.existingUser.userLogin = this.existingUser.userPassword = ''
+          this.formAccountData.userLogin = this.formAccountData.userPassword = ''
           setTimeout(() => this.isFake = false, 3000)
         }
       }
