@@ -1,6 +1,6 @@
 <template>
-  <div class="Authorization">
-    <form @submit.prevent="authorization" class="signIn">
+  <div class="Authentication">
+    <form @submit.prevent="authentication" class="signIn">
         <div>
             <label for="login">Логiн: </label>
             <input id="login" v-model="formAccountData.userLogin" type="text">
@@ -10,7 +10,7 @@
             <input id="pass" v-model="formAccountData.userPassword" type="password">
         </div>
         <div v-if="isFake"  style="display: block; margin-bottom: 5px;">
-            <p class="isFake">Пароль або логiн не збігаються, спробуйте ще</p>
+            <p class="isFake">{{ errorMessage }}</p>
         </div>
         <div>
             <input type="submit">
@@ -34,32 +34,41 @@
         userPassword: '2001'
       },
       isFake: false,
+      errorMessage: ''
     }),
     methods: {
-      ...mapActions(['fetchCurrentUser']),
-      authorization: async function() {
-        let userRegistered = await this.fetchCurrentUser(this.formAccountData)
+      ...mapActions(['getAccountData']),
 
-        if (userRegistered) {
-          this.formAccountData.userLogin = this.formAccountData.userPassword = '',
-          userRegistered = false
-          console.log("Перевірка успішна")
-          this.$router.push('/')
+      async authentication() {
+
+        if (this.formAccountData.userLogin && this.formAccountData.userPassword) {
+          try {
+            await this.getAccountData({ 
+              login: this.formAccountData.userLogin,
+              password: this.formAccountData.userPassword
+            })
+
+            this.$router.push('/')
+          } catch(err) {
+            this.showErrorMessage("Пароль або логiн не збігаються, спробуйте ще")
+          }
+        } else {
+          this.showErrorMessage("Заповніть всі поля")
         }
-       
-        else {
-          console.log("Перевірка неуспішна")
-          this.isFake = true
-          this.formAccountData.userLogin = this.formAccountData.userPassword = ''
-          setTimeout(() => this.isFake = false, 3000)
-        }
+      },
+
+      showErrorMessage(mes) {
+        this.formAccountData.userLogin = this.formAccountData.userPassword = ''
+        this.isFake = true
+        this.errorMessage = mes
+        setTimeout(() => this.isFake = false, 3000)
       }
     }
   }
 </script>
 
 <style scoped>
-    .Authorization  {
+    .Authentication  {
         display: flex;
         justify-content: center;
     }

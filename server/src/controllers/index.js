@@ -1,5 +1,6 @@
 module.exports = {
-  specialty: require('./specialty.generic'),
-  group: require('./group.generic'),
-  user: require('./user.generic')
+  specialty: require('./specialty'),
+  group: require('./group'),
+  user: require('./user'),
+  auth: require('./auth')
 }

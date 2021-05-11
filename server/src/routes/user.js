@@ -8,5 +8,3 @@ router.route('/:id').put(user.update)
 router.route('/:id').delete(user.delete)
 
 module.exports = router
-
-

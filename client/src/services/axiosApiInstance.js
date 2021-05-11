@@ -12,11 +12,14 @@ const axiosApiInstance = axios.create({
 axiosApiInstance.interceptors.response.use(
   (response) => response.data, 
   (error) => {
-
-    let answerError = ''
     const originalRequest = error.response
+    const answerError = {
+      message: originalRequest.data.message,
+      status: originalRequest.status
+    }
 
-    console.log("axiosApiInstanse/originalRequest: ", originalRequest)
+    console.error("axiosApiInstanse/originalRequest: ", originalRequest)
+
 
     return Promise.reject(answerError)
 })

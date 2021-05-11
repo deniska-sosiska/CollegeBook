@@ -1,7 +1,10 @@
 import { getUsers, setNewUser } from "../../services/user.service"
-// import axiosApiInstance from "/services/axiosApiInstance"
+import axiosApiInstance from "/services/axiosApiInstance"
 
 const mutations = {
+  setAccountData(state, payload) {
+    state.accountData = payload
+  },
   setCurrentUser(state, currentUser) {
     state.currentUser = {
       login: currentUser.login,
@@ -14,12 +17,15 @@ const mutations = {
   }
 }
 const actions = {
-  // async getAccountData() {
-  //   const res = await axiosApiInstance({
-  //     url: `user`,
-  //     method: 'post'
-  //   })
-  // },
+  async getAccountData({ commit }, payload) {
+    const res = await axiosApiInstance({
+      url: `authentication`,
+      data: payload,
+      method: 'post'
+    })
+
+    commit('setAccountData', res)
+  },
 
 
 
@@ -31,24 +37,6 @@ const actions = {
     catch (error) {
       console.error("Error with API. File: store > user:setNewRegisteredUser\n" ,error)
     }
-  },
-  async fetchCurrentUser({commit}, existingUser) {
-    let responseToComponent = false
-    let res = await getUsers()
-
-    // console.log(res.data)
-    
-    res.data.forEach(element => {
-      if ((existingUser.userLogin == element.login) && (existingUser.userPassword == element.password)) {
-        commit('setCurrentUser', {
-          login: element.login,
-          password: element.password,
-          role: element.role
-        })
-        responseToComponent = true
-      }
-    })
-    return responseToComponent
   }
 }
 
