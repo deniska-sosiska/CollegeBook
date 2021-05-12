@@ -7,4 +7,7 @@ router.route('/').post(user.create)
 router.route('/:id').put(user.update)
 router.route('/:id').delete(user.delete)
 
+router.route('/authentication').post(user.authentication)
+
+
 module.exports = router

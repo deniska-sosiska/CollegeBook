@@ -1,19 +1,20 @@
 <template>
-  <div class="choseGroup ">
-    <template  v-if="currentPreloaderMain">
+  <div class="content ">
+    <template v-if="loaderSpecialties">
       <Preloader />
     </template>
 
     <template v-else>
-      <div v-for = "(specialty, key) in allSpecialties" :key = "key">
-        <div v-if="specialty.groups.length == 0" class="specialty hover"> <!--якщо вона порожня-->
+      <div v-for="(specialty) in allSpecialties" :key="specialty._id">
+        <!--якщо вона порожня-->
+        <!-- <div v-if="specialty.groups.length == 0" class="specialty hover"> 
             <img :src="hrefImageBlock" class="blocked" title="на етапі розробки">
             <img :src="specialty.imageLink">
             <p>{{specialty.name}}</p>
-        </div>
-        <router-link  v-else
+        </div> -->
+        <router-link  
           class="specialty hover"
-          :to="'/' + specialty.abbreviation + '/' + specialty._id + '/'"
+          :to="{ name: 'Groups', params: { specialtyID: specialty.abbreviation }}"
           >
             <img :src="specialty.imageLink">
             <p>{{specialty.name}}</p>
@@ -24,32 +25,17 @@
 </template>
 
 <script>
-  import { mapGetters, mapActions, mapMutations} from 'vuex'
+  import { mapGetters } from 'vuex'
 
   export default {
     name: "Specialties",
 
-    data(){
-      return {
-        hrefImageBlock: '../assets/blocked.png'
-      }
-    },
-    computed: {
-      ...mapGetters(['allSpecialties', 'currentPreloaderMain']),
-    },
-    methods: {
-      ...mapActions(['fetchSpecialties']),
-      ...mapMutations(['updatePreloaderMain'])
-    },
-    mounted() {
-      this.updatePreloaderMain(true)
-      this.fetchSpecialties()
-    }
+    computed: mapGetters(['allSpecialties', 'loaderSpecialties']),
   }
 </script>
 
 <style scoped>
-  .choseGroup {
+  .content {
     padding: 0px 0px;
     display: flex;
     /* justify-content: space-around; */

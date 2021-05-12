@@ -39,19 +39,19 @@
       <template class="second" v-if="second">
         <div>
           <label for="newName">ПІБ: </label>
-          <input id="newName" v-model="newUser.name" placeholder="Ім'я має збігатися з журналом" type="text" required>
+          <input id="newName" v-model.trim="newUser.name" placeholder="Ім'я має збігатися з журналом" type="text" required>
         </div>
         <div>
           <label for="newEmail">Email: </label>
-          <input id="newEmail" v-model="newUser.email" placeholder="BoBa@example.com" type="email" required>
+          <input id="newEmail" v-model.trim="newUser.email" placeholder="BoBa@example.com" type="email" required>
         </div>
         <div>
           <label for="newLogin">Логiн: </label>
-          <input id="newLogin" v-model="newUser.login" placeholder="Наприклад: ßØß4uK" type="text" required>
+          <input id="newLogin" v-model.trim="newUser.login" placeholder="Наприклад: ßØß4uK" type="text" required>
         </div>
         <div>
           <label for="newPassword">Пароль: </label>
-          <input id="newPassword" v-model="newUser.password" placeholder="Наприклад: q1w2e3_BOBA" type="password" required>
+          <input id="newPassword" v-model.trim="newUser.password" placeholder="Наприклад: q1w2e3_BOBA" type="password" required>
         </div>
         <div class="inputs" style="margin-top: 30px;">
           <input type="button" value="Відмінити реєстрацію" @click="canselRegistration()" style="margin-right:10px;">

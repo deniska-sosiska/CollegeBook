@@ -1,36 +1,61 @@
 <template>
-  <div class="group">
-    <h2>Усі групи за спеціальністю: <span>{{currentSpecialty.name}}</span></h2>
-    <router-link 
-      v-for="(group, key) in allGroups"
-      :key="key"
-      :spesialty="currentSpecialty.id"
-      :group="group.id"
-      :to="'/' + currentSpecialty.id + '/' + group.id + '/' + group._id + '/'">
-        <p class="infoGroup hover">Група: {{group.nameGroup}} || Староста: {{group.headman}} || Класний керівник: {{group.leader}}</p>
-    </router-link>
+  <div class="content">
+    <template v-if="loaderGroups">
+      <Preloader />
+    </template>
+
+    <template v-else>
+      <div class="content__groups" v-if="!localError">
+        <h2>Усі групи за спеціальністю: <span>{{ nameCurrentSpecialty }}</span></h2>
+        <router-link 
+          v-for="(group, key) in groupsByCurrentSpecialty"
+          :key="key"
+          :spesialty="groupsByCurrentSpecialty.id"
+          :group="group.id"
+          :to="'/' + groupsByCurrentSpecialty.id + '/' + group.id + '/' + group._id + '/'">
+            <p class="infoGroup hover">Група: {{group.nameGroup}} || Староста: {{group.headman}} || Класний керівник: {{group.leader}}</p>
+        </router-link>
+      </div>
+
+      <div class="content__groups" v-else>
+        <h2><span>{{ nameCurrentSpecialty }}</span></h2>
+        <img :src="hrefImageBlock" title="на етапі розробки">
+      </div>
+    </template>
   </div>
 </template>
 
 <script>
-  import axios from 'axios'
-
-  import { mapActions, mapGetters } from 'vuex'
+  import { mapGetters } from 'vuex'
 
   export default {
+    name: "Groups",
+
     props: {
-      specialty: '',
-      idSpecialty: ''
+      specialtyID: {
+        type: String,
+        required: true
+      },
     },
-    computed: {
-      ...mapGetters(['currentSpecialty', 'allGroups'])
-    },
-    mounted: function(){
-      this.fetchSpecialty(this.idSpecialty)
-    },
-    methods: {
-      ...mapActions(['fetchSpecialty']),
-    }
+
+    data: () => ({
+      localError: false,
+      hrefImageBlock: '../assets/blocked.png',
+    }),
+
+    computed: mapGetters([
+      'groupsByCurrentSpecialty',
+      'nameCurrentSpecialty',
+      'loaderGroups'
+    ]),
+
+    async created() {
+      try {
+        await this.$store.dispatch("fetchGroupsBySpecialtyID", this.specialtyID)
+      } catch(err) {
+        this.localError = true
+      }
+    }  
   }
 </script>
 
@@ -40,15 +65,20 @@
     padding: 15px 45px;
     text-align: center;
   }
-  .group {
+  .content__groups {
+    padding-top: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-  .group > h2 {
+  .content__groups > h2 {
     text-align: center;
     margin: 10px 0px 35px 0px;
     font-weight: 500;
   }
-  .group > h2 > span { font-weight: 800; }
+  .content__groups > h2 > span { font-weight: 800; }
+
+  .content__groups > img{
+    margin-top: 30px
+  }
 </style>

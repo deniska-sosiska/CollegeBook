@@ -1,35 +1,24 @@
-import { getUsers, setNewUser } from "../../services/user.service"
 import axiosApiInstance from "/services/axiosApiInstance"
 
 const mutations = {
   setAccountData(state, payload) {
     state.accountData = payload
+    localStorage.setItem("accountData", JSON.stringify(payload))
   },
   clearAccountData(state) {
     state.accountData = null
+    localStorage.removeItem("accountData")
   }
 }
 const actions = {
   async getAccountData({ commit }, payload) {
     const res = await axiosApiInstance({
-      url: `authentication`,
+      url: `user/authentication`,
       data: payload,
       method: 'post'
     })
     
     commit('setAccountData', res)
-  },
-
-
-
-  //
-  async setNewRegisteredUser({commit}, data) {
-    try {
-      let res = await setNewUser(data)
-    }
-    catch (error) {
-      console.error("Error with API. File: store > user:setNewRegisteredUser\n" ,error)
-    }
   }
 }
 

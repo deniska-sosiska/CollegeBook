@@ -16,7 +16,7 @@ const routes = [
   },
   {
     name: 'Groups',
-    path: '/:specialty/:idSpecialty',
+    path: '/:specialtyID',
     component: () => import("../Views/Groups.vue"),
     props: true,
     meta: {  requiresAuth: true  }

@@ -1,44 +1,73 @@
-import { getSpecialty, getSpecialties } from "../../services/specialty.service"
+import axiosApiInstanse from '../../services/axiosApiInstance'
 
 const mutations = {
-  updateSpecialty(state, data) {
-    state.specialty = data
+  setNameCurrentSpecialty(state, name) {
+    state.nameCurrentSpecialty = name
   },
-  updateSpecialties(state, data) {
-    state.specialties = data
+
+  setGroupsByCurrentSpecialty(state, payload) {
+    state.groupsByCurrentSpecialty = payload
+  },
+  setAllSpecialties(state, payload) {
+    state.allSpecialties = payload
+  },
+
+  switchLoader(state, name) {
+    if (name === 'loaderSpecialties') 
+      state.loaderSpecialties = !state.loaderSpecialties
+    else if (name === 'loaderGroups') 
+      state.loaderGroups = !state.loaderGroups
   }
 }
+
 const actions = {
-  async fetchSpecialty({commit, dispatch}, id) { // 
-    try {
-      const res = await getSpecialty(id)
-      commit('updateSpecialty', res.data)
-      dispatch('fetchGroups', res.data.groups)
-    }
-    catch (error) {
-      console.error("Error with API. File: store > specialty:fetchSpesialty\n" ,error)
-    }
+  async fetchAllSpecialties({ commit }) {
+    commit('switchLoader', 'loaderSpecialties')
+    const res = await axiosApiInstanse({
+      url: 'specialty'
+    })
+
+    commit('setAllSpecialties', res)
+    commit('switchLoader', 'loaderSpecialties')
   },
-  async fetchSpecialties({commit}) {
+
+
+  async fetchGroupsBySpecialtyID({ commit }, specialtyID) {
+    commit('switchLoader', 'loaderGroups')
+
     try {
-      const res = await getSpecialties()
-      commit('updateSpecialties', res.data)
-      if (res.data.length !== 0)
-        commit('updatePreloaderMain', false)
-    }
-    catch (error) {
-      console.error("Error with API. File: store > specialty:fetchSpesialties\n" ,error)
+      const res = await axiosApiInstanse({
+        url: `group/specialtyID/${specialtyID}`
+      })
+      
+      commit("setNameCurrentSpecialty", res.nameSpecialty)
+      commit("setGroupsByCurrentSpecialty", res.groups)
+    } catch(err) {
+      commit("setNameCurrentSpecialty", "Ця спецiальнiсть зараз закрита для перегляду")
+      throw err
+    } finally {
+      commit('switchLoader', 'loaderGroups')
     }
   }
+
 }
 const getters = {
-  currentSpecialty: ({specialty}) => specialty,
-  allSpecialties: ({specialties}) => specialties
+  groupsByCurrentSpecialty: ({ groupsByCurrentSpecialty }) => groupsByCurrentSpecialty,
+  allSpecialties: ({ allSpecialties }) => allSpecialties,
+  nameCurrentSpecialty: ({ nameCurrentSpecialty }) => nameCurrentSpecialty,
+
+  loaderSpecialties: ({ loaderSpecialties }) => loaderSpecialties,
+  loaderGroups: ({ loaderGroups }) => loaderGroups
+
 }
 
 const state = () => ({
-  specialty: {},
-  specialties: []
+  loaderSpecialties: false,
+  loaderGroups: false,
+
+  nameCurrentSpecialty: '',
+  groupsByCurrentSpecialty: [],
+  allSpecialties: []
 })
 
 export default {

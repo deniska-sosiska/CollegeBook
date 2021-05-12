@@ -3,11 +3,11 @@
     <form @submit.prevent="authentication" class="signIn">
         <div>
             <label for="login">Логiн: </label>
-            <input id="login" v-model="formAccountData.userLogin" type="text">
+            <input id="login" v-model.trim="formAccountData.userLogin" type="text">
         </div>
         <div>
             <label for="pass">Пароль: </label>
-            <input id="pass" v-model="formAccountData.userPassword" type="password">
+            <input id="pass" v-model.trim="formAccountData.userPassword" type="password">
         </div>
         <div v-if="isFake"  style="display: block; margin-bottom: 5px;">
             <p class="isFake">{{ errorMessage }}</p>
