@@ -4,33 +4,23 @@ const routes = [
     path: '/',
     component: () => import("../Views/Specialties.vue")
   },
-  {  
-    name: 'SignIn',
-    path: '/Authorization/SignIn',
-    component: () => import("../Views/Authorization/Sign-in.vue")
-  },
-  {
-    name: 'SignUp',
-    path: '/Authorization/SignUp',
-    component: () => import("../Views/Authorization/Sign-up.vue")
-  },
   {
     name: 'Groups',
-    path: '/:specialtyID',
+    path: '/search/:specialtyID',
     component: () => import("../Views/Groups.vue"),
     props: true,
     meta: {  requiresAuth: true  }
   },
   {
-    name: 'ChoiseMagazines',
-    path: '/:specialty/:group/:idGroup',
+    name: 'Magazines',
+    path: '/search/:specialtyID/:groupID',
     component: () => import("../Views/Magazines.vue"),
     props: true,
     meta: {  requiresAuth: true  }
   },
   {
     name: 'AcademicAttendance',
-    path: '/:specialty/:group/:magazines',
+    path: '/search/:specialtyID/:groupID/AcademicAttendance',
     component: () => import("../Views/Academic-attendance/Academic-attendance.vue"),
     props: true,
     meta: {  requiresAuth: true  }
@@ -42,11 +32,27 @@ const routes = [
     props: true,
     meta: {  requiresAuth: true  }
   },
+
+  {  
+    name: 'SignIn',
+    path: '/Authorization/SignIn',
+    component: () => import("../Views/Authorization/Sign-in.vue")
+  },
+  {
+    name: 'SignUp',
+    path: '/Authorization/SignUp',
+    component: () => import("../Views/Authorization/Sign-up.vue")
+  },
   {
     name: 'AdminPanel',
     path: '/AdminPanel',
     component: () => import("../Views/AdminPanel.vue"),
     meta: {  requiresAuth: true, accountAdmin: true  }
+  },
+  {
+    name: "NotFound",
+    path: "*",
+    component: () => import("../Views/NotFound.vue")
   }
 ]
 

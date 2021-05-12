@@ -3,8 +3,7 @@
     <h2>Вибiр журналу</h2>
     <div class="magazines">
       <router-link class="imageBlock hover"
-       :specialty="specialty" :group="group"
-       :to = "'/' + specialty + '/' + group + '/AcademicAttendance'">
+       :to="{ name: 'AcademicAttendance', params: { specialtyID, groupID }}">
         <img :src="hrefAcademicAttendance">
         <p>Журнал відвідувань</p>
       </router-link>
@@ -18,25 +17,31 @@
 </template>
 
 <script>
-import Vue from 'vue'
+  export default {
+    name: "Magazines",
 
-export default {
-  data() {
-    return {
-        hrefAcademicAttendance: '../assets/hrefAcademicAttendance.jpg',
-        hrefAcademicProgress: '../assets/hrefAcademicAttendance.jpg',
-        hrefImageBlock: '../assets/blocked.png',
+    props: {
+      specialtyID: {
+        type: String,
+        required: true
+      },
+      groupID: {
+        type: String,
+        required: true
       }
     },
-    props: {
-      specialty: '',
-      group: ''
-    },
+
+    data:() => ({
+      hrefAcademicAttendance: '../assets/hrefAcademicAttendance.jpg',
+      hrefAcademicProgress: '../assets/hrefAcademicAttendance.jpg',
+      hrefImageBlock: '../assets/blocked.png',
+    }),
+
     mounted() {
       // let box = {"specialty": this.specialty, "group": this.group}
       // this.$store.dispatch('updateDataOfCurrentGroup', box)
     }
-  }
+    }
 </script>
 
 <style scoped>
@@ -64,7 +69,7 @@ export default {
     width: 400px;
   }
   .blocked {
-    z-index: 100;
+    z-index: 2;
     position: absolute;
     top: 75px;
   }

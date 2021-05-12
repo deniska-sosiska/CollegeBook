@@ -14,7 +14,7 @@
             <label for="">Cпеціальність: </label>
             <select v-model="newUser.role.specialty" @change="setCurrentSpecialty()" style="width: 240px;" required>
               <option disabled value="">Варiанти</option>
-              <option v-for="(value, name, index) in allSpecialties" :key="index" :value="value._id">{{value.name}}</option>
+              <option v-for="(value, name, index) in allSpecialties" :key="index" :value="value._id">{{ value.name }}</option>
             </select>
           </div>
         </template>
@@ -23,7 +23,7 @@
             <label for="">Ваша група: </label>
             <select v-model="newUser.role.groupName" required  style="width: 240px;">
               <option disabled value="">Варiанти</option>
-              <option v-for="(value, index) in allGroups" :key="index" :value="value._id">{{value.nameGroup}}</option>
+              <option v-for="(value, index) in allGroups" :key="index" :value="value._id">{{value.name }}</option>
             </select>
           </div>
         </template>

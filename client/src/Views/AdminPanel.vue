@@ -1,7 +1,13 @@
 <template>
   <div class="adminPanel"> 
-    <div class="group">
+    <div class="create_group">
       <h2>Додати нову группу</h2>
+      <select v-model="selectedSpecialty">
+        <option disabled value="">Варiанти</option>
+        <option>А</option>
+        <option>Б</option>
+        <option>В</option>
+      </select>
     </div>
     <div class="user"></div>
   </div>  
@@ -9,7 +15,11 @@
 
 <script>
   export default {
-    name: "AdminPanel"
+    name: "AdminPanel",
+
+    data: () => ({
+      selectedSpecialty: ''
+    })
     
   }
 </script>

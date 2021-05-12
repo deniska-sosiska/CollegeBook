@@ -5,7 +5,7 @@
       <p>День тижня: {{getNowDay}}</p>
       <p>Поточний час: {{getCurrentTime}}</p>
     </div>
-    <table>
+    <!-- <table>
       <thead>
         <tr class="firstTR"><th>№</th><th>ПІБ</th>
         <th v-for="(i, index) in 4" :key="index">{{getCurrentLesson(i)}}</th>
@@ -24,23 +24,32 @@
     <div class="buttons">
       <p class="hover" @click="submit"  v-if="getUser.role.name == 'Староста групи'">Відправити нові дані</p>
       <router-link class="hover" :to="'/' + specialty + '/' + group + '/AcademicAttendance/info'">Переглянути усю інформацію</router-link>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-  import Vue from 'vue'
-  import axios from 'axios'
-
   export default {
-    data () {
-      return {
-        nameDays: ["Неділя","Понеділок","Вівторок","Середа","Четвер","П'ятниця","Субота"],
-        months: ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"],
-        qwe: [true, false, false, false],
-        dataOfStud: []
+    name: "AcademicAttendance",
+
+    props: {
+      specialtyID: {
+        type: String,
+        required: true
+      },
+      groupID: {
+        type: String,
+        required: true
       }
     },
+
+    data: () => ({
+      nameDays: ["Неділя","Понеділок","Вівторок","Середа","Четвер","П'ятниця","Субота"],
+      months: ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"],
+      qwe: [true, false, false, false],
+      dataOfStud: []
+    }),
+
     computed: {
       getUser() {
         return this.$store.getters.getUser 
@@ -50,7 +59,9 @@
         hours < 10 ? hours = '0'+ hours : hours; min < 10 ? min = '0'+ min : min 
         return hours + ':' +  min
       },
-      getNowDay() {  return this.nameDays[new Date().getDay()]  },
+      getNowDay() {
+        return this.nameDays[new Date().getDay()]
+      },
       getNowDate() {  
         let data = new Date().getDate() + '.' + (new Date().getMonth() + 1) + '.' + new Date().getFullYear()
         return data
@@ -62,20 +73,22 @@
         return this.$store.getters.getDataOfStud
       }
     },
-    mounted: function() {
-      let box = {"specialty": this.specialty, "group": this.group}
-      this.$store.dispatch('updateDataOfCurrentGroup', box)
 
-      this.getDataOfStud.forEach((elem, index) => {
-        if (!elem.attandance[this.getNowDate]) {
-          let data = {indexStud: index ,info: {"first": false, "second": false, "third": false, "fourth": false}}
-          this.$store.dispatch('updateStud', data)
-        }
-      })
-      setTimeout(() => {
-        this.dataOfStud = this.getDataOfStud
-      }, 80)
+    mounted: function() {
+      // let box = {"specialty": this.specialty, "group": this.group}
+      // this.$store.dispatch('updateDataOfCurrentGroup', box)
+
+      // this.getDataOfStud.forEach((elem, index) => {
+      //   if (!elem.attandance[this.getNowDate]) {
+      //     let data = {indexStud: index ,info: {"first": false, "second": false, "third": false, "fourth": false}}
+      //     this.$store.dispatch('updateStud', data)
+      //   }
+      // })
+      // setTimeout(() => {
+      //   this.dataOfStud = this.getDataOfStud
+      // }, 80)
     },
+
     methods: {
       zxc(data) {
         let response  = data ?  "✓" :  " "
@@ -98,10 +111,6 @@
           return answer
         } 
       }
-    },
-    props: {
-      specialty: '',
-      group: ''
     },
   }
 </script>

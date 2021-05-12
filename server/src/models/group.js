@@ -5,10 +5,9 @@ const schema = new Schema({
   schedule: [],
   headman: { type: String }, //староста
   leader: typeStrReqTrue, //керiвник групи
-  nameGroup: typeStrReqTrue,
+  name: typeStrReqTrue,
   specialtyID: typeStrReqTrue,
-  abbreviation: typeStrReqTrue,
-  abbreviation_ua: typeStrReqTrue
+  abbreviation: typeStrReqTrue
 })
 
 module.exports = model('Group', schema) 

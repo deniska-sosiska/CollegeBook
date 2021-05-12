@@ -8,12 +8,10 @@
       <div class="content__groups" v-if="!localError">
         <h2>Усі групи за спеціальністю: <span>{{ nameCurrentSpecialty }}</span></h2>
         <router-link 
-          v-for="(group, key) in groupsByCurrentSpecialty"
-          :key="key"
-          :spesialty="groupsByCurrentSpecialty.id"
-          :group="group.id"
-          :to="'/' + groupsByCurrentSpecialty.id + '/' + group.id + '/' + group._id + '/'">
-            <p class="infoGroup hover">Група: {{group.nameGroup}} || Староста: {{group.headman}} || Класний керівник: {{group.leader}}</p>
+          v-for="(group) in groupsByCurrentSpecialty" :key="group._id"
+          :to="{ name: 'Magazines', params: { specialty: specialtyID, groupID: group.abbreviation }}"
+        >
+          <p class="infoGroup hover">Група: {{ group.name }} || Староста: {{group.headman}} || Класний керівник: {{group.leader}}</p>
         </router-link>
       </div>
 
