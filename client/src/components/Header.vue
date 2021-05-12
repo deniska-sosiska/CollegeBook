@@ -11,7 +11,7 @@
     <nav class="menu">
       <router-link :to = "'/'" class="hover">Головна</router-link>
       <!--  -->
-      <router-link v-if="getUser === null" :to ="{ name: 'SignIn' }" class="hover">Авторизацiя</router-link>
+      <router-link v-if="accountData === null" :to ="{ name: 'SignIn' }" class="hover">Авторизацiя</router-link>
 
       <div v-else class="dropdown">
         <div class="hover" :class=' flag ? "headerHover": "" '>Меню аккаунту</div>
@@ -22,14 +22,14 @@
         >
           <div
             class="hover"
-          >Логiн: {{ getUser.login }}</div>
+          >Логiн: {{ accountData.login }}</div>
           <router-link
-            v-if="getUser.role.name === 'Admin' "
+            v-if="accountData.role.name === 'Admin' "
             :to="{ name: 'AdminPanel' }"
             class="hover"
           >Адмiн панель</router-link>
           <div 
-            @click="clearCurrentUser"
+            @click="clearAccountData()"
             class="hover"
           >Вийти з аккаунту</div>
         </div>
@@ -53,11 +53,11 @@ export default {
   }),
 
   computed: {
-    ...mapGetters(['getUser'])
+    ...mapGetters(['accountData'])
   },
   methods: {
-    clearCurrentUser: function() {
-      this.$store.commit('clearCurrentUser')
+    clearAccountData: function() {
+      this.$store.commit('clearAccountData')
       this.$router.push("/").catch(() => {})
       this.flag = false
     }

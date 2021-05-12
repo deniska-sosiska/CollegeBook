@@ -5,15 +5,8 @@ const mutations = {
   setAccountData(state, payload) {
     state.accountData = payload
   },
-  setCurrentUser(state, currentUser) {
-    state.currentUser = {
-      login: currentUser.login,
-      password: currentUser.password,
-      role: currentUser.role
-    }
-  },
-  clearCurrentUser(state) {
-    state.currentUser = null
+  clearAccountData(state) {
+    state.accountData = null
   }
 }
 const actions = {
@@ -23,7 +16,7 @@ const actions = {
       data: payload,
       method: 'post'
     })
-
+    
     commit('setAccountData', res)
   },
 
@@ -41,13 +34,11 @@ const actions = {
 }
 
 const getters = {
-  accountData: ({ accountData }) => accountData,
-  getUser: ({ currentUser }) => currentUser,
+  accountData: ({ accountData }) => accountData
 }
 
 const state = () => ({
-  accountData: null,
-  currentUser: null
+  accountData: null
 })
 
 export default {
