@@ -3,6 +3,7 @@ import axiosApiInstance from "/services/axiosApiInstance"
 const mutations = {
   setAccountData(state, payload) {
     state.accountData = payload
+    console.log(state.accountData)
     localStorage.setItem("accountData", JSON.stringify(payload))
   },
   clearAccountData(state) {

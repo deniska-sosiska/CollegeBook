@@ -6,12 +6,6 @@
 
     <template v-else>
       <div v-for="(specialty) in allSpecialties" :key="specialty._id">
-        <!--якщо вона порожня-->
-        <!-- <div v-if="specialty.groups.length == 0" class="specialty hover"> 
-            <img :src="hrefImageBlock" class="blocked" title="на етапі розробки">
-            <img :src="specialty.imageLink">
-            <p>{{specialty.name}}</p>
-        </div> -->
         <router-link  
           class="specialty hover"
           :to="{ name: 'Groups', params: { specialtyID: specialty.abbreviation }}"
@@ -38,7 +32,6 @@
   .content {
     padding: 0px 0px;
     display: flex;
-    /* justify-content: space-around; */
     flex-wrap: wrap;
   }
   .specialty {

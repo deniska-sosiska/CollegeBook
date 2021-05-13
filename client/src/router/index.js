@@ -14,7 +14,7 @@ router.beforeEach((to, from, next) => {
   if(to.matched.some(record => record.meta.requiresAuth)) {
     if (!localStorage.accountData) { // if user not authorized => redirect to SignIn component 
       next({
-        path: "SignIn",
+        name: "SignIn",
         query: {  redirect: to.fullPath  }
       })
     }

@@ -24,7 +24,7 @@
             class="hover"
           >Логiн: {{ accountData.login }}</div>
           <router-link
-            v-if="accountData.role.name === 'Admin' "
+            v-if="accountData.role === 'Admin'"
             :to="{ name: 'AdminPanel' }"
             class="hover"
           >Адмiн панель</router-link>

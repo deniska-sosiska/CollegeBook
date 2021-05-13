@@ -6,11 +6,9 @@ const schema = new Schema({
   password: typeStrReqTrue,
   name: typeStrReqTrue,
   email: typeStrReqTrue,
-  role: {
-    name: typeStrReqTrue,
-    specialty: typeStrReqTrue,
-    groupName: typeStrReqTrue
-  }
+  role: typeStrReqTrue,
+  specialtyID: { type: String },
+  groupID: { type: String }
 })
 
 module.exports = model('User', schema)

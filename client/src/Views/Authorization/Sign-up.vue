@@ -1,67 +1,71 @@
 <template>
-  <div class="Authorization">
-    <form class="signUp">
+  <div class="registration">
+    <form @submit.prevent="registred()" class="signUp">
       <template class="first" v-if="first">
         <div>
           <label for="">Ваша "роль": </label>
-          <select v-model="newUser.role.name" required>
+          <select v-model="formAccountData.role" required>
             <option disabled value="">Варiанти</option>
             <option v-for="(value, index) in list" :key="index" :value="value">{{value}}</option>
           </select>
         </div>
-        <template v-if="newUser.role.name == list[0] || newUser.role.name == list[1]">
+        <template v-if="showSpecialties">
           <div>
             <label for="">Cпеціальність: </label>
-            <select v-model="newUser.role.specialty" @change="setCurrentSpecialty()" style="width: 240px;" required>
+            <select v-model="formAccountData.specialtyID" @change="fetchGroups()" required>
               <option disabled value="">Варiанти</option>
-              <option v-for="(value, name, index) in allSpecialties" :key="index" :value="value._id">{{ value.name }}</option>
+              <option v-for="(specialty) in allSpecialties" :key="specialty._id" :value="specialty.abbreviation">{{ specialty.name }}</option>
             </select>
           </div>
         </template>
-        <template v-if="(newUser.role.specialty && newUser.role.name != list[2])">
+        <template v-if="showGroups">
           <div>
             <label for="">Ваша група: </label>
-            <select v-model="newUser.role.groupName" required  style="width: 240px;">
+            <select v-model="formAccountData.groupID" required>
               <option disabled value="">Варiанти</option>
-              <option v-for="(value, index) in allGroups" :key="index" :value="value._id">{{value.name }}</option>
-            </select>
+              <option v-for="(group) in groupsByCurrentSpecialty" :key="group._id" :value="group.abbreviation">{{ group.name }}</option>
+            </select> 
           </div>
         </template>
-        <div class="inputs" style="margin-top: 30px;">
-          <input type="button" value="Відмінити реєстрацію" @click="canselRegistration()" style="margin-right:10px;">
-          <input type="button" value="Продовжити" @click="isFirst()" style="margin-left:10px;">
+        <div class="inputs">
+          <input type="button" value="Відмінити реєстрацію" @click="canselRegistration()">
+          <input :disabled="isError" type="button" value="Продовжити" @click="isFirst()">
         </div>
-        <div v-if="isFake"  style="display: block; margin-bottom: 0px;">
-            <p class="isFake">Спочатку оберіть усі свої дані</p>
+        <div 
+          v-if="isError"
+          class="isError"
+        ><p>{{ errorMessage }}</p>
         </div>
       </template>
 
       <template class="second" v-if="second">
         <div>
           <label for="newName">ПІБ: </label>
-          <input id="newName" v-model.trim="newUser.name" placeholder="Ім'я має збігатися з журналом" type="text" required>
+          <input id="newName" v-model.trim="formAccountData.name" placeholder="Ім'я має збігатися з журналом" type="text" required>
         </div>
         <div>
           <label for="newEmail">Email: </label>
-          <input id="newEmail" v-model.trim="newUser.email" placeholder="BoBa@example.com" type="email" required>
+          <input id="newEmail" v-model.trim="formAccountData.email" placeholder="BoBa@example.com" type="email" required>
         </div>
         <div>
           <label for="newLogin">Логiн: </label>
-          <input id="newLogin" v-model.trim="newUser.login" placeholder="Наприклад: ßØß4uK" type="text" required>
+          <input id="newLogin" v-model.trim="formAccountData.login" placeholder="Наприклад: ßØß4uK" type="text" required>
         </div>
         <div>
           <label for="newPassword">Пароль: </label>
-          <input id="newPassword" v-model.trim="newUser.password" placeholder="Наприклад: q1w2e3_BOBA" type="password" required>
+          <input id="newPassword" v-model.trim="formAccountData.password" placeholder="Наприклад: q1w2e3_BOBA" type="password" required>
         </div>
-        <div class="inputs" style="margin-top: 30px;">
+        <div class="inputs">
           <input type="button" value="Відмінити реєстрацію" @click="canselRegistration()" style="margin-right:10px;">
           <input type="button" value="Повернутися" @click="() => {this.second = false; this.first = true}" style="margin-left:10px;">
         </div>
         <div>
-          <input type="submit" value="Зареєструватися" @click="registred(); return false;">
+          <input type="submit" value="Зареєструватися">
         </div>
-          <div v-if="isFake"  style="display: block; margin-bottom: 0px;">
-            <p class="isFake">Спочатку заповнiть усі поля</p>
+          <div 
+            v-if="isError"
+            class="isError"
+          ><p >{{ errorMessage }}</p>
         </div>
       </template>
       </form>
@@ -69,7 +73,7 @@
 </template>
 
 <script>
-  import { mapGetters, mapActions, mapMutations } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
 
   export default {
     name: "SignUp",
@@ -77,7 +81,9 @@
     data: () => ({
       first: true,
       second: false,
-      isFake: false,
+
+      errorMessage: '',
+      groupNotFoundMessage: "Реєстрація для цієї спеціальності наразi неможлива",
 
       list: [
         "Студент",
@@ -85,60 +91,81 @@
         "Вчитель"
       ],
 
-      newUser: {
-        "name": '',
-        "role": {
-          "name": '',
-          "specialty": '',
-          "groupName": ''
-        },
-        "login": '',
-        "password": '',
-        "email": ''
+      formAccountData: {
+        name: '',
+        login: '',
+        password: '',
+        email: '',
+
+        role: '',
+        specialtyID: '',
+        groupID: ''
       }
     }),
     computed: {
-      ...mapGetters(['allSpecialties', 'allGroups']),
+      ...mapGetters(['allSpecialties', 'groupsByCurrentSpecialty']),
+      
+      isError() {
+        return !!this.errorMessage
+      },
+      showSpecialties() {
+        return this.formAccountData.role &&  this.formAccountData.role !== this.list[2]
+      },
+      showGroups() {
+        let booleanAnswer = false
+        if ((this.formAccountData.role != this.list[2]) && this.formAccountData.specialtyID) {
+          if (this.errorMessage !== this.groupNotFoundMessage) {
+            booleanAnswer = true
+          } else  {  booleanAnswer = false  }
+        } else {  booleanAnswer = false  }
+
+
+        return booleanAnswer
+      }
     },
     methods:{
-      ...mapMutations(['setCurrentUser']),
-      ...mapActions(['fetchSpecialty', 'setNewRegisteredUser']),
-      registred: function() {
-        if (!this.newUser.password || !this.newUser.login || !this.newUser.name || !this.newUser.email) {
-          this.isFake = true
-          setTimeout(() => {
-            this.isFake = false
-          }, 3000);
+      ...mapActions(['fetchGroupsBySpecialtyID']),
+
+      registred() {
+        if (!this.formAccountData.password || !this.formAccountData.login || !this.formAccountData.name || !this.formAccountData.email) {
+          this.throwErrorMessage("Спочатку оберіть усі свої дані")
         }
         else {
-          this.setNewRegisteredUser(this.newUser)
-          this.setCurrentUser({
-            login: this.newUser.login, 
-            password: this.newUser.password,
-            role: this.newUser.role
-          })
-          this.$router.push('/')
+          this.throwErrorMessage("Доделать регистрацию по пользователям")
+          console.log(this.formAccountData)
         }
       },
-      setCurrentSpecialty: function() {
-        this.fetchSpecialty(this.newUser.role.specialty)
-      },
-      isFirst: function() {
-        if (!this.newUser.role.name) {
-          this.isFake = true
-          setTimeout(() => {
-            this.isFake = false
-          }, 3000);
+
+      async fetchGroups() {
+        try {
+          this.formAccountData.groupID = ''
+          await this.fetchGroupsBySpecialtyID(this.formAccountData.specialtyID)
+        } catch(err) {
+          this.throwErrorMessage(this.groupNotFoundMessage)
+          this.formAccountData.specialtyID = ''
         }
-        else if ((this.newUser.role.name == this.list[0] || this.newUser.role.name == this.list[1]) && 
-                (!this.newUser.role.groupName)){
-          this.isFake = true
-          setTimeout(() => {
-            this.isFake = false
-          }, 3000);
+      },
+
+      throwErrorMessage(mes) {
+        this.errorMessage = ''
+        this.errorMessage = mes
+        setTimeout(() => {
+          this.errorMessage = ''
+        }, 3000)
+      },
+
+      isFirst() {
+        if (!this.formAccountData.role) {
+          this.throwErrorMessage("Спочатку оберіть усі свої дані")
+        }
+        else if ((this.formAccountData.role == this.list[0] || this.formAccountData.role == this.list[1])
+           && (!this.formAccountData.groupID))
+        {
+          this.throwErrorMessage("Спочатку оберіть усі свої дані")
         }
         else {
           this.first = false
+          this.errorMessage = ''
           this.second = true
         }
       },
@@ -151,12 +178,8 @@
 </script>
 
 <style scoped>
-    .Authorization  {
-        display: flex;
-        justify-content: center;
-    }
     form {
-      margin-top: 70px;
+      margin: 70px auto;
       width: 500px;
       padding: 30px 20px;
       border-radius: 25px;
@@ -178,18 +201,29 @@
     form > div > select {
       font-size: 17px;
       flex-grow: 3;
+      width: 240px;
+      outline: none;
     }
     input {
-      padding: 2px 0px 0px 0px;
+      padding: 2px 4px 0px 4px;
     }
+    .inputs > input { 
+      margin-right: 10px;
+      padding: 2px 6px
+    }
+    .inputs > input:last-child { margin-right: 0px }
+
     .forCenter {
       font-size: 16px;
       padding: 0px 57px;
     }
-    .isFake {
+    .isError {
+      display: block;
+      margin-bottom: 0px
+    }
+    .isError p {
       color: red;
       text-align: center;
       margin: 0 auto;
-      /* display: none */
     }
 </style>

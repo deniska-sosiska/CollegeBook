@@ -11,7 +11,12 @@
           v-for="(group) in groupsByCurrentSpecialty" :key="group._id"
           :to="{ name: 'Magazines', params: { specialty: specialtyID, groupID: group.abbreviation }}"
         >
-          <p class="infoGroup hover">Група: {{ group.name }} || Староста: {{group.headman}} || Класний керівник: {{group.leader}}</p>
+          <p 
+            v-if="(group.headman && !group.schelude)"
+            class="group hover"
+          >
+          Група: {{ group.name }} || Староста: {{group.headman}} || Класний керівник: {{group.leader}}
+        </p>
         </router-link>
       </div>
 
@@ -33,7 +38,7 @@
       specialtyID: {
         type: String,
         required: true
-      },
+      }
     },
 
     data: () => ({
@@ -58,7 +63,7 @@
 </script>
 
 <style  scoped>
-  .infoGroup {
+  .group {
     font-size: 20px;
     padding: 15px 45px;
     text-align: center;

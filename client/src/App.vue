@@ -16,9 +16,9 @@
       if (localStorage.accountData) {
         const accountData = JSON.parse(localStorage.accountData)
         this.$store.commit("setAccountData", accountData)
-      }  
+      }
 
-      await this.$store.dispatch("fetchAllSpecialties")   
+      await this.$store.dispatch("fetchAllSpecialties")
     }
   }
 </script>
