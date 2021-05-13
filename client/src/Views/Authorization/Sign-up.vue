@@ -28,8 +28,8 @@
           </div>
         </template>
         <div class="inputs">
-          <input type="button" value="Відмінити реєстрацію" @click="canselRegistration()">
-          <input :disabled="isError" type="button" value="Продовжити" @click="isFirst()">
+          <input class="hover" type="button" value="Відмінити реєстрацію" @click="canselRegistration()">
+          <input class="hover" :disabled="isError" type="button" value="Продовжити" @click="isFirst()">
         </div>
         <div 
           v-if="isError"
@@ -56,11 +56,11 @@
           <input id="newPassword" v-model.trim="formAccountData.password" placeholder="Наприклад: q1w2e3_BOBA" type="password" required>
         </div>
         <div class="inputs">
-          <input type="button" value="Відмінити реєстрацію" @click="canselRegistration()" style="margin-right:10px;">
-          <input type="button" value="Повернутися" @click="() => {this.second = false; this.first = true}" style="margin-left:10px;">
+          <input class="hover" type="button" value="Відмінити реєстрацію" @click="canselRegistration()" style="margin-right:10px;">
+          <input class="hover" type="button" value="Повернутися" @click="() => {this.second = false; this.first = true}" style="margin-left:10px;">
         </div>
         <div>
-          <input type="submit" value="Зареєструватися">
+          <input class="hover" type="submit" value="Зареєструватися">
         </div>
           <div 
             v-if="isError"
@@ -175,52 +175,9 @@
 </script>
 
 <style scoped>
-    form {
-      margin: 70px auto;
-      width: 500px;
-      padding: 30px 20px;
-      border-radius: 25px;
-      border: 1px solid #ccc;
-    }
-    form > div {
-      margin-bottom: 15px;
-      padding: 0px 20px;
-      display: flex;
-    }
-    form > div:last-child {
-      margin: 0px;
-    }
-    form >  div > label {
-      padding-right: 15px;
-      font-size: 19px;
-    }
-    form > div > input,
-    form > div > select {
-      font-size: 17px;
-      flex-grow: 3;
-      width: 240px;
-      outline: none;
-    }
-    input {
-      padding: 2px 4px 0px 4px;
-    }
-    .inputs > input { 
-      margin-right: 10px;
-      padding: 2px 6px
-    }
-    .inputs > input:last-child { margin-right: 0px }
+  @import url("../../assets/style.css");
 
-    .forCenter {
-      font-size: 16px;
-      padding: 0px 57px;
-    }
-    .isError {
-      display: block;
-      margin-bottom: 0px
-    }
-    .isError p {
-      color: red;
-      text-align: center;
-      margin: 0 auto;
-    }
+  form {
+    margin: 70px auto;
+  }
 </style>

@@ -1,0 +1,63 @@
+form {
+  margin: 20px auto;
+  width: 500px;
+  padding: 30px 20px;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+}
+form > div {
+  margin-bottom: 15px;
+  padding: 0px 20px;
+  display: flex;
+}
+form > div:last-child {
+  margin: 0px;
+}
+form >  div > label {
+  padding-right: 15px;
+  font-size: 19px;
+}
+form > div > input,
+form > div > select {
+  font-size: 17px;
+  flex-grow: 3;
+  width: 240px;
+  outline: none;
+}
+input {
+  padding: 2px 4px 0px 4px;
+}
+.inputs > input { 
+  margin-right: 10px;
+  padding: 2px 6px
+}
+.inputs > input:last-child { margin-right: 0px }
+
+input[type="button"],
+input[type="submit"] {
+  padding: 4px 6px;
+  background-color:aliceblue;
+
+  outline: none;
+}
+
+.forCenter {
+  font-size: 16px;
+  padding: 0px 57px;
+}
+.isError {
+  display: block;
+  margin-bottom: 0px
+}
+.isError p {
+  color: red;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.mt { margin-top: 30px }
+
+h2 {
+  text-align: center;
+  padding: 20px;
+}

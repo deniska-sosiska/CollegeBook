@@ -9,14 +9,16 @@
             <label for="pass">Пароль: </label>
             <input id="pass" v-model.trim="formAccountData.userPassword" type="password">
         </div>
-        <div v-if="isFake"  style="display: block; margin-bottom: 5px;">
-            <p class="isFake">{{ errorMessage }}</p>
+        <div v-if="isError"  style="display: block; margin-bottom: 5px;">
+            <p class="isError">{{ errorMessage }}</p>
         </div>
         <div>
-            <input type="submit">
+            <input class="hover" type="submit">
         </div>
         <div>
-            <p class="forCenter">Ще не зареєстровані? <router-link :to="{ name: 'SignUp' }" class="regist">Реєстрація</router-link></p>
+            <p class="forCenter">Ще не зареєстровані?
+              <router-link :to="{ name: 'SignUp' }"> <span>Реєстрація</span> </router-link>
+            </p>
         </div>
     </form>
   </div>
@@ -33,7 +35,7 @@
         userLogin: 'denisAdmin',
         userPassword: '2001'
       },
-      isFake: false,
+      isError: false,
       errorMessage: ''
     }),
     methods: {
@@ -59,58 +61,24 @@
 
       showErrorMessage(mes) {
         this.formAccountData.userLogin = this.formAccountData.userPassword = ''
-        this.isFake = true
+        this.isError = true
         this.errorMessage = mes
-        setTimeout(() => this.isFake = false, 3000)
+        setTimeout(() => this.isError = false, 3000)
       }
     }
   }
 </script>
 
 <style scoped>
-  .Authentication  {
-    display: flex;
-    justify-content: center;
-  }
+  @import url("../../assets/style.css");
+
   form {
-    margin-top: 70px;
-    width: 500px;
-    padding: 30px 20px;
-    border-radius: 25px;
-    border: 1px solid #ccc;
+    margin: 70px auto;
   }
-  form > div {
-    margin-bottom: 15px;
-    padding: 0px 20px;
-    display: flex;
-  }
-  form > div:last-child {
-    margin: 0px;
-  }
-  form > div > label {
-    padding-right: 15px;
-    font-size: 19px;
-  }
-  form > div > input,
-  form > div > select {
-    font-size: 17px;
-    flex-grow: 3;
-  }
-  input {
-    padding: 2px 0px 0px 0px;
-  }
-  .forCenter {
-    font-size: 16px;
-    padding: 0px 57px;
-  }
-  .regist {
+
+
+  .forCenter span {
     color: #3366ff;
     cursor: pointer;
-  }
-  .isFake {
-    color: red;
-    text-align: center;
-    margin: 0 auto;
-    /* display: none */
   }
 </style>
