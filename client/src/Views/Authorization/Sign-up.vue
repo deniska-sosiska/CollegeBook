@@ -87,7 +87,6 @@
 
       list: [
         "Студент",
-        "Староста групи",
         "Вчитель"
       ],
 
@@ -109,11 +108,11 @@
         return !!this.errorMessage
       },
       showSpecialties() {
-        return this.formAccountData.role &&  this.formAccountData.role !== this.list[2]
+        return this.formAccountData.role &&  this.formAccountData.role !== this.list[1]
       },
       showGroups() {
         let booleanAnswer = false
-        if ((this.formAccountData.role != this.list[2]) && this.formAccountData.specialtyID) {
+        if ((this.formAccountData.role != this.list[1]) && this.formAccountData.specialtyID) {
           if (this.errorMessage !== this.groupNotFoundMessage) {
             booleanAnswer = true
           } else  {  booleanAnswer = false  }
@@ -158,9 +157,7 @@
         if (!this.formAccountData.role) {
           this.throwErrorMessage("Спочатку оберіть усі свої дані")
         }
-        else if ((this.formAccountData.role == this.list[0] || this.formAccountData.role == this.list[1])
-           && (!this.formAccountData.groupID))
-        {
+        else if ((this.formAccountData.role == this.list[0]) && (!this.formAccountData.groupID)) {
           this.throwErrorMessage("Спочатку оберіть усі свої дані")
         }
         else {
