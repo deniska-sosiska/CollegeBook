@@ -30,6 +30,27 @@
             <label for="">Староста: </label>
             <input v-model.trim="group.headman" type="text" placeholder="Короткий О.В." required>
           </div>
+          <div class="studList mt">
+            <p id="title">Список студентiв</p>
+            <div class="list">
+
+              <div
+                v-for="(student, index) in sortedStud" :key="index"
+                class="stud hover"
+              >
+                <span class="number">{{ index + 1 }}.</span>
+                <p>{{ student }}</p>
+                <span @click="changeStud(index)" class="icons" style="color: green;">✏</span>
+                <span @click="deleteStud(index)" class="icons">×</span>
+              </div>
+            </div>
+            <div class="addStud">
+              <input v-model.trim="student" type="text" placeholder="Берков Денис Сергійович" required>
+              <!--  -->
+              <input class="hover" type="button" :value="inputPlaceholder" @click="pushStud()">
+              <!--  -->
+            </div>
+          </div>
           <div class="mt">
             <input class="hover" type="submit">
         </div>
@@ -46,17 +67,31 @@
     name: "CreateGroup",
 
     data: () => ({
+      student: '',
+      indexChange: '',
+      inputPlaceholder: 'Додати',
+
       group: {
         specialtyID: '',
         name: '',
         abbreviation: '',
         leader: '',
-        headman: ''
+        headman: '',
+
+        studentsList: []
       }
     }),
 
     computed: {
       ...mapGetters(['allSpecialties']),
+
+      sortedStud() {
+        return this.group.studentsList.sort((a, b) => {
+          if (a > b) return 1
+          if (a == b) return 0
+          if (a < b) return -1
+        })
+      },
 
       disabledInput() {
         return !this.group.abbreviation && !this.group.name
@@ -64,14 +99,35 @@
     },
 
     methods: {
+      pushStud() {
+        if (this.inputPlaceholder !== "Додати") {
+          this.inputPlaceholder = "Додати"
+          this.$set( this.group.studentsList, this.indexChange, this.student)
+        }
+        else {
+          this.$set( this.group.studentsList, this.group.studentsList.length, this.student)
+        }
+        this.student = ''
+      },
+      
+      changeStud(index) {
+        this.inputPlaceholder = "Замiнити"
+        this.indexChange = index
+        this.student = this.group.studentsList[index]
+      },
+
+      deleteStud(index) {
+        this.inputPlaceholder = "Додати"
+        this.student = ''
+        this.$delete(this.group.studentsList, index)
+      },
+
       async createGroup() {
         await axiosApiInstanse({
           url: "group",
           data: this.group,
           method: "post"
         })
-
-        
       },
 
       prefix() {
@@ -86,7 +142,70 @@
 <style scoped>
   @import url("../assets/style.css");
 
+  .studList {
+    display: block;
+  }
+  .studList input {
+    width: 100%;
+  }
+  .studList p#title {
+    text-align: center;
+    font-size: 21px;
+    margin-bottom: 10px;
+  }
+
+  .studList > .list {
+    padding: 10px 10px 5px 10px;
+  }
+  .studList > .addStud {
+    display: flex;
+  }
+  .studList > .addStud input {
+    font-size: 18px;
+    outline: none;
+    padding: 4px 6px;
+  }
+  .studList > .addStud input[type="text"] {
+    border: 1px solid #ccc;
+  }
+  .studList > .addStud input[type="button"] {
+    width: 120px;
+  }
+
+
+
+  .stud {
+    font-size: 18px;
+    /* border: 1px solid red; */
+    display: flex;
+    line-height: 22px;
+  }
+  .stud > span.number {
+    min-width: 25px;
+    /* font-size: 18px; */
+    display: inline-block;
+  }
+  
+  .stud > .icons {
+    font-size: 30px;
+    color: red;
+    cursor: pointer;
+    margin-left: 5px;
+    line-height: 22px;
+  }
+  .stud p {
+    flex-grow: 2;
+    font-size: 18px;
+  }
+  .stud p:last-child {
+    margin-bottom: 0px;
+  }
+
   .mt {
     margin-top: 30px !important;
+  }
+  .hover {
+    padding: 4px 6px;
+    cursor: default;
   }
 </style>

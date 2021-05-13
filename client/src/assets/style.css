@@ -23,13 +23,20 @@ form > div > select {
   flex-grow: 3;
   width: 240px;
   outline: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+
 }
 input {
   padding: 2px 4px 0px 4px;
 }
+input[disabled] {
+  background-color: #e6e6e6
+  
+}
 .inputs > input { 
   margin-right: 10px;
-  padding: 2px 6px
+  padding: 2px 6px;
 }
 .inputs > input:last-child { margin-right: 0px }
 
@@ -37,6 +44,7 @@ input[type="button"],
 input[type="submit"] {
   padding: 4px 6px;
   background-color:aliceblue;
+  /* border: 1px solid #e6e6e6; */
 
   outline: none;
 }
