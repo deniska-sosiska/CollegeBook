@@ -28,6 +28,11 @@
             :to="{ name: 'AdminPanel' }"
             class="hover"
           >Адмiн панель</router-link>
+          <a 
+            :href="myGit"
+            class="hover"
+            target="_blank"
+          >Посилання на техпідтримку</a>
           <div 
             @click="clearAccountData()"
             class="hover"
@@ -49,7 +54,9 @@ export default {
     flag: false,
     
     logo_src: '../assets/logo.png',
-    collegeLinkUrl: "http://zetk.com.ua/"
+    collegeLinkUrl: "http://zetk.com.ua/",
+
+    myGit: "https://github.com/deniska-sosiska/CollegeBook-MEVN-stack"
   }),
 
   computed: {

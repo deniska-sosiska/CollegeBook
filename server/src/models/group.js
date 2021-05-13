@@ -3,21 +3,11 @@ const typeStrReqTrue = { type: String, required: true }
 
 const schema = new Schema({
   schedule: [],
-  headman: { type: String }, //староста
+  headman: typeStrReqTrue, //староста
   leader: typeStrReqTrue, //керiвник групи
   name: typeStrReqTrue,
   specialtyID: typeStrReqTrue,
   abbreviation: typeStrReqTrue
 })
 
-module.exports = model('Group', schema) 
-
-// schedule: [
-//   {
-//     1: typeStrReqTrue,
-//     2: typeStrReqTrue,
-//     3: typeStrReqTrue,
-//     4: typeStrReqTrue,
-//     id: typeStrReqTrue,
-//   }
-// ],
+module.exports = model('Group', schema)

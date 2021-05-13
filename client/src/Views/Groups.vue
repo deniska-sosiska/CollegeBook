@@ -8,11 +8,10 @@
       <div class="content__groups" v-if="!localError">
         <h2>Усі групи за спеціальністю: <span>{{ nameCurrentSpecialty }}</span></h2>
         <router-link 
-          v-for="(group) in groupsByCurrentSpecialty" :key="group._id"
+          v-for="(group) in sortGroupByName" :key="group._id"
           :to="{ name: 'Magazines', params: { specialty: specialtyID, groupID: group.abbreviation }}"
         >
           <p 
-            v-if="(group.headman && !group.schelude)"
             class="group hover"
           >
           Група: {{ group.name }} || Староста: {{group.headman}} || Класний керівник: {{group.leader}}
@@ -46,11 +45,21 @@
       hrefImageBlock: '../assets/blocked.png',
     }),
 
-    computed: mapGetters([
-      'groupsByCurrentSpecialty',
-      'nameCurrentSpecialty',
-      'loaderGroups'
-    ]),
+    computed: {
+      ...mapGetters([
+        'groupsByCurrentSpecialty',
+        'nameCurrentSpecialty',
+        'loaderGroups'
+      ]),
+
+      sortGroupByName() {
+        return this.groupsByCurrentSpecialty.sort((a, b) => {
+          if (a.name > b.name) return 1
+          if (a.name == b.name) return 0
+          if (a.name < b.name) return -1
+        })
+      }
+    },
 
     async created() {
       try {

@@ -8,7 +8,6 @@ Vue.use(Vuex)
   export default new Vuex.Store({
   modules: {
     specialty: modules.specialty,
-    group: modules.group,
     user: modules.user
   },
 })
