@@ -9,7 +9,9 @@ const schema = new Schema({
   // ↓ Поле для зв'язку групи зі спеціальністю ↓
   specialtyID: typeStrReqTrue, 
   // ↓ Поле для структури посилання ↓
-  abbreviation: typeStrReqTrue
+  abbreviation: typeStrReqTrue,
+
+  studentsList: []
 })
 
 module.exports = model('Group', schema)

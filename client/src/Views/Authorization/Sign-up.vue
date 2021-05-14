@@ -123,15 +123,20 @@
       }
     },
     methods:{
-      ...mapActions(['fetchGroupsBySpecialtyID']),
+      ...mapActions(['fetchGroupsBySpecialtyID', 'createUser']),
 
-      registred() {
+      async registred() {
         if (!this.formAccountData.password || !this.formAccountData.login || !this.formAccountData.name || !this.formAccountData.email) {
           this.throwErrorMessage("Спочатку оберіть усі свої дані")
         }
         else {
-          this.throwErrorMessage("Доделать регистрацию по пользователям")
-          console.log(this.formAccountData)
+          try {
+            await this.createUser(this.formAccountData)
+            // this.cleanForm()
+            this.$router.push({ name: "Spesialties" })
+          } catch (err) {
+            this.throwErrorMessage(err.message)
+          }
         }
       },
 
@@ -169,6 +174,9 @@
 
       canselRegistration() {
         this.$router.push({ name: 'SignIn' })
+      },
+      cleanForm() {
+        this.formAccountData
       }
     }
   }

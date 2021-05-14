@@ -32,7 +32,7 @@
             :href="myGit"
             class="hover"
             target="_blank"
-          >Посилання на техпідтримку</a>
+          >Техпідтримка</a>
           <div 
             @click="clearAccountData()"
             class="hover"

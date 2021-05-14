@@ -9,8 +9,8 @@
             <label for="pass">Пароль: </label>
             <input id="pass" v-model.trim="formAccountData.userPassword" type="password">
         </div>
-        <div v-if="isError"  style="display: block; margin-bottom: 5px;">
-            <p class="isError">{{ errorMessage }}</p>
+        <div v-if="isError"  class="isError">
+            <p>{{ errorMessage }}</p>
         </div>
         <div>
             <input class="hover" type="submit">
@@ -76,9 +76,12 @@
     margin: 70px auto;
   }
 
-
   .forCenter span {
     color: #3366ff;
     cursor: pointer;
+  }
+
+  .isError {
+    margin-bottom: 5px;
   }
 </style>

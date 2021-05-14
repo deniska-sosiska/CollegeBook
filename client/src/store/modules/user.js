@@ -19,6 +19,15 @@ const actions = {
     })
     
     commit('setAccountData', res)
+  },
+  async createUser({ dispatch }, payload) {
+    const res = await axiosApiInstance({
+      url: "user/registration",
+      data: payload,
+      method: "post"  
+    })
+
+    await dispatch('getAccountData', res)
   }
 }
 

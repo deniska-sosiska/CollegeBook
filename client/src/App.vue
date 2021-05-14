@@ -7,6 +7,7 @@
 
 <script>
   import Header from "/components/Header.vue"
+  import { mapMutations } from "vuex"
 
   export default {
     name: 'App',
@@ -15,11 +16,13 @@
     async created() {
       if (localStorage.accountData) {
         const accountData = JSON.parse(localStorage.accountData)
-        this.$store.commit("setAccountData", accountData)
+        this.setAccountData(accountData)
       }
-
+      
       await this.$store.dispatch("fetchAllSpecialties")
-    }
+    },
+
+    methods: mapMutations(['setAccountData', 'clearAccountData'])
   }
 </script>
 
