@@ -6,13 +6,15 @@ module.exports = {
 
   async create({  body  }, res) {
     try {
-      const selectedGroup = await Group.findOne({ abbreviation: body.groupID }).lean()
+      if (body.role === "Студент") {
+        const selectedGroup = await Group.findOne({ abbreviation: body.groupID }).lean()
       
-      const studentIsInList = selectedGroup.studentsList.some(elem => elem === body.name)
-      if (!studentIsInList) throw { message: "Такого студента немає в списках групи" }
-
-      const findUserByName = await User.findOne({ name: body.name }).lean()
-      if (findUserByName) throw { message: "Такий студент вже зареєстрований" }
+        const studentIsInList = selectedGroup.studentsList.some(elem => elem === body.name)
+        if (!studentIsInList) throw { message: `Такого студента немає в списках групи ${selectedGroup.name}` }
+  
+        const findUserByName = await User.findOne({ name: body.name }).lean()
+        if (findUserByName) throw { message: "Такий студент вже зареєстрований" }
+      }
 
       const findUserByLogin = await User.findOne({ login: body.login }).lean()
       if (findUserByLogin) throw { message: 'Цей логін вже зайнятий' }

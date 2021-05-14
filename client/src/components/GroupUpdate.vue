@@ -33,6 +33,8 @@
           <label for="">Староста: </label>
           <input v-model.trim="group.headman" type="text" placeholder="Короткий О.В." required>
         </div>
+        <!--  -->
+        <!--  -->
         <div class="studList mt">
           <p id="title">Список студентiв</p>
           <div class="list">
@@ -51,6 +53,8 @@
             <input class="hover" type="submit" :value="inputPlaceholder">
           </form>
         </div>
+        <!--  -->
+        <!--  -->
         <div class="mt">
           <input class="hover" type="submit" value="Підтвердити">
         </div>
