@@ -49,7 +49,7 @@
           </form>
         </div>
         <div class="mt">
-          <input class="hover" type="submit">
+          <input class="hover" type="submit" value="Підтвердити">
         </div>
         <div 
           v-if="isSucc"

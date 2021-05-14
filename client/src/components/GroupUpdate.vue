@@ -1,10 +1,11 @@
 <template>
   <div class="update__group">
       <h2>Оновити дані по групі</h2>
-      <form @submit.prevent="createGroup()" class="signIn">
+
+      <form @submit.prevent="updateGroup()">
         <div>
           <label for="">Спецiальнiсть: </label>
-          <select v-model.trim="group.specialtyID" @change="prefix()" required>
+          <select v-model.trim="group.specialtyID" @change="fetchGroups()" required>
             <option disabled value="">Варiанти</option>
             <option 
               v-for="(specialty) in allSpecialties" :key="specialty._id"
@@ -12,15 +13,17 @@
             >{{ specialty.name }}</option>
           </select>
         </div>
-
-        <div class="mt">
-          <label for="">Назва групи: </label>
-          <input v-model.trim="group.name" type="text" :disabled="disabledInput" placeholder="Приклад: РПЗ 17 2/9"  spellcheck="false" required>
-        </div>
         <div>
-          <label for="">Абревіатура: </label>
-          <input v-model.trim="group.abbreviation" :disabled="disabledInput" type="text" placeholder="Приклад: RPZ17_2-9" required>
+          <label for="">Група: </label>
+          <select v-model.trim="groupID" @change="setDataByCurrentGroup()" required :disabled="disabledSelect">
+            <option disabled value="">Варiанти</option>
+            <option 
+              v-for="(group) in groupsByCurrentSpecialty" :key="group._id"
+              :value="group.abbreviation"
+            >{{ group.name }}</option>
+          </select>
         </div>
+
 
         <div class="mt">
           <label for="">Керiвник групи: </label>
@@ -49,12 +52,13 @@
           </form>
         </div>
         <div class="mt">
-          <input class="hover" type="submit">
+          <input class="hover" type="submit" value="Підтвердити">
         </div>
         <div 
-          v-if="isSucc"
+          v-if="errorMessage"
           class="isError"
-        ><p> Нову групу успішно додано </p>
+          :class="isSucc ? 'succes': '' "
+        ><p>{{ errorMessage }}</p>
         </div>
       </form>
     </div>
@@ -62,7 +66,7 @@
 
 <script>
   import axiosApiInstanse from '../services/axiosApiInstance'
-  import { mapGetters } from "vuex"
+  import { mapActions, mapGetters } from "vuex"
   
 
   export default {
@@ -72,8 +76,12 @@
       student: '',
       indexChange: '',
       inputPlaceholder: 'Додати',
+      groupID: '',
 
       isSucc: false,
+      isError: false,
+      notFoundGroupsMes: 'Ця спеціальність на даний момент не має груп',
+      errorMessage: '',
 
       group: {
         specialtyID: '',
@@ -87,7 +95,7 @@
     }),
 
     computed: {
-      ...mapGetters(['allSpecialties']),
+      ...mapGetters(['allSpecialties', 'groupsByCurrentSpecialty']),
 
       sortedStud() {
         return this.group.studentsList.sort((a, b) => {
@@ -99,10 +107,51 @@
 
       disabledInput() {
         return !this.group.abbreviation && !this.group.name
+      },
+      disabledSelect() {
+        return !this.group.specialtyID || this.isError
       }
     },
 
     methods: {
+      ...mapActions(['fetchGroupsBySpecialtyID']),
+
+      async fetchGroups() {
+        this.isError = false
+        this.group.leader = this.group.headman = this.groupID = ''
+        this.group.studentsList = []
+
+
+        try {
+          await this.fetchGroupsBySpecialtyID(this.group.specialtyID)
+        } catch (err) {
+          this.throwErrorMessage(this.notFoundGroupsMes)
+          this.isError = true
+        }
+      },
+
+      setDataByCurrentGroup() {
+        this.group = this.groupsByCurrentSpecialty.find(elem => elem.abbreviation === this.groupID)
+      },
+
+      async updateGroup() {
+        this.group.__v += 1
+
+        await axiosApiInstanse({
+          url: `group/${this.group._id}`,
+          data: this.group,
+          method: "put"
+        })
+
+        this.cleanForm()
+
+        this.throwErrorMessage("Групу успішно оновлено")
+        this.isSucc = true
+        setTimeout(() => {
+          this.isSucc = false
+        }, 4000)
+      },
+
       pushStud() {
         if (!this.student) 
           return 
@@ -129,21 +178,6 @@
         this.$delete(this.group.studentsList, index)
       },
 
-      async createGroup() {
-        // console.log("submit: ", this.group )
-        // await axiosApiInstanse({
-          // url: "group",
-          // data: this.group,
-          // method: "post"
-        // })
-
-        // this.cleanForm()
-        this.isSucc = true
-        setTimeout(() => {
-          this.isSucc = false
-        }, 10000)
-
-      },
 
       prefix() {
         const res = this.allSpecialties.find(spec => spec.abbreviation === this.group.specialtyID)
@@ -153,12 +187,21 @@
 
       cleanForm() {
         this.group.specialtyID = '',
+        this.groupID = '',
         this.group.name = '',
         this.group.abbreviation = '',
         this.group.leader = '',
         this.group.headman = '',
         this.group.studentsList = []
-      }
+      },
+
+      throwErrorMessage(mes) {
+        this.errorMessage = ''
+        this.errorMessage = mes
+        setTimeout(() => {
+          this.errorMessage = ''
+        }, 4000)
+      },
     }
   }
 </script>
@@ -239,7 +282,7 @@
     padding: 4px 6px;
     cursor: default;
   }
-  .isError p {
-    color: green
+  .isError.succes p {
+    color: green 
   }
 </style>

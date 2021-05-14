@@ -61,7 +61,7 @@
   }
   .buttons button.active {
     width: 58%;
-    border: 1px solid #ccc;
+    border: 1px solid #e6e6e6;
     background: #e6f7ff;
   }
   .buttons button.notActive {
