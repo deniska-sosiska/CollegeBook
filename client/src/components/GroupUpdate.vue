@@ -1,6 +1,6 @@
 <template>
-  <div class="create_group">
-      <h2>Додати нову группу</h2>
+  <div class="update__group">
+      <h2>Оновити дані по групі</h2>
       <form @submit.prevent="createGroup()" class="signIn">
         <div>
           <label for="">Спецiальнiсть: </label>
@@ -66,7 +66,7 @@
   
 
   export default {
-    name: "CreateGroup",
+    name: "GroupUpdate",
 
     data: () => ({
       student: '',
@@ -129,15 +129,15 @@
         this.$delete(this.group.studentsList, index)
       },
 
-      async createGroup(form) {
+      async createGroup() {
         // console.log("submit: ", this.group )
-        await axiosApiInstanse({
-          url: "group",
-          data: this.group,
-          method: "post"
-        })
+        // await axiosApiInstanse({
+          // url: "group",
+          // data: this.group,
+          // method: "post"
+        // })
 
-        this.cleanForm()
+        // this.cleanForm()
         this.isSucc = true
         setTimeout(() => {
           this.isSucc = false

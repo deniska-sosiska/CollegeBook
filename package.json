@@ -16,6 +16,7 @@
   },
   "homepage": "https://github.com/deniska-sosiska/Automated-system-for-recording-student-attendance#readme",
   "dependencies": {
-    "dotenv": "^9.0.2"
+    "dotenv": "^9.0.2",
+    "if-thursday": "^1.0.0"
   }
 }
