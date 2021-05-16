@@ -35,7 +35,7 @@
         </div>
         <!--  -->
         <!--  -->
-        <div class="studList mt">
+        <div class="studAndSheduleList mt">
           <p id="title">Список студентiв</p>
           <div class="list">
             <div
@@ -46,6 +46,35 @@
               <p>{{ student }}</p>
               <span @click="changeStud(index)" class="icons" style="color: green;">✏</span>
               <span @click="deleteStud(index)" class="icons">×</span>
+            </div>
+          </div>
+          <form  @submit.stop="pushStud()" class="addStud">
+            <input v-model.trim="student" type="text" placeholder="Берков Денис Сергійович">
+            <input class="hover" type="submit" :value="inputPlaceholder">
+          </form>
+        </div>
+        <!--  -->
+        <!--  -->
+        <div class="studAndSheduleList mt">
+          <p id="title">Розклад занять</p>
+          <div class="list">
+            <div
+              v-for="(value, day) in schelude" :key="day"
+              class="schedule"
+            >
+              <p class="dayName">{{ day }}</p>
+              <div
+                v-for="(lesson, index) in value" :key="index"
+                class="stud hover"
+              >
+                <span class="number">{{ index + 1 }}.</span>
+                <p>"{{ lesson }}"</p>
+                <span @click="changeStud(index)" class="icons" style="color: green;">✏</span>
+                <!-- <span @click="deleteStud(index)" class="icons">×</span> -->
+              </div>
+              
+              <!-- <p>{{ student }}</p> -->
+             
             </div>
           </div>
           <form  @submit.stop="pushStud()" class="addStud">
@@ -87,6 +116,14 @@
       notFoundGroupsMes: 'Ця спеціальність на даний момент не має груп',
       errorMessage: '',
 
+      schelude: {
+        "Понеділок": [ '', '', '', '' ],
+        "Вівторок": [ '', '', '', '' ],
+        "Середа": [ '', '', '', '' ],
+        "Четверг": [ '', '', '', '' ],
+        "П'ятниця": [ '', '', '', '' ]
+      },
+
       group: {
         specialtyID: '',
         name: '',
@@ -124,7 +161,6 @@
         this.isError = false
         this.group.leader = this.group.headman = this.groupID = ''
         this.group.studentsList = []
-
 
         try {
           await this.fetchGroupsBySpecialtyID(this.group.specialtyID)
@@ -220,33 +256,33 @@
     width: 100%;
   }
 
-  .studList {
+  .studAndSheduleList {
     display: block;
   }
-  .studList input {
+  .studAndSheduleList input {
     width: 100%;
   }
-  .studList p#title {
+  .studAndSheduleList p#title {
     text-align: center;
     font-size: 21px;
     margin-bottom: 10px;
   }
 
-  .studList > .list {
+  .studAndSheduleList > .list {
     padding: 10px 10px 5px 10px;
   }
-  .studList > .addStud {
+  .studAndSheduleList > .addStud {
     display: flex;
   }
-  .studList > .addStud input {
+  .studAndSheduleList > .addStud input {
     font-size: 18px;
     outline: none;
     padding: 4px 6px;
   }
-  .studList > .addStud input[type="text"] {
+  .studAndSheduleList > .addStud input[type="text"] {
     border: 1px solid #ccc;
   }
-  .studList > .addStud input[type="submit"] {
+  .studAndSheduleList > .addStud input[type="submit"] {
     width: 120px;
   }
 
@@ -288,5 +324,11 @@
   }
   .isError.succes p {
     color: green 
+  }
+
+  .dayName {
+    text-align: center;
+    font-size: 18px;
+    margin: 5px 0px 10px 0px;
   }
 </style>
