@@ -1,6 +1,5 @@
 const genericCrud = require('./generic.controller')
-const {  Specialty, Group  }  = require('../models')
-const { create } = require('./specialty')
+const {  Specialty, Student, Group  }  = require('../models')
 
 module.exports = {
   ...genericCrud(Group),
@@ -12,6 +11,20 @@ module.exports = {
     } catch (err) {
       return res.status(400).send(err)
     }
+  },
+
+  async create({ body }, res) {
+    if (body.studentsList.length !== 0) {
+      body.studentsList.forEach(async (elem) => {
+        await new Student({
+          name: elem,
+          groupID: body.abbreviation
+        }).save()  
+      })
+    }
+
+    const item = await new Group(body).save()  
+    return res.status(200).send(item)
   },
   
   async getGroupsBySpecialtyID({ params: { specialtyID } }, res) {

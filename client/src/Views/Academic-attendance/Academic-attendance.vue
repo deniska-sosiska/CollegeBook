@@ -24,9 +24,9 @@
           <td>{{index + 1}}</td><td>{{ stud }}</td>
           <td
             v-for="(lesson, index) in scheduleToday" :key="index"
-            :class="lesson ? 'para' : 'emptyPara'"
+            :class="lesson && !weekend ? 'para' : 'emptyPara'"
           >
-            <p v-if="lesson">{{index}} {{ zxc(false) }}</p>
+            <p v-if="lesson">{{ para(true) }}</p>
           </td>
         </tr>
       </tbody>
@@ -61,6 +61,7 @@
 
       group: {},
       groupLoad: true,
+      weekend: false
     }),
 
     computed: {
@@ -76,19 +77,14 @@
         let data = new Date().getDate() + '.' + (new Date().getMonth() + 1) + '.' + new Date().getFullYear()
         return data
       },
-      getCurrentLesson(index) {
-        if (new Date().getDay() == 0 || new Date().getDay() == 6)
-          return "Сьогодні вихідний"
-        else {
-          let currentDay = this.nameDays[new Date().getDay()]
-          
-          let answer = this.getDataOfCurrentGroup.schedule[currentDay][index]
-          return answer
-        } 
-      },
 
 
       scheduleToday() {
+        if (this.getNowDay === this.nameDays[5] || this.getNowDay === this.nameDays[6]) {
+          this.weekend = true
+          return "Сьогодні вихідний"
+        }
+
         return this.group.schedule[this.getNowDay]
       }
     },
@@ -118,8 +114,8 @@
     },
 
     methods: {
-      zxc(data) {
-        return data ?  "✓" :  " "
+      para(data) {
+        return !data ?  "✓" :  " "
       },
       changeAttandance(indexStud, indexPara) {
         this.dataOfStud[indexStud].attandance[this.getNowDate][indexPara] 
