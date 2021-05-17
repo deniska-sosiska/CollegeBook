@@ -12,7 +12,7 @@ module.exports = {
         const studentIsInList = selectedGroup.studentsList.some(elem => elem === body.name)
         if (!studentIsInList) throw { message: `Такого студента немає в списках групи ${selectedGroup.name}` }
   
-        const findUserByName = await User.findOne({ name: body.name }).lean()
+        const findUserByName = await User.findOne({ name: body.name, groupID: body.groupID }).lean()
         if (findUserByName) throw { message: "Такий студент вже зареєстрований" }
       }
 
