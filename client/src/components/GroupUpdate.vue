@@ -33,9 +33,19 @@
           <label for="">Староста: </label>
           <input v-model.trim="group.headman" type="text" placeholder="Короткий О.В." required>
         </div>
+        <div>
+          <input
+            @click="deleteGroup()"
+            class="hover"
+            type="button"
+            value="Видалити групу"
+            style="color: red;"
+            v-if="groupID"
+          >
+        </div>
         <!--  -->
         <!--  -->
-        <div class="studAndSheduleList mt">
+        <div v-if="groupID"  class="studAndSheduleList mt">
           <p id="title">Список студентiв</p>
           <div class="list">
             <div
@@ -55,11 +65,11 @@
         </div>
         <!--  -->
         <!--  -->
-        <div class="studAndSheduleList mt">
+        <div v-if="groupID" class="studAndSheduleList mt">
           <p id="title">Розклад занять</p>
           <div class="list">
             <div
-              v-for="(value, day) in schelude" :key="day"
+              v-for="(value, day) in scheduleComputed" :key="day"
               class="schedule"
             >
               <p class="dayName">{{ day }}</p>
@@ -69,23 +79,24 @@
               >
                 <span class="number">{{ index + 1 }}.</span>
                 <p>"{{ lesson }}"</p>
-                <span @click="changeStud(index)" class="icons" style="color: green;">✏</span>
-                <!-- <span @click="deleteStud(index)" class="icons">×</span> -->
+                <span @click="changeSchedule(day, index)" class="icons" style="color: green;">✏</span>
               </div>
-              
-              <!-- <p>{{ student }}</p> -->
-             
             </div>
           </div>
-          <form  @submit.stop="pushStud()" class="addStud">
-            <input v-model.trim="student" type="text" placeholder="Берков Денис Сергійович">
-            <input class="hover" type="submit" :value="inputPlaceholder">
+          <form  @submit.stop="pushSchedule()" class="addStud">
+            <input v-model.trim="lessonInput" type="text" placeholder="Автоматичне поле для змiни даних">
+            <input class="hover" type="submit" value="Замiнити">
           </form>
         </div>
         <!--  -->
         <!--  -->
         <div class="mt">
-          <input class="hover" type="submit" value="Підтвердити">
+          <input
+            class="hover"
+            type="submit"
+            value="Підтвердити"
+            :disabled="!groupID"
+          >
         </div>
         <div 
           v-if="errorMessage"
@@ -116,7 +127,13 @@
       notFoundGroupsMes: 'Ця спеціальність на даний момент не має груп',
       errorMessage: '',
 
-      schelude: {
+      lessonInput: '',
+      lesson: {
+        day: '',
+        indexLesson: ''
+      },
+
+      schedule: {
         "Понеділок": [ '', '', '', '' ],
         "Вівторок": [ '', '', '', '' ],
         "Середа": [ '', '', '', '' ],
@@ -138,6 +155,10 @@
     computed: {
       ...mapGetters(['allSpecialties', 'groupsByCurrentSpecialty']),
 
+      scheduleComputed() {
+        return this.group.schedule
+      },
+
       sortedStud() {
         return this.group.studentsList.sort((a, b) => {
           if (a > b) return 1
@@ -151,7 +172,7 @@
       },
       disabledSelect() {
         return !this.group.specialtyID || this.isError
-      }
+      },
     },
 
     methods: {
@@ -170,10 +191,6 @@
         }
       },
 
-      setDataByCurrentGroup() {
-        this.group = this.groupsByCurrentSpecialty.find(elem => elem.abbreviation === this.groupID)
-      },
-
       async updateGroup() {
         this.group.__v += 1
 
@@ -184,14 +201,33 @@
         })
 
         this.cleanForm()
-
         this.throwErrorMessage("Групу успішно оновлено")
         this.isSucc = true
-        setTimeout(() => {
-          this.isSucc = false
-        }, 4000)
+        setTimeout(() => { this.isSucc = false }, 4000)
+      },
+      
+
+      changeSchedule(day, indexLesson) {
+        this.lesson = { day, indexLesson }
+        this.lessonInput = this.group.schedule[day][indexLesson]
+      },
+      pushSchedule() {
+        this.group.schedule[this.lesson.day][this.lesson.indexLesson] = this.lessonInput
+        this.lessonInput = ''
       },
 
+
+      
+      changeStud(index) {
+        this.inputPlaceholder = "Замiнити"
+        this.indexChange = index
+        this.student = this.group.studentsList[index]
+      },
+      deleteStud(index) {
+        this.inputPlaceholder = "Додати"
+        this.student = ''
+        this.$delete(this.group.studentsList, index)
+      },
       pushStud() {
         if (!this.student) 
           return 
@@ -205,19 +241,27 @@
         }
         this.student = ''
       },
-      
-      changeStud(index) {
-        this.inputPlaceholder = "Замiнити"
-        this.indexChange = index
-        this.student = this.group.studentsList[index]
+
+
+      setDataByCurrentGroup() {
+        this.group = this.groupsByCurrentSpecialty.find(elem => elem.abbreviation === this.groupID)
+        if (!this.group.schedule) {
+          this.group.schedule = this.schedule
+        }
+        // console.log("setDataByCurrentGroup: ", this.group)
       },
 
-      deleteStud(index) {
-        this.inputPlaceholder = "Додати"
-        this.student = ''
-        this.$delete(this.group.studentsList, index)
-      },
+      async deleteGroup() {
+        await axiosApiInstanse({
+          url: `group/${this.group._id}`,
+          method: 'delete'
+        })
 
+        this.cleanForm()
+        this.throwErrorMessage("Групу успішно видалено")
+        this.isSucc = true
+        setTimeout(() => { this.isSucc = false }, 4000)
+      },
 
       prefix() {
         const res = this.allSpecialties.find(spec => spec.abbreviation === this.group.specialtyID)
@@ -331,4 +375,5 @@
     font-size: 18px;
     margin: 5px 0px 10px 0px;
   }
+
 </style>

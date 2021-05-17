@@ -2,7 +2,7 @@ const { model, Schema, Schema: { Types: { ObjectId } } } = require('mongoose')
 const typeStrReqTrue = { type: String, required: true }
 
 const schema = new Schema({
-  schedule: [], //Розклад занять групи
+  schedule: {}, //Розклад занять групи
   headman: typeStrReqTrue, // Староста
   leader: typeStrReqTrue, // Керiвник групи
   name: typeStrReqTrue, // Назва групи (РПЗ 17 2/9)

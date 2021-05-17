@@ -3,7 +3,8 @@ const MongoDB_URL = `${process.env.MONGODB_domen}${process.env.MONGODB_user}${pr
 const DataBaseOptions = {
   useCreateIndex: JSON.parse(process.env.UseCreateIndex),
   useNewUrlParser: JSON.parse(process.env.UseNewUrlParser),
-  useUnifiedTopology: JSON.parse(process.env.UseUnifiedTopology)
+  useUnifiedTopology: JSON.parse(process.env.UseUnifiedTopology),
+  useFindAndModify: JSON.parse(process.env.UseFindAndModify)
 }
 
 const errorHandler = function(errorMessage, error) {
