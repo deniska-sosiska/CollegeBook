@@ -11,7 +11,7 @@
           v-for="(group) in sortGroupByName" :key="group._id"
           :to="{ name: 'Magazines', params: { specialty: specialtyID, groupID: group.abbreviation }}"
         >
-          <p 
+          <p
             class="group hover"
           >
           Група: {{ group.name }} || Староста: {{group.headman}} || Класний керівник: {{group.leader}}

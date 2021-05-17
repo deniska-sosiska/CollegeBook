@@ -1,12 +1,28 @@
 <template>
   <div class="body">
     <h2>Вибiр журналу</h2>
-    <div class="magazines">
-      <router-link class="imageBlock hover"
-       :to="{ name: 'AcademicAttendance', params: { specialtyID, groupID }}">
+
+    <Preloader v-if="loaderGroups" />
+
+    <div v-else class="magazines">
+
+      <router-link 
+        v-if="currentGroupByID.schedule"
+        :to="{ name: 'AcademicAttendance', params: { specialtyID, groupID }}"
+        class="imageBlock hover"
+      >
         <img :src="hrefAcademicAttendance">
         <p>Журнал відвідувань</p>
       </router-link>
+
+      <div v-else class="imageBlock hover">
+        <img :src="hrefImageBlock" class="blocked" title="Розклад занять ще не готовий">
+        <img :src="hrefAcademicAttendance">
+        <p>Журнал відвідувань</p>
+      </div>
+
+
+
       <div class="imageBlock hover">
         <img :src="hrefImageBlock" class="blocked" title="на етапі розробки">
         <img :src="hrefAcademicProgress">
@@ -17,6 +33,8 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     name: "Magazines",
 
@@ -37,11 +55,24 @@
       hrefImageBlock: '../assets/blocked.png',
     }),
 
-    mounted() {
-      // let box = {"specialty": this.specialty, "group": this.group}
-      // this.$store.dispatch('updateDataOfCurrentGroup', box)
-    }
-    }
+    computed: {
+      ...mapGetters([
+        'groupsByCurrentSpecialty',
+        'loaderGroups'
+      ]),
+      currentGroupByID() {
+        return this.groupsByCurrentSpecialty.find(elem => elem.specialtyID = this.specialtyID)
+      }
+    },
+
+    async created() {
+      try {
+        await this.$store.dispatch("fetchGroupsBySpecialtyID", this.specialtyID)
+      } catch(err) {
+        this.localError = true
+      }
+    } 
+  }
 </script>
 
 <style scoped>

@@ -1,7 +1,7 @@
 const router = require('express-promise-router')()
 const {  group  } = require('../controllers')
 
-router.route('/:id').get(group.get)
+router.route('/:abbreviation').get(group.get)
 router.route('/').get(group.getAll)
 
 router.route('/').post(group.create)
