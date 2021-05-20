@@ -7,4 +7,6 @@ router.route('/registration').post(student.create)
 router.route('/:id').put(student.update)
 router.route('/:id').delete(student.delete)
 
+router.route('/studentsByGroup/:groupID').get(student.studentsByGroup)
+
 module.exports = router

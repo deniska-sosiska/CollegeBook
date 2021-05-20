@@ -20,8 +20,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(stud, index) in group.studentsList" :key="index">
-          <td>{{index + 1}}</td><td>{{ stud }}</td>
+        <tr v-for="(stud, studIndex) in students" :key="studIndex">
+          <td>{{studIndex + 1}}</td><td>{{ stud.name }}</td>
           <td
             v-for="(lesson, index) in scheduleToday" :key="index"
             :class="lesson && !weekend ? 'para' : 'emptyPara'"
@@ -56,10 +56,12 @@
     },
 
     data: () => ({
-      nameDays: ["Понеділок","Вівторок","Середа","Четвер","П'ятниця","Субота", "Неділя"],
+      nameDays: ["Неділя", "Понеділок","Вівторок","Середа","Четвер","П'ятниця","Субота"],
       months: ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"],
 
       group: {},
+      studentsList: [],
+
       groupLoad: true,
       weekend: false
     }),
@@ -79,6 +81,12 @@
       },
 
 
+
+      students() {
+        return this.studentsList
+      },
+
+
       scheduleToday() {
         if (this.getNowDay === this.nameDays[5] || this.getNowDay === this.nameDays[6]) {
           this.weekend = true
@@ -95,9 +103,17 @@
         method: "get"
       })
 
+    // studentsList
+      const students = await axiosApiInstanse({
+        url: `student/studentsByGroup/${this.groupID}`,
+        method: "get"
+      })
+
+      this.studentsList = students
       this.group = currentGroup
       this.groupLoad = false
 
+      // console.log("currentGroup: ", currentGroup)
 
       // let box = {"specialty": this.specialty, "group": this.group}
       // this.$store.dispatch('updateDataOfCurrentGroup', box)

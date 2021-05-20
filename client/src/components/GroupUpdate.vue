@@ -53,7 +53,7 @@
               class="stud hover"
             >
               <span class="number">{{ index + 1 }}.</span>
-              <p>{{ student }}</p>
+              <p>{{ student.name }}</p>
               <span @click="changeStud(index)" class="icons" style="color: green;">✏</span>
               <span @click="deleteStud(index)" class="icons">×</span>
             </div>
@@ -161,9 +161,9 @@
 
       sortedStud() {
         return this.group.studentsList.sort((a, b) => {
-          if (a > b) return 1
-          if (a == b) return 0
-          if (a < b) return -1
+          if (a.name > b.name) return 1
+          if (a.name == b.name) return 0
+          if (a.name < b.name) return -1
         })
       },
 
@@ -221,12 +221,13 @@
       changeStud(index) {
         this.inputPlaceholder = "Замiнити"
         this.indexChange = index
-        this.student = this.group.studentsList[index]
+        this.student = this.group.studentsList[index].name
       },
       deleteStud(index) {
         this.inputPlaceholder = "Додати"
         this.student = ''
         this.$delete(this.group.studentsList, index)
+        this.index = ''
       },
       pushStud() {
         if (!this.student) 
@@ -234,10 +235,14 @@
 
         if (this.inputPlaceholder !== "Додати") {
           this.inputPlaceholder = "Додати"
-          this.$set( this.group.studentsList, this.indexChange, this.student)
+          this.$set( this.group.studentsList, this.indexChange, { 
+            name: this.student,
+            id: this.group.studentsList[this.indexChange].id ?  this.group.studentsList[this.indexChange].id : ''
+          })
         }
         else {
-          this.$set( this.group.studentsList, this.group.studentsList.length, this.student)
+          this.index = ''
+          this.$set( this.group.studentsList, this.group.studentsList.length, { name: this.student, id: '' })
         }
         this.student = ''
       },
@@ -248,7 +253,6 @@
         if (!this.group.schedule) {
           this.group.schedule = this.schedule
         }
-        // console.log("setDataByCurrentGroup: ", this.group)
       },
 
       async deleteGroup() {
