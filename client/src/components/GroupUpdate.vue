@@ -194,16 +194,20 @@
       async updateGroup() {
         this.group.__v += 1
 
-        await axiosApiInstanse({
+        this.throwErrorMessage("Оновлення групи...")
+        this.isSucc = true
+
+        axiosApiInstanse({
           url: `group/${this.group._id}`,
           data: this.group,
           method: "put"
-        })
-
-        this.cleanForm()
-        this.throwErrorMessage("Групу успішно оновлено")
-        this.isSucc = true
-        setTimeout(() => { this.isSucc = false }, 4000)
+        })// show pending to user
+          .then(res => {
+            this.cleanForm()
+            this.throwErrorMessage("Групу успішно оновлено")
+            this.isSucc = true
+            setTimeout(() => { this.isSucc = false }, 4000)
+          })
       },
       
 

@@ -37,9 +37,9 @@ module.exports = {
 
   async update({ body }, res) {
     const oldDataGroup = await Group.findById(body._id).lean()
-    console.log("\nOldDataGroup: \n", oldDataGroup.studentsList)
-    console.log("\nBody\n", body.studentsList)
-    console.log("\n")
+    // console.log("\nOldDataGroup: \n", oldDataGroup.studentsList)
+    // console.log("\nBody\n", body.studentsList)
+    // console.log("\n")
 
     const studForDelete = oldDataGroup.studentsList.filter(stud => !body.studentsList.some(elem => (stud.id == elem.id) && elem.id)) 
 
@@ -74,13 +74,11 @@ module.exports = {
 
   async delete({ params: { id }}, res) {
     const group = await Group.findById(id)
-    group.studentsList.forEach(async (elem, i) => {
-      await Student.findByIdAndDelete(elem.id)
-      if (i + 1 === group.studentsList.length) {
-        await Group.findByIdAndDelete(id)
-        return res.status(200).send("Group delete succes")
-      }
-    })
+
+    for(let elem of group.studentsList) {
+      Student.findByIdAndDelete(elem.id)
+    }
+    return res.status(200).send("Group delete succes")
   },
   
 
