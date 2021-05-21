@@ -4,7 +4,7 @@
       <thead>
         <tr class="firstTR"><th>№</th><th>ПІБ</th><th>Число коли не було</th><th>Прогули у годинах</th><th>Загальна сума прогулів</th></tr>
       </thead>
-      <tbody>
+      <!-- <tbody>
         <tr v-for="(stud, indexStud) in dataOfStud" :key="indexStud">
           <td>{{indexStud+1}}</td>
           <td>{{stud.name}}</td>
@@ -22,40 +22,47 @@
             <p>{{arrayAttandance[indexStud]}}</p>
           </td>
         </tr>
-      </tbody>
+      </tbody> -->
     </table>
     <div class="buttons">
-      <router-link class="hover" :to="'/' + specialty + '/' + group + '/AcademicAttendance/'">Повернутись до журналу</router-link>
+      <router-link class="hover" :to="{ name: 'AcademicAttendance', params: { specialtyID, groupID }}">Повернутись до журналу</router-link>
     </div>
   </div>
 </template>
 
 <script>
-import Vue from 'vue'
 
 export default {
-  data() {
-    return {
+  name: "AcademicAttendanceInfo", 
+
+  data: () => ({
       dataOfStud: [],
       answer: '',
       arrayAttandance: {}
-    }
-  },
+  }),
+
   props: {
-    specialty: '',
-    group: ''
-  },
-  computed: {
-    getDataOfStud(){
-      return this.$store.getters.getDataOfStud
+    specialtyID: {
+      type: String,
+      required: true
+    },
+    groupID: {
+      type: String,
+      required: true
     }
+  },
+
+  computed: {
+    // getDataOfStud(){
+    //   return this.$store.getters.getDataOfStud
+    // }
   },
   mounted: function() {
-    let box = {"specialty": this.specialty, "group": this.group}
-    this.$store.dispatch('updateDataOfCurrentGroup', box)
-    setTimeout(() => {      
-      this.dataOfStud = this.getDataOfStud
-    }, 100);
+    // let box = {"specialty": this.specialty, "group": this.group}
+    // this.$store.dispatch('updateDataOfCurrentGroup', box)
+    // setTimeout(() => {      
+    //   this.dataOfStud = this.getDataOfStud
+    // }, 100);
   },
   methods: {
     output(data, indexStud) {

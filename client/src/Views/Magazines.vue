@@ -7,7 +7,7 @@
     <div v-else class="magazines">
 
       <router-link 
-        v-if="currentGroupByID.schedule"
+        v-if="currentGroupByID.studentsList.length !== 0 && currentGroupByID.schedule"
         :to="{ name: 'AcademicAttendance', params: { specialtyID, groupID }}"
         class="imageBlock hover"
       >
@@ -16,7 +16,10 @@
       </router-link>
 
       <div v-else class="imageBlock hover">
-        <img :src="hrefImageBlock" class="blocked" title="Розклад занять ще не готовий">
+        <img 
+          :src="hrefImageBlock" class="blocked"
+          :title='!currentGroupByID.schedule ? "Розклад занять ще не готовий" : "Список студентiв ще не готовий"'
+        >
         <img :src="hrefAcademicAttendance">
         <p>Журнал відвідувань</p>
       </div>
@@ -61,9 +64,7 @@
         'loaderGroups'
       ]),
       currentGroupByID() {
-        const data = this.groupsByCurrentSpecialty.find(elem => elem.specialtyID = this.specialtyID)
-        console.log(data.schedule)
-        return data
+        return this.groupsByCurrentSpecialty.find(elem => elem.specialtyID = this.specialtyID)
       }
     },
 

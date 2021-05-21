@@ -27,7 +27,7 @@ const routes = [
   },
   {
     name: 'AcademicAttendanceInfo',
-    path: '/:specialty/:group/:magazines/info',
+    path: '/search/:specialtyID/:groupID/AcademicAttendanceInfo',
     component: () => import("../Views/Academic-attendance/Academic-attendance-info.vue"),
     props: true,
     meta: {  requiresAuth: true  }

@@ -13,7 +13,7 @@
           <th 
             v-for="(lesson, index) in scheduleToday"
             :key="index"
-            :class="!lesson ? 'emptyPara' : '' "
+            :class="{ 'emptyPara': !lesson }"
           >
             {{ lesson }}
           </th>
@@ -23,22 +23,26 @@
         <tr v-for="(stud, studIndex) in students" :key="studIndex">
           <td>{{studIndex + 1}}</td><td>{{ stud.name }}</td>
           <td
-            v-for="(lesson, index) in scheduleToday" :key="index"
+            v-for="(lesson, paraIndex) in scheduleToday" :key="paraIndex"
             :class="lesson && !weekend ? 'para' : 'emptyPara'"
+            @click="mark(studIndex, paraIndex)"
           >
-            <p v-if="lesson">{{ para(true) }}</p>
+            <p 
+              v-if="lesson"
+            >{{ students[studIndex].attandance[getNowDate][paraIndex] ?  "✓" :  " " }}</p>
           </td>
         </tr>
       </tbody>
     </table>
-    <!-- <div class="buttons"> -->
-      <!-- <p class="hover" @click="submit"  v-if="getUser.role.name == 'Староста групи'">Відправити нові дані</p> -->
-      <!-- <router-link class="hover" :to="'/' + specialty + '/' + group + '/AcademicAttendance/info'">Переглянути усю інформацію</router-link> -->
-    <!-- </div> -->
+    <div class="buttons">
+      <p class="hover" @click="submitNewStudents()"  v-if="accountData.name == group.headman">Відправити нові дані</p>
+      <router-link class="hover" :to="{ name: 'AcademicAttendanceInfo', params: { specialtyID, groupID }}">Переглянути усю інформацію</router-link>
+    </div>
   </div>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   import axiosApiInstanse from '../../services/axiosApiInstance'
 
   export default {
@@ -60,13 +64,17 @@
       months: ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"],
 
       group: {},
-      studentsList: [],
+      students: [],
 
       groupLoad: true,
-      weekend: false
+      weekend: false,
+
+      qwe: false
     }),
 
     computed: {
+      ...mapGetters(['accountData']),
+
       getCurrentTime() {  
         let hours = new Date().getHours(); let min = new Date().getMinutes()
         hours < 10 ? hours = '0'+ hours : hours; min < 10 ? min = '0'+ min : min 
@@ -81,19 +89,11 @@
       },
 
 
-
-      students() {
-        return this.studentsList
-      },
-
-
       scheduleToday() {
         if (this.getNowDay === this.nameDays[0] || this.getNowDay === this.nameDays[6]) {
           this.weekend = true
           return "Сьогодні вихідний"
         }
-
-        // console.log(this.group.schedule)
         return this.group.schedule[this.getNowDay]
       }
     },
@@ -104,46 +104,57 @@
         method: "get"
       })
 
-      this.studentsList = await axiosApiInstanse({
+      this.students = await axiosApiInstanse({
         url: `student/studentsByGroup/${this.groupID}`,
         method: "get"
       })
 
-      // console.log("studentsList: ", this.studentsList)
 
+      this.students.forEach(stud => {
+        if (!stud.attandance) {
+          stud['attandance'] = { "crutch": null }
+          stud.attandance[this.getNowDate] = { 0: false, 1: false, 2: false, 3: false }
+          delete stud['attandance']["crutch"]
+        }
 
+        if (!stud.attandance[this.getNowDate]) {
+          stud.attandance[this.getNowDate] = { 0: false, 1: false, 2: false, 3: false }
+        }
+      })
 
-
-
-      // let box = {"specialty": this.specialty, "group": this.group}
-      // this.$store.dispatch('updateDataOfCurrentGroup', box)
-
-      // this.getDataOfStud.forEach((elem, index) => {
-      //   if (!elem.attandance[this.getNowDate]) {
-      //     let data = {indexStud: index ,info: {"first": false, "second": false, "third": false, "fourth": false}}
-      //     this.$store.dispatch('updateStud', data)
-      //   }
-      // })
-      // setTimeout(() => {
-      //   this.dataOfStud = this.getDataOfStud
-      // }, 80)
-
+      console.log(this.students)
       this.groupLoad = false
     },
 
     methods: {
-      para(data) {
-        return !data ?  "✓" :  " "
-      },
-      changeAttandance(indexStud, indexPara) {
-        this.dataOfStud[indexStud].attandance[this.getNowDate][indexPara] 
-        = !this.dataOfStud[indexStud].attandance[this.getNowDate][indexPara]
-      },
-      submit() {
-        this.$store.dispatch('changeAttandance', this.dataOfStud)
+      mark(studIndex, paraIndex) {
+        if (this.accountData.name !== this.group.headman) return
+        // якщо не староста
+
+        let stud = this.students[studIndex]
+        stud.attandance[this.getNowDate][paraIndex]
+        stud.attandance[this.getNowDate][paraIndex] = !stud.attandance[this.getNowDate][paraIndex]
+        
+        this.$set(this.students, studIndex, stud)
       },
 
-      
+      submitNewStudents() {
+        // console.log(this.students)
+        for(let stud of this.students) {
+          let elem = stud.attandance[this.getNowDate]
+          for(let  key in elem) {
+            if (!elem[key]) {
+              delete elem[key]
+            }
+          }
+          // console.log("elem: ", elem)
+          if (Object.keys(elem).length == 0) {
+            delete stud.attandance[this.getNowDate]
+          }
+        }
+        
+        console.log(this.students)
+      }
     },
   }
 </script>

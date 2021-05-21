@@ -78,6 +78,8 @@ module.exports = {
     for(let elem of group.studentsList) {
       Student.findByIdAndDelete(elem.id)
     }
+
+    await Group.findByIdAndDelete(id)
     return res.status(200).send("Group delete succes")
   },
   
