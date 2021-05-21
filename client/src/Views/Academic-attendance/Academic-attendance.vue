@@ -88,32 +88,32 @@
 
 
       scheduleToday() {
-        if (this.getNowDay === this.nameDays[5] || this.getNowDay === this.nameDays[6]) {
+        if (this.getNowDay === this.nameDays[0] || this.getNowDay === this.nameDays[6]) {
           this.weekend = true
           return "Сьогодні вихідний"
         }
 
+        // console.log(this.group.schedule)
         return this.group.schedule[this.getNowDay]
       }
     },
 
     async created() {
-      const currentGroup = await axiosApiInstanse({
+      this.group = await axiosApiInstanse({
         url: `group/${this.groupID}`,
         method: "get"
       })
 
-    // studentsList
-      const students = await axiosApiInstanse({
+      this.studentsList = await axiosApiInstanse({
         url: `student/studentsByGroup/${this.groupID}`,
         method: "get"
       })
 
-      this.studentsList = students
-      this.group = currentGroup
-      this.groupLoad = false
+      // console.log("studentsList: ", this.studentsList)
 
-      // console.log("currentGroup: ", currentGroup)
+
+
+
 
       // let box = {"specialty": this.specialty, "group": this.group}
       // this.$store.dispatch('updateDataOfCurrentGroup', box)
@@ -127,6 +127,8 @@
       // setTimeout(() => {
       //   this.dataOfStud = this.getDataOfStud
       // }, 80)
+
+      this.groupLoad = false
     },
 
     methods: {

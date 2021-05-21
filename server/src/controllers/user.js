@@ -8,8 +8,8 @@ module.exports = {
     try {
       if (body.role === "Студент") {
         const selectedGroup = await Group.findOne({ abbreviation: body.groupID }).lean()
-      
-        const studentIsInList = selectedGroup.studentsList.some(elem => elem === body.name)
+
+        const studentIsInList = selectedGroup.studentsList.some(elem => elem.name === body.name)
         if (!studentIsInList) throw { message: `Такого студента немає в списках групи ${selectedGroup.name}` }
   
         const findUserByName = await User.findOne({ name: body.name, groupID: body.groupID }).lean()

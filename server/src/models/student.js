@@ -5,7 +5,9 @@ const schema = new Schema({
   name: typeStrReqTrue, 
   groupID: typeStrReqTrue,
 
-  attendance: []
+  attendance: {
+    key: {}
+  }
 })
 
-module.exports = model('Student', schema)
+module.exports = model('Student', schema) 

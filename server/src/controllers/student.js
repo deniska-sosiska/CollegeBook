@@ -6,7 +6,6 @@ module.exports = {
 
   async studentsByGroup({ params: { groupID }, res }) {
     const array = await Student.find({ groupID })
-    // console.log(groupID)
     res.send(array)
   }
 }

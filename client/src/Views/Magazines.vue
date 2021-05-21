@@ -61,7 +61,9 @@
         'loaderGroups'
       ]),
       currentGroupByID() {
-        return this.groupsByCurrentSpecialty.find(elem => elem.specialtyID = this.specialtyID)
+        const data = this.groupsByCurrentSpecialty.find(elem => elem.specialtyID = this.specialtyID)
+        console.log(data.schedule)
+        return data
       }
     },
 
