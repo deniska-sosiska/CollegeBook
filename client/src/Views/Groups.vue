@@ -7,16 +7,27 @@
     <template v-else>
       <div class="content__groups" v-if="!localError">
         <h2>Усі групи за спеціальністю: <span>{{ nameCurrentSpecialty }}</span></h2>
-        <router-link 
+            
+        <div class="links"
           v-for="(group) in sortGroupByName" :key="group._id"
-          :to="{ name: 'Magazines', params: { specialty: specialtyID, groupID: group.abbreviation }}"
         >
-          <p
-            class="group hover"
+          <router-link 
+            v-if="(accountData.groupID === group.abbreviation) || accountData.role === 'Admin'"
+            :to="{ name: 'Magazines', params: { specialty: specialtyID, groupID: group.abbreviation }}"
           >
-          Група: {{ group.name }} || Староста: {{group.headman}} || Класний керівник: {{group.leader}}
-        </p>
-        </router-link>
+            <p class="group hover">
+              Група: {{ group.name }} || Староста: {{group.headman}} || Класний керівник: {{group.leader}}
+            </p>
+          </router-link>
+
+          <div v-else
+            :to="{ name: 'Magazines', params: { specialty: specialtyID, groupID: group.abbreviation }}"
+          >
+            <p class="group hover">
+              Група: {{ group.name }} || Староста: {{group.headman}} || Класний керівник: {{group.leader}}
+            </p>
+          </div>
+        </div>
       </div>
 
       <div class="content__groups" v-else>
@@ -49,7 +60,8 @@
       ...mapGetters([
         'groupsByCurrentSpecialty',
         'nameCurrentSpecialty',
-        'loaderGroups'
+        'loaderGroups',
+        'accountData'
       ]),
 
       sortGroupByName() {

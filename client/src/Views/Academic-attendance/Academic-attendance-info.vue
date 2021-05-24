@@ -1,29 +1,37 @@
 <template>
-  <div>
-    <table>
-      <thead>
-        <tr class="firstTR"><th>№</th><th>ПІБ</th><th>Число коли не було</th><th>Прогули у годинах</th><th>Загальна сума прогулів</th></tr>
-      </thead>
-      <!-- <tbody>
-        <tr v-for="(stud, indexStud) in dataOfStud" :key="indexStud">
-          <td>{{indexStud+1}}</td>
-          <td>{{stud.name}}</td>
-          <td class="para">
-            <div v-for="(data, name, indexData) in stud.attandance" :key="indexData">
-              <p v-if="data.first || data.second || data.third || data.fourth">{{name}}</p>
-            </div>
-          </td>
-          <td class="para">
-            <div v-for="(data, name, indexData) in stud.attandance" :key="indexData">
-              <p v-if="data.first || data.second || data.third || data.fourth">{{output(data, indexStud)}}</p>
-            </div>
-          </td>
-          <td class="para">
-            <p>{{arrayAttandance[indexStud]}}</p>
-          </td>
-        </tr>
-      </tbody> -->
-    </table>
+  <div class="wrapper">
+    <div class="table">
+      <div class="time">
+        <p>Дата: {{getNowDate}}</p>
+        <p>День тижня: {{getNowDay}}</p>
+        <p>Поточний час: {{getCurrentTime}}</p>
+      </div>
+
+      <Preloader v-if="groupLoad" />
+      <table v-else>
+        <thead>
+          <tr class="firstTR"><th>№</th><th>ПІБ</th><th>Число коли не було</th><th>Прогули у годинах</th><th>Загальна сума прогулів</th></tr>
+        </thead>
+         <tbody>
+          <tr v-for="(stud, studIndex) in students" :key="stud._id">
+            <td>{{ studIndex + 1}}</td><td>{{ stud.name }}</td>
+            <td class="para">
+              <div v-for="(value, key) in stud.attendance" :key="key">
+                <p v-if="key">{{ key }}</p>
+              </div>
+            </td>
+            <td class="para">
+              <div v-for="(value, key) in stud.attendance" :key="key">
+                <p v-if="key">{{ Object.keys(value).length * 2}}</p>
+              </div>
+            </td>
+            <td class="para">
+              <p>{{ showAllHours(studIndex) }}</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <div class="buttons">
       <router-link class="hover" :to="{ name: 'AcademicAttendance', params: { specialtyID, groupID }}">Повернутись до журналу</router-link>
     </div>
@@ -31,61 +39,94 @@
 </template>
 
 <script>
+  import axiosApiInstanse from '../../services/axiosApiInstance'
 
-export default {
-  name: "AcademicAttendanceInfo", 
 
-  data: () => ({
+  export default {
+    name: "AcademicAttendanceInfo", 
+
+    props: {
+      specialtyID: {
+        type: String,
+        required: true
+      },
+      groupID: {
+        type: String,
+        required: true
+      }
+    },
+
+    data: () => ({
+      nameDays: ["Неділя", "Понеділок","Вівторок","Середа","Четвер","П'ятниця","Субота"],
+      students: [],
+      groupLoad: true,
+
+      
       dataOfStud: [],
       answer: '',
       arrayAttandance: {}
-  }),
+    }),
 
-  props: {
-    specialtyID: {
-      type: String,
-      required: true
+    computed: {
+      getCurrentTime() {  
+        let hours = new Date().getHours(); let min = new Date().getMinutes()
+        hours < 10 ? hours = '0'+ hours : hours; min < 10 ? min = '0'+ min : min 
+        return hours + ':' +  min
+      },
+      getNowDay() {
+        return this.nameDays[new Date().getDay()]
+      },
+      getNowDate() {  
+        let data = new Date().getDate() + '.' + (new Date().getMonth() + 1) + '.' + new Date().getFullYear()
+        return data
+      },
     },
-    groupID: {
-      type: String,
-      required: true
-    }
-  },
 
-  computed: {
-    // getDataOfStud(){
-    //   return this.$store.getters.getDataOfStud
-    // }
-  },
-  mounted: function() {
-    // let box = {"specialty": this.specialty, "group": this.group}
-    // this.$store.dispatch('updateDataOfCurrentGroup', box)
-    // setTimeout(() => {      
-    //   this.dataOfStud = this.getDataOfStud
-    // }, 100);
-  },
-  methods: {
-    output(data, indexStud) {
-      let countTime = 0;
-      let answer = 0
+    async created() {
+      this.students = await axiosApiInstanse({
+        url: `student/studentsByGroup/${this.groupID}`,
+        method: "get"
+      })
+      this.groupLoad = false
+    },
 
-      for ( let i in data) 
-        if (data[i]) countTime++
+    methods: {
+      showAllHours(studIndex) {
+        let amountHours = 0
+        let attendance = this.students[studIndex].attendance
+
+        if(attendance) {
+          for(let day of Object.values(attendance)) {
+            amountHours += Object.keys(day).length 
+          }
+        }
       
-      answer = countTime * 2
 
-      if (!this.arrayAttandance[indexStud]) 
-        this.arrayAttandance[indexStud] = answer
-      else 
-        this.arrayAttandance[indexStud] += answer
-
-      return answer
+        return amountHours * 2
+      }
     }
   }
-}
 </script>
 
 <style scoped>
+  .wrapper {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .table {
+    flex: 1 0 auto;
+  }
+
+    .time {
+    display: flex;
+    justify-content: space-around;
+
+    margin-top: 10px;
+    padding: 15px;
+  }
+
+
   .stud {
     display: flex;
     /* justify-content: space-around; */
@@ -139,8 +180,9 @@ export default {
     align-items: flex-end;
     margin: 20px 80px;
   }
+  .buttons > p,
   .buttons > a {
-    padding: 4px 8px;
+    padding: 14px 18px;
     cursor: pointer;
   }
 </style>

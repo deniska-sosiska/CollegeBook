@@ -31,8 +31,9 @@
     font-family: 'Comfortaa';
     src:url('./assets/Comfortaa-Regular.ttf');
   }
-  a {
-    text-decoration: none;
+
+  html, body {
+    height: 100vh;
   }
   * {
     margin: 0;
@@ -44,6 +45,9 @@
   .container {
     max-width: 1200px;
     margin: 0 auto;
+  }
+  a {
+    text-decoration: none;
   }
   .myBorder {
     border: solid 1px;

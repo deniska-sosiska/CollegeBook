@@ -1,11 +1,14 @@
 <template>
-  <div class="table">
+  <div class="wrapper">
+    <div class="table">
     <div class="time">
       <p>Дата: {{getNowDate}}</p>
       <p>День тижня: {{getNowDay}}</p>
       <p>Поточний час: {{getCurrentTime}}</p>
     </div>
-    <Preloader v-if="groupLoad" />
+    
+    <Preloader v-if="groupLoad && !errorMess" />
+    <Preloader v-if="groupLoad && errorMess" str="Потрібно додати розклад занять" />
 
     <table v-else>
       <thead>
@@ -29,11 +32,12 @@
           >
             <p 
               v-if="lesson"
-            >{{ students[studIndex].attandance[getNowDate][paraIndex] ?  "✓" :  " " }}</p>
+            >{{ students[studIndex].attendance[getNowDate][paraIndex] ?  "✓" :  " " }}</p>
           </td>
         </tr>
       </tbody>
     </table>
+    </div>
     <div class="buttons">
       <p class="hover" @click="submitNewStudents()"  v-if="accountData.name == group.headman">Відправити нові дані</p>
       <router-link class="hover" :to="{ name: 'AcademicAttendanceInfo', params: { specialtyID, groupID }}">Переглянути усю інформацію</router-link>
@@ -69,7 +73,7 @@
       groupLoad: true,
       weekend: false,
 
-      qwe: false
+      errorMess: false
     }),
 
     computed: {
@@ -94,7 +98,12 @@
           this.weekend = true
           return "Сьогодні вихідний"
         }
-        return this.group.schedule[this.getNowDay]
+        try {
+          return this.group.schedule[this.getNowDay]
+        } catch (err) {
+          this.errorMess = true
+          this.groupLoad = true
+        }
       }
     },
 
@@ -111,55 +120,65 @@
 
 
       this.students.forEach(stud => {
-        if (!stud.attandance) {
-          stud['attandance'] = { "crutch": null }
-          stud.attandance[this.getNowDate] = { 0: false, 1: false, 2: false, 3: false }
-          delete stud['attandance']["crutch"]
+        if (!stud.attendance) {
+          stud['attendance'] = { "crutch": null }
+          stud.attendance[this.getNowDate] = { 0: false, 1: false, 2: false, 3: false }
+          delete stud['attendance']["crutch"]
         }
 
-        if (!stud.attandance[this.getNowDate]) {
-          stud.attandance[this.getNowDate] = { 0: false, 1: false, 2: false, 3: false }
+        if (!stud.attendance[this.getNowDate]) {
+          stud.attendance[this.getNowDate] = { 0: false, 1: false, 2: false, 3: false }
         }
       })
 
-      console.log(this.students)
       this.groupLoad = false
     },
 
     methods: {
       mark(studIndex, paraIndex) {
-        if (this.accountData.name !== this.group.headman) return
+        if (this.accountData.name !== this.group.headman) return  
         // якщо не староста
 
         let stud = this.students[studIndex]
-        stud.attandance[this.getNowDate][paraIndex]
-        stud.attandance[this.getNowDate][paraIndex] = !stud.attandance[this.getNowDate][paraIndex]
+        stud.attendance[this.getNowDate][paraIndex]
+        stud.attendance[this.getNowDate][paraIndex] = !stud.attendance[this.getNowDate][paraIndex]
         
         this.$set(this.students, studIndex, stud)
       },
 
-      submitNewStudents() {
-        // console.log(this.students)
+      async submitNewStudents() {
         for(let stud of this.students) {
-          let elem = stud.attandance[this.getNowDate]
-          for(let  key in elem) {
-            if (!elem[key]) {
+          let elem = stud.attendance[this.getNowDate]
+          for(let  key in elem) 
+            if (!elem[key]) 
               delete elem[key]
-            }
-          }
-          // console.log("elem: ", elem)
-          if (Object.keys(elem).length == 0) {
-            delete stud.attandance[this.getNowDate]
-          }
+
+          if (Object.keys(elem).length == 0)
+            delete stud.attendance[this.getNowDate]
         }
-        
-        console.log(this.students)
-      }
+        this.groupLoad = true
+
+        await axiosApiInstanse({
+          url: 'student/studentsUpdate',
+          data: this.students,
+          method: "put"
+        })
+
+        this.$router.push({ name: "AcademicAttendanceInfo", params: { specialtyID: this.specialtyID, groupID: this.groupID }})
+      },
     },
   }
 </script>
 
 <style scoped>
+  .wrapper {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .table {
+    flex: 1 0 auto;
+  }
   table {
     margin: 0px auto;
     margin-top: 10px;
@@ -183,9 +202,15 @@
     padding: 10px 10px 4px 10px;
     font-size: 20px;
   }
+  tr {
+    line-height: 28px;
+  }
   .para {
     text-align: center;
     font-size: 16px;
+  }
+  .para > p {
+    font-size: 24px;
   }
   .para:hover {
     background: #ccefff;
@@ -205,14 +230,16 @@
     background: #fff;
   }
   .buttons {
+    flex: 0 0 auto;
+
     display: flex;
-    flex-direction: column;
+    justify-content: flex-end;
     align-items: flex-end;
-    margin: 20px 20px;
+    margin: 20px 80px;
   }
   .buttons > p,
   .buttons > a {
-    padding: 4px 8px;
+    padding: 14px 18px;
     cursor: pointer;
   }
 

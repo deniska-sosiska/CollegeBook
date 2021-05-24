@@ -129,8 +129,7 @@
         this.$delete(this.group.studentsList, index)
       },
 
-      async createGroup(form) {
-        // console.log("submit: ", this.group )
+      async createGroup() {
         await axiosApiInstanse({
           url: "group",
           data: this.group,
