@@ -22,3 +22,7 @@
 | Webpack    | Javascript збірник модулів                                                            | https://webpack.js.org/  |
 
 ![Головна сторінка веб-додатку](https://github.com/deniska-sosiska/CollegeBook-MEVN-stack/blob/main/client/src/assets/mainpage.png)
+
+### Техпідтримка
+Щоб звернутись до техпідтримки цього веб-додатку, потрібно перейти до вкладки "Issues", та створити нове питання, за допомогою "New issue".
+![Техпідтримка](https://github.com/deniska-sosiska/CollegeBook-MEVN-stack/blob/main/client/src/assets/technical_support.png)

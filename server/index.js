@@ -6,7 +6,7 @@ const bodyParser = require('body-parser')
 const {  routes  } = require('./src/routes')
 
 require('dotenv').config()
-const {  MongoDB_URL, DataBaseOptions, errorHandler  } = require('./src/config')
+const {  MongoDB_URL, DataBaseOptions, errorHandler } = require('./src/config')
 
 //Ініціалізація додатку
 const app = express()
