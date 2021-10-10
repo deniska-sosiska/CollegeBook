@@ -1,18 +1,21 @@
 {
   "name": "collegebook",
+  "description": "automated-system-for-recording-student-attendance",
   "version": "1.0.0",
+  "author": "Berkov Denis <denchikarabik@gmail.com>",
   "scripts": {
     "dev:client": "cd client && npm run dev",
-    "dev:server": "cd server && npm run dev"
+    "dev:server": "cd server && npm run dev",
+    "install-packages:client": "cd client && npm i",
+    "install-packages:server": "cd server && npm i"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deniska-sosiska/Automated-system-for-recording-student-attendance.git"
+    "url": "git+https://github.com/deniska-sosiska/CollegeBook-MEVN-stack.git.git"
   },
-  "author": "Berkov Denis <denchikarabik@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/deniska-sosiska/Automated-system-for-recording-student-attendance/issues"
+    "url": "https://github.com/deniska-sosiska/CollegeBook-MEVN-stack.git/issues"
   },
-  "homepage": "https://github.com/deniska-sosiska/Automated-system-for-recording-student-attendance#readme"
+  "homepage": "https://github.com/deniska-sosiska/CollegeBook-MEVN-stack.git#readme"
 }
