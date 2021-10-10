@@ -1,29 +1,32 @@
 {
-  "name": "automated-system-for-recording-student-attendance",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "dev": "nodemon index.js"
-  },
-  "dependencies": {
-    "body-parser": "^1.19.0",
-    "boom": "^7.3.0",
-    "cors": "^2.8.5",
-    "dotenv": "^9.0.2",
-    "express": "^4.17.1",
-    "express-promise-router": "^4.0.1",
-    "mongoose": "^5.11.9",
-    "nodemon": "^2.0.6"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/deniska-sosiska/Automated-system-for-recording-student-attendance.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/deniska-sosiska/Automated-system-for-recording-student-attendance/issues"
-  },
-  "homepage": "https://github.com/deniska-sosiska/Automated-system-for-recording-student-attendance#readme"
+    "name": "collegebook-server",
+    "description": "automated-system-for-recording-student-attendance",
+    "version": "1.0.0",
+    "main": "index.js",
+    "author": "Berkov Denis <denchikarabik@gmail.com>",
+    "scripts": {
+        "dev": "nodemon index.js"
+    },
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "boom": "^7.3.0",
+        "cors": "^2.8.5",
+        "dotenv": "^9.0.2",
+        "express": "^4.17.1",
+        "express-promise-router": "^4.0.1",
+        "mongoose": "^6.0.10",
+        "nodemon": "^2.0.6"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deniska-sosiska/CollegeBook-MEVN-stack.git"
+    },
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/deniska-sosiska/CollegeBook-MEVN-stack/issues"
+    },
+    "homepage": "https://github.com/deniska-sosiska/CollegeBook-MEVN-stack#readme",
+    "devDependencies": {
+        "eslint": "^8.0.0"
+    }
 }

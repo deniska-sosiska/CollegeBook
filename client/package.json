@@ -1,67 +1,63 @@
 {
-  "name": "automated-system-for-recording-student-attendance",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "b": "webpack --mode production",
-    "dev": "webpack serve --mode development",
-    "jsonS": "json-server --watch ./src/store/myDB.json"
-  },
-  "dependencies": {
-    "axios": "^0.21.0",
-    "json-server": "^0.16.3",
-    "vue-axios": "^2.1.5",
-    "vue-router": "^3.4.8",
-    "vue-spinners-css": "^1.1.5",
-    "vue.js": "^0.3.2",
-    "vuex": "^3.6.0",
-    "vuex-persistedstate": "^4.0.0-beta.1"
-  },
-  "devDependencies": {
-    "css-loader": "^5.0.0",
-    "url-loader": "^4.1.1",
-    "file-loader": "^6.2.0",
-    "image-webpack-loader": "^7.0.1",
-    "img-loader": "^3.0.2",
-    "style-loader": "^2.0.0",
-    "vue-loader": "^15.9.4",
-    "vue-template-compiler": "^2.6.12",
-    "webpack": "^5.3.0",
-    "webpack-cli": "^4.1.0",
-    "webpack-dev-server": "^3.11.0"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
+    "name": "colegebook-client",
+    "description": "automated-system-for-recording-student-attendance",
+    "version": "0.1.0",
+    "author": "Berkov Denis <denchikarabik@gmail.com>",
+    "scripts": {
+        "b": "webpack --mode production",
+        "dev": "webpack serve --mode development"
     },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
+    "dependencies": {
+        "axios": "^0.21.4",
+        "vue-axios": "^2.1.5",
+        "vue-router": "^3.4.8",
+        "vue-spinners-css": "^1.1.5",
+        "vue.js": "^0.3.2",
+        "vuex": "^3.6.2"
+    },
+    "devDependencies": {
+        "css-loader": "^5.0.0",
+        "file-loader": "^6.2.0",
+        "image-webpack-loader": "^8.0.1",
+        "img-loader": "^3.0.2",
+        "style-loader": "^2.0.0",
+        "url-loader": "^4.1.1",
+        "vue-loader": "^15.9.4",
+        "vue-template-compiler": "^2.6.12",
+        "webpack": "^5.3.0",
+        "webpack-cli": "^4.1.0",
+        "webpack-dev-server": "^3.11.0"
+    },
+    "main": "webpack.config.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deniska-sosiska/CollegeBook-MEVN-stack.git.git"
+    },
+    "keywords": [
+        "Vue"
     ],
-    "parserOptions": {
-      "parser": "babel-eslint"
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/deniska-sosiska/CollegeBook-MEVN-stack.git/issues"
     },
-    "rules": {}
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ],
-  "description": "Автоматизована система обліку відвідувань занять студентами",
-  "main": "babel.config.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/deniska-sosiska/Automated-system-for-recording-student-attendance.git"
-  },
-  "keywords": [
-    "Vue"
-  ],
-  "author": "Denis Berkov <denchikarabik@gmail.com>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/deniska-sosiska/Automated-system-for-recording-student-attendance/issues"
-  },
-  "homepage": "https://github.com/deniska-sosiska/Automated-system-for-recording-student-attendance#readme"
+    "homepage": "https://github.com/deniska-sosiska/CollegeBook-MEVN-stack.git#readme",
+    "eslintConfig": {
+        "root": true,
+        "env": {
+            "node": true
+        },
+        "extends": [
+            "plugin:vue/essential",
+            "eslint:recommended"
+        ],
+        "parserOptions": {
+            "parser": "babel-eslint"
+        },
+        "rules": {}
+    },
+    "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not dead"
+    ]
 }
