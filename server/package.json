@@ -12,6 +12,7 @@
         "boom": "^7.3.0",
         "cors": "^2.8.5",
         "dotenv": "^9.0.2",
+        "eslint-config-airbnb-base": "^15.0.0",
         "express": "^4.17.1",
         "express-promise-router": "^4.0.1",
         "mongoose": "^6.0.10",
@@ -27,6 +28,6 @@
     },
     "homepage": "https://github.com/deniska-sosiska/CollegeBook-MEVN-stack#readme",
     "devDependencies": {
-        "eslint": "^8.0.0"
+        "eslint": "^8.2.0"
     }
 }
