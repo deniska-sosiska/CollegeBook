@@ -1,102 +1,117 @@
-const genericCrud = require('./generic.controller')
-const {  Specialty, Student, Group  }  = require('../models')
+const genericCrud = require('./generic.controller');
+const { Specialty, Student, Group } = require('../models');
 
 module.exports = {
-  ...genericCrud(Group),
+    ...genericCrud(Group),
 
-  async get({ params: { abbreviation }}, res) {
-    try {
-      const answer = await Group.findOne({ abbreviation }).lean()
-      if (answer === null) throw { message: "Group by groupID not found" }
-      return res.status(200).send(answer)
-    } catch (err) {
-      return res.status(400).send(err)
-    }
-  },
+    async get({ params: { abbreviation } }, res) {
+        try {
+            const answer = await Group.findOne({ abbreviation }).lean();
+            if (answer === null) throw new Error('Group by groupID not found');
+            return res.status(200).send(answer);
+        } catch (err) {
+            return res.status(400).send(err);
+        }
+    },
 
-  async create({ body }, res) {
-    if (body.studentsList.length == 0) {
-      await new Group(body).save()  
-      return res.status(200).send("Group create succes")
-    }
+    async create({ body }, res) {
+        if (body.studentsList.length === 0) {
+            await new Group(body).save();
+            return res.status(200).send('Group create succes');
+        }
 
-    for(let i = 0; i < body.studentsList.length; i++) {
-      let elem = body.studentsList[i]
+        const newGroupForCreate = body;
+        const createdStudents = await Promise.all(
+            body.studentsList.map((student) => (
+                new Student({
+                    name: student,
+                    groupID: body.abbreviation,
+                }).save()
+            )),
+        );
+        newGroupForCreate.studentsList = createdStudents;
 
-      const stud = await new Student({
-        name: elem,
-        groupID: body.abbreviation
-      }).save()
+        await new Group(newGroupForCreate).save();
+        return res.status(200).send('Group create succes');
+    },
 
-      body.studentsList[i] = { name: stud.name, id: stud._id }
-    }
+    async update({ body }, res) {
+        const oldDataGroup = await Group.findById(body._id).lean();
+        const oldStudentsMap = new Map(
+            oldDataGroup.studentsList.map((student) => [student.id, student]),
+        );
 
-    await new Group(body).save()  
-    return res.status(200).send("Group create succes")
-  },
+        const studForDelete = body.studentsList.filter((student) => (
+            student.id && oldStudentsMap.has(student.id)
+        ));
+        await Promise.all(studForDelete.map((stud) => (
+            Student.findByIdAndDelete(stud.id)
+        )));
 
-  async update({ body }, res) {
-    const oldDataGroup = await Group.findById(body._id).lean()
-    // console.log("\nOldDataGroup: \n", oldDataGroup.studentsList)
-    // console.log("\nBody\n", body.studentsList)
-    // console.log("\n")
+        if (body.studentsList.length === 0) {
+            await Group.findByIdAndUpdate(body._id, body, { new: true });
+            return res.status(200).send('Group update succes');
+        }
 
-    const studForDelete = oldDataGroup.studentsList.filter(stud => !body.studentsList.some(elem => (stud.id == elem.id) && elem.id)) 
+        const newGroupForCreate = body;
+        const studentsForCreate = [];
+        const studentsForUpdate = [];
 
-    for(let elem of studForDelete) {
-      await Student.findByIdAndDelete(elem.id)
-    }
+        for (let i = 0; i < body.studentsList.length; i++) {
+            const student = body.studentsList[i];
 
-    if (body.studentsList.length == 0) {
-      await Group.findByIdAndUpdate(body._id , body, { new: true })
-      return res.status(200).send("Group update succes")
-    }
+            if (student.id) {
+                const isStudentAlreadyExist = oldStudentsMap.get(student.id);
+                if (!!isStudentAlreadyExist && isStudentAlreadyExist.name !== student.name) {
+                    studentsForUpdate.push(
+                        Student.findByIdAndUpdate(student.id, { name: student.name }),
+                    );
+                }
+            } else {
+                studentsForCreate.push(
+                    new Student({
+                        name: student.name,
+                        groupID: body.abbreviation,
+                    }).save(),
+                );
+            }
+        }
 
-    for(let i = 0; i < body.studentsList.length; i++){
-      let elem = body.studentsList[i]
+        // Broken logic -TODO
+        await Promise.all(studentsForUpdate);
+        const newStudents = await Promise.all(studentsForCreate);
+        newGroupForCreate.studentsList = newStudents.map((student) => ({
+            name: student.name,
+            id: student._id,
+        }));
+        await Group.findByIdAndUpdate(newGroupForCreate._id, newGroupForCreate, { new: true });
+        return res.status(200).send('Group update succes');
+    },
 
-      if (elem.id) {
-        const studentForUpdate = oldDataGroup.studentsList.find(stud => stud.id == elem.id && stud.name != elem.name)
-        if (studentForUpdate) await Student.findByIdAndUpdate(elem.id, { name: elem.name })
+    async delete({ params: { id } }, res) {
+        const group = await Group.findById(id);
 
-      } else {
-        const stud = await new Student({
-          name: elem.name,
-          groupID: body.abbreviation
-        }).save()
-        body.studentsList[i] = { name: stud.name, id: stud._id }
-      }
-    }
+        for (const elem of group.studentsList) {
+            Student.findByIdAndDelete(elem.id);
+        }
 
-    await Group.findByIdAndUpdate(body._id , body, { new: true })
-    return res.status(200).send("Group update succes")
-  },
+        await Group.findByIdAndDelete(id);
+        return res.status(200).send('Group delete succes');
+    },
 
-  async delete({ params: { id }}, res) {
-    const group = await Group.findById(id)
+    async getGroupsBySpecialtyID({ params: { specialtyID } }, res) {
+        try {
+            const items = await Group.find({ specialtyID });
+            const name = await Specialty.findOne({ abbreviation: specialtyID });
+            const nameSpecialty = name.name;
 
-    for(let elem of group.studentsList) {
-      Student.findByIdAndDelete(elem.id)
-    }
-
-    await Group.findByIdAndDelete(id)
-    return res.status(200).send("Group delete succes")
-  },
-  
-
-  async getGroupsBySpecialtyID({ params: { specialtyID } }, res) {
-    try {
-      const items = await Group.find({ specialtyID })
-      const name = await Specialty.findOne({ abbreviation: specialtyID })
-      const nameSpecialty = name.name
-
-      if (items.length === 0) throw { message: "Groups for this specialty not found" }
-      return res.status(200).send({
-        groups: items,
-        nameSpecialty
-      })
-    } catch(err) {
-      return res.status(400).send(err)
-    }
-  }
-}
+            if (items.length === 0) throw new Error('Groups for this specialty not found');
+            return res.status(200).send({
+                groups: items,
+                nameSpecialty,
+            });
+        } catch (err) {
+            return res.status(400).send(err);
+        }
+    },
+};

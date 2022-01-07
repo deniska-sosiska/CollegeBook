@@ -1,11 +1,12 @@
-const { model, Schema } = require('mongoose')
-const typeStrReqTrue = { type: String, required: true }
+const { model, Schema } = require('mongoose');
+
+const typeStrReqTrue = { type: String, required: true };
 
 const schema = new Schema({
-  name: typeStrReqTrue, 
-  groupID: typeStrReqTrue,
+    name: typeStrReqTrue,
+    groupID: typeStrReqTrue,
 
-  attendance: {}
-})
+    attendance: {},
+});
 
-module.exports = model('Student', schema) 
+module.exports = model('Student', schema);

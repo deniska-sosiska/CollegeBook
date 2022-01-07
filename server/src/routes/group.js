@@ -1,15 +1,12 @@
-const router = require('express-promise-router')()
-const {  group  } = require('../controllers')
+const router = require('express-promise-router')();
+const { group } = require('../controllers');
 
-router.route('/:abbreviation').get(group.get)
-router.route('/').get(group.getAll)
+router.route('/:abbreviation').get(group.get);
+router.route('/').get(group.getAll);
+router.route('/').post(group.create);
+router.route('/:id').put(group.update);
+router.route('/:id').delete(group.delete);
 
-router.route('/').post(group.create)
-router.route('/:id').put(group.update)
-router.route('/:id').delete(group.delete)
+router.route('/specialtyID/:specialtyID').get(group.getGroupsBySpecialtyID);
 
-router.route('/specialtyID/:specialtyID').get(group.getGroupsBySpecialtyID)
-
-module.exports = router
-
-
+module.exports = router;
