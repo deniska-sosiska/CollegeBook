@@ -32,7 +32,7 @@ module.exports = {
         newGroupForCreate.studentsList = createdStudents;
 
         await new Group(newGroupForCreate).save();
-        return res.status(200).send('Group create succes');
+        return res.status(200).send('Group create success');
     },
 
     async update({ body }, res) {

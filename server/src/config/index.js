@@ -1,5 +1,10 @@
-const mongoDBURL = `${process.env.MONGODB_domen}${process.env.MONGODB_user}${process.env.MONGODB_options}`;
 const serverPort = process.env.Server_PORT;
+const mongoDBDomen = process.env.MONGODB_DOMEN;
+const mongoDBUser = process.env.MONGODB_USER;
+const mongoDBOptions = process.env.MONGODB_OPTIONS;
+
+const mongoUrlConnect = `${mongoDBDomen}${mongoDBUser}${mongoDBOptions}`;
+
 
 const DataBaseOptions = {
     useUnifiedTopology: true,
@@ -16,7 +21,7 @@ const errorHandler = (error) => {
 };
 
 module.exports = {
-    mongoDBURL,
+    mongoUrlConnect,
     serverPort,
     DataBaseOptions,
     errorHandler,
