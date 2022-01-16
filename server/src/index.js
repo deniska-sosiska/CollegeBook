@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-require('dotenv').config();
 const cors = require('cors');
 const { join } = require('path');
 const express = require('express');

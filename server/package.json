@@ -7,7 +7,14 @@
     "homepage": "https://github.com/deniska-sosiska/CollegeBook-MEVN-stack#readme",
     "license": "ISC",
     "scripts": {
-        "dev": "nodemon src/index.js"
+        "start": "nodemon --watch src --exec npm run flow-and-build-run",
+        "serve": "babel-node --require dotenv/config dist/index.js",
+        "build": "rimraf ./dist && babel src/ -d dist/",
+        "build-run": "npm run build && npm run serve",
+        "eslint": "eslint src",
+        "flow": "flow",
+        "flow-and-build-run": "npm run flow && npm run build-run",
+        "flow-typed-install": "flow-typed install -s"
     },
     "dependencies": {
         "boom": "^7.3.0",
@@ -19,9 +26,17 @@
         "nodemon": "^2.0.6"
     },
     "devDependencies": {
+        "@babel/cli": "^7.16.8",
+        "@babel/core": "^7.16.7",
+        "@babel/node": "^7.16.8",
+        "@babel/preset-env": "^7.16.8",
+        "@babel/preset-flow": "^7.16.7",
         "eslint": "^8.6.0",
         "eslint-config-airbnb-base": "^15.0.0",
-        "eslint-plugin-import": "^2.25.4"
+        "eslint-plugin-import": "^2.25.4",
+        "flow-bin": "^0.169.0",
+        "flow-typed": "^3.6.1",
+        "rimraf": "^3.0.2"
     },
     "repository": {
         "type": "git",
@@ -41,17 +56,44 @@
         "root": true,
         "rules": {
             "no-unused-vars": "warn",
-            "indent": ["error", 4],
-            "no-multiple-empty-lines": ["warn", { "max": 4, "maxEOF": 0 } ],
-            "object-curly-newline": ["error", {
-                "multiline": true,
-                "consistent": true
-            }],
-            "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
-            "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+            "indent": [
+                "error",
+                4
+            ],
+            "no-multiple-empty-lines": [
+                "warn",
+                {
+                    "max": 4,
+                    "maxEOF": 0
+                }
+            ],
+            "object-curly-newline": [
+                "error",
+                {
+                    "multiline": true,
+                    "consistent": true
+                }
+            ],
+            "no-plusplus": [
+                "error",
+                {
+                    "allowForLoopAfterthoughts": true
+                }
+            ],
+            "no-underscore-dangle": [
+                "error",
+                {
+                    "allow": [
+                        "_id"
+                    ]
+                }
+            ],
             "curly": "error",
-            "no-restricted-syntax": ["error",
-                "ForInStatement", "LabeledStatement", "WithStatement"
+            "no-restricted-syntax": [
+                "error",
+                "ForInStatement",
+                "LabeledStatement",
+                "WithStatement"
             ]
         }
     }
