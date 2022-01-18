@@ -1,11 +1,11 @@
-const genericCrud = require('./generic.controller');
-const { Student } = require('../models');
+import { genericCrud } from './generic.controller';
+import { StudentSchema } from '../models';
 
-module.exports = {
-    ...genericCrud(Student),
+export const StudentController = {
+    ...genericCrud(StudentSchema),
 
     async studentsByGroup({ params: { groupID }, res }) {
-        const array = await Student.find({ groupID });
+        const array = await StudentSchema.find({ groupID });
         array.sort((a, b) => {
             if (a.name > b.name) { return 1; }
             if (a.name < b.name) { return -1; }
@@ -16,7 +16,7 @@ module.exports = {
 
     async studentsUpdate({ body }, res) {
         await Promise.all(body.map((stud) => (
-            Student.findByIdAndUpdate(stud._id, stud)
+            StudentSchema.findByIdAndUpdate(stud._id, stud)
         )));
 
         return res.send('ok');

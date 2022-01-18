@@ -1,7 +1,6 @@
-const { model, Schema } = require('mongoose');
+import { model, Schema } from 'mongoose';
 
 const typeStrReqTrue = { type: String, required: true };
-
 const schema = new Schema({
     imageLink: typeStrReqTrue, // Посилання на картинку для заставки
     name: typeStrReqTrue, // Назва спеціальності
@@ -10,4 +9,4 @@ const schema = new Schema({
     abbreviation_ua: typeStrReqTrue,
 });
 
-module.exports = model('Specialty', schema);
+export const SpecialtySchema = model('Specialty', schema);

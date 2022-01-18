@@ -1,4 +1,4 @@
-const boom = require('boom');
+import boom from 'boom';
 
 const genericCrud = (Model) => ({
     async get({ params: { id } }, res) {
@@ -46,4 +46,4 @@ const genericCrud = (Model) => ({
     },
 });
 
-module.exports = genericCrud;
+export { genericCrud };

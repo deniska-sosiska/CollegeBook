@@ -1,7 +1,6 @@
-const { model, Schema } = require('mongoose');
+import { model, Schema } from 'mongoose';
 
 const typeStrReqTrue = { type: String, required: true };
-
 const schema = new Schema({
     name: typeStrReqTrue,
     groupID: typeStrReqTrue,
@@ -9,4 +8,4 @@ const schema = new Schema({
     attendance: {},
 });
 
-module.exports = model('Student', schema);
+export const StudentSchema = model('Student', schema);

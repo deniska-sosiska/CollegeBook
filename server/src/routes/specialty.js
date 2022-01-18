@@ -1,10 +1,12 @@
-const router = require('express-promise-router')();
-const { specialty } = require('../controllers');
+import expressPromiseRouter from 'express-promise-router';
+import { SpecialtyController } from '../controllers';
 
-router.route('/:id').get(specialty.get);
-router.route('/').get(specialty.getAll);
-router.route('/').post(specialty.create);
-router.route('/:id').put(specialty.update);
-router.route('/:id').delete(specialty.delete);
+const SpecialtyRouter = expressPromiseRouter();
 
-module.exports = router;
+SpecialtyRouter.route('/:id').get(SpecialtyController.get);
+SpecialtyRouter.route('/').get(SpecialtyController.getAll);
+SpecialtyRouter.route('/').post(SpecialtyController.create);
+SpecialtyRouter.route('/:id').put(SpecialtyController.update);
+SpecialtyRouter.route('/:id').delete(SpecialtyController.delete);
+
+export { SpecialtyRouter };

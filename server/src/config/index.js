@@ -1,16 +1,16 @@
-const serverPort = process.env.Server_PORT;
+export const serverPort = process.env.SERVER_PORT;
+
 const mongoDBDomen = process.env.MONGODB_DOMEN;
 const mongoDBUser = process.env.MONGODB_USER;
 const mongoDBOptions = process.env.MONGODB_OPTIONS;
 
-const mongoUrlConnect = `${mongoDBDomen}${mongoDBUser}${mongoDBOptions}`;
+export const mongoUrlConnect = `${mongoDBDomen}${mongoDBUser}${mongoDBOptions}`;
 
-
-const DataBaseOptions = {
+export const DataBaseOptions = {
     useUnifiedTopology: true,
 };
 
-const errorHandler = (error) => {
+export const errorHandler = (error) => {
     // eslint-disable-next-line no-console
     console.error(`
         ========================ERROR==============================\n
@@ -18,11 +18,4 @@ const errorHandler = (error) => {
         Reason: ${error}\n
         ===========================================================
     `);
-};
-
-module.exports = {
-    mongoUrlConnect,
-    serverPort,
-    DataBaseOptions,
-    errorHandler,
 };

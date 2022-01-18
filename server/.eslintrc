@@ -1,0 +1,50 @@
+{
+    "extends": "airbnb-base",
+    "env": {
+        "node": true
+    },
+    "root": true,
+    "rules": {
+        "no-unused-vars": "warn",
+        "indent": [
+            "error",
+            4
+        ],
+        "no-multiple-empty-lines": [
+            "warn",
+            {
+                "max": 4,
+                "maxEOF": 0
+            }
+        ],
+        "object-curly-newline": [
+            "error",
+            {
+                "multiline": true,
+                "consistent": true
+            }
+        ],
+        "no-plusplus": [
+            "error",
+            {
+                "allowForLoopAfterthoughts": true
+            }
+        ],
+        "no-underscore-dangle": [
+            "error",
+            {
+                "allow": [
+                    "_id"
+                ]
+            }
+        ],
+        "curly": "error",
+        "no-restricted-syntax": [
+            "error",
+            "ForInStatement",
+            "LabeledStatement",
+            "WithStatement"
+        ],
+        "import/prefer-default-export": "off"
+    }
+}

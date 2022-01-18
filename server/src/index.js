@@ -1,17 +1,19 @@
 /* eslint-disable no-console */
-const cors = require('cors');
-const { join } = require('path');
-const express = require('express');
-const { connect } = require('mongoose');
-const { createServer } = require('http');
-const router = require('./routes');
-const { mongoUrlConnect, serverPort, DataBaseOptions, errorHandler } = require('./config');
+
+import cors from 'cors';
+import { join } from 'path';
+import express, { json } from 'express';
+import { connect } from 'mongoose';
+import { createServer } from 'http';
+import { router } from './routes';
+import { mongoUrlConnect, serverPort, DataBaseOptions, errorHandler } from './config';
+
 
 // Application initialization
 const app = express();
 
 app.use(cors());
-app.use(express.json());
+app.use(json());
 app.use(express.static(join(__dirname, '../public')));
 app.use(router);
 
@@ -23,5 +25,5 @@ connect(mongoUrlConnect, DataBaseOptions).then(
 
 // Starting and listening
 createServer({}, app).listen(serverPort, () => {
-    console.log(`Server running at localhost:${serverPort}`);
+    console.log(`Server running at http://localhost:${serverPort}/`);
 });

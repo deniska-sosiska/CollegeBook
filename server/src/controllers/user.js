@@ -1,13 +1,15 @@
-const genericCrud = require('./generic.controller');
-const { Group, User } = require('../models');
+const { genericCrud } = require('./generic.controller');
+const { GroupSchema, UserSchema } = require('../models');
 
-module.exports = {
-    ...genericCrud(User),
+export const UserController = {
+    ...genericCrud(UserSchema),
 
     async create({ body }, res) {
         try {
             if (body.role === 'Студент') {
-                const selectedGroup = await Group.findOne({ abbreviation: body.groupID }).lean();
+                const selectedGroup = await GroupSchema
+                    .findOne({ abbreviation: body.groupID })
+                    .lean();
 
                 const studentIsInList = selectedGroup.studentsList.some((elem) => (
                     elem.name === body.name
@@ -16,7 +18,7 @@ module.exports = {
                     throw new Error(`Такого студента немає в списках групи ${selectedGroup.name}`);
                 }
 
-                const findUserByName = await User.findOne({
+                const findUserByName = await UserSchema.findOne({
                     name: body.name,
                     groupID: body.groupID,
                 }).lean();
@@ -26,12 +28,12 @@ module.exports = {
                 }
             }
 
-            const findUserByLogin = await User.findOne({ login: body.login }).lean();
+            const findUserByLogin = await UserSchema.findOne({ login: body.login }).lean();
             if (findUserByLogin) {
                 throw new Error('Цей логін вже зайнятий');
             }
 
-            const item = new User(body);
+            const item = new UserSchema(body);
             const newItem = await item.save();
             return res.status(200).send({
                 login: newItem.login,
@@ -44,7 +46,7 @@ module.exports = {
 
     async authentication({ body: { login, password } }, res) {
         try {
-            const item = await User.findOne({ login, password }).lean();
+            const item = await UserSchema.findOne({ login, password }).lean();
             if (!item) {
                 throw new Error('User not found');
             }

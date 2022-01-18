@@ -1,12 +1,15 @@
-const router = require('express-promise-router')();
-const { student } = require('../controllers');
+import expressPromiseRouter from 'express-promise-router';
+import { StudentController } from '../controllers';
 
-router.route('/:id').get(student.get);
-router.route('/').get(student.getAll);
-router.route('/registration').post(student.create);
-router.route('/studentUpdate/:id').put(student.update);
-router.route('/:id').delete(student.delete);
-router.route('/studentsByGroup/:groupID').get(student.studentsByGroup);
-router.route('/studentsUpdate').put(student.studentsUpdate);
+const StudentRouter = expressPromiseRouter();
 
-module.exports = router;
+
+StudentRouter.route('/:id').get(StudentController.get);
+StudentRouter.route('/').get(StudentController.getAll);
+StudentRouter.route('/registration').post(StudentController.create);
+StudentRouter.route('/studentUpdate/:id').put(StudentController.update);
+StudentRouter.route('/:id').delete(StudentController.delete);
+StudentRouter.route('/studentsByGroup/:groupID').get(StudentController.studentsByGroup);
+StudentRouter.route('/studentsUpdate').put(StudentController.studentsUpdate);
+
+export { StudentRouter };

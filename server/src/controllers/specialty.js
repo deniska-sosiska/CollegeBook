@@ -1,6 +1,6 @@
-const genericCrud = require('./generic.controller');
-const { Specialty } = require('../models');
+import { genericCrud } from './generic.controller';
+import { SpecialtySchema } from '../models';
 
-module.exports = {
-    ...genericCrud(Specialty),
+export const SpecialtyController = {
+    ...genericCrud(SpecialtySchema),
 };

@@ -1,7 +1,6 @@
-const { model, Schema } = require('mongoose');
+import { model, Schema } from 'mongoose';
 
 const typeStrReqTrue = { type: String, required: true };
-
 const schema = new Schema({
     // Користувач - це студент або вчитель
     login: typeStrReqTrue, // Логін користувача
@@ -14,4 +13,4 @@ const schema = new Schema({
     groupID: { type: String },
 });
 
-module.exports = model('User', schema);
+export const UserSchema = model('User', schema);

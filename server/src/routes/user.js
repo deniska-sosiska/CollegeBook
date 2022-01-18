@@ -1,11 +1,13 @@
-const router = require('express-promise-router')();
-const { user } = require('../controllers');
+import expressPromiseRouter from 'express-promise-router';
+import { UserController } from '../controllers';
 
-router.route('/:id').get(user.get);
-router.route('/').get(user.getAll);
-router.route('/registration').post(user.create);
-router.route('/:id').put(user.update);
-router.route('/:id').delete(user.delete);
-router.route('/authentication').post(user.authentication);
+const UserRouter = expressPromiseRouter();
 
-module.exports = router;
+UserRouter.route('/:id').get(UserController.get);
+UserRouter.route('/').get(UserController.getAll);
+UserRouter.route('/registration').post(UserController.create);
+UserRouter.route('/:id').put(UserController.update);
+UserRouter.route('/:id').delete(UserController.delete);
+UserRouter.route('/authentication').post(UserController.authentication);
+
+export { UserRouter };

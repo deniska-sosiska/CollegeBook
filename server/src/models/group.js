@@ -1,4 +1,4 @@
-const { model, Schema } = require('mongoose');
+import { model, Schema } from 'mongoose';
 
 const typeStrReqTrue = { type: String, required: true };
 const schema = new Schema({
@@ -14,4 +14,4 @@ const schema = new Schema({
     studentsList: [],
 });
 
-module.exports = model('Group', schema);
+export const GroupSchema = model('Group', schema);

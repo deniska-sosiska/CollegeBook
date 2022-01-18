@@ -1,12 +1,15 @@
-const router = require('express-promise-router')();
-const { group } = require('../controllers');
+import expressPromiseRouter from 'express-promise-router';
+import { GroupController } from '../controllers';
 
-router.route('/:abbreviation').get(group.get);
-router.route('/').get(group.getAll);
-router.route('/').post(group.create);
-router.route('/:id').put(group.update);
-router.route('/:id').delete(group.delete);
+const GroupRouter = expressPromiseRouter();
 
-router.route('/specialtyID/:specialtyID').get(group.getGroupsBySpecialtyID);
 
-module.exports = router;
+GroupRouter.route('/:abbreviation').get(GroupController.get);
+GroupRouter.route('/').get(GroupController.getAll);
+GroupRouter.route('/').post(GroupController.create);
+GroupRouter.route('/:id').put(GroupController.update);
+GroupRouter.route('/:id').delete(GroupController.delete);
+
+GroupRouter.route('/specialtyID/:specialtyID').get(GroupController.getGroupsBySpecialtyID);
+
+export { GroupRouter };

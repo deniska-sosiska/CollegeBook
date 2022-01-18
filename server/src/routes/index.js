@@ -1,16 +1,18 @@
-const router = require('express-promise-router')();
-const user = require('./user');
-const specialty = require('./specialty');
-const student = require('./student');
-const group = require('./group');
+import expressPromiseRouter from 'express-promise-router';
+import { UserRouter } from './user';
+import { SpecialtyRouter } from './specialty';
+import { StudentRouter } from './student';
+import { GroupRouter } from './group';
 
-router.use('/api/users', user);
-router.use('/api/groups', group);
-router.use('/api/students', student);
-router.use('/api/specialties', specialty);
+const router = expressPromiseRouter();
+
+router.use('/api/users', UserRouter);
+router.use('/api/groups', GroupRouter);
+router.use('/api/students', StudentRouter);
+router.use('/api/specialties', SpecialtyRouter);
 
 router.get('/', (req, res) => {
     res.sendFile('index.html');
 });
 
-module.exports = router;
+export { router };
