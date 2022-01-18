@@ -1,3 +1,4 @@
+/** @flow */
 /* eslint-disable no-console */
 
 import cors from 'cors';
@@ -24,6 +25,6 @@ connect(mongoUrlConnect, DataBaseOptions).then(
 );
 
 // Starting and listening
-createServer({}, app).listen(serverPort, () => {
+createServer(app).listen(serverPort, () => {
     console.log(`Server running at http://localhost:${serverPort}/`);
 });

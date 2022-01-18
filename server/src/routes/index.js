@@ -1,10 +1,15 @@
+/** @flow */
+
 import expressPromiseRouter from 'express-promise-router';
+import { Router } from 'express';
+
 import { UserRouter } from './user';
 import { SpecialtyRouter } from './specialty';
 import { StudentRouter } from './student';
 import { GroupRouter } from './group';
 
-const router = expressPromiseRouter();
+
+const router: Router = expressPromiseRouter();
 
 router.use('/api/users', UserRouter);
 router.use('/api/groups', GroupRouter);

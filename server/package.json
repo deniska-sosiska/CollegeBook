@@ -7,12 +7,11 @@
     "homepage": "https://github.com/deniska-sosiska/CollegeBook-MEVN-stack#readme",
     "license": "ISC",
     "scripts": {
-        "start": "nodemon --watch src --exec npm run check-and-build-run",
+        "start": "nodemon --watch src --exec npm run build-run",
         "serve": "babel-node --require dotenv/config dist/index.js",
         "build": "rimraf ./dist && babel src/ -d dist/",
-        "build-run": "npm run build && npm run serve",
+        "build-run": "npm run build && npm run check && npm run serve",
         "check": "npm run flow && npm run eslint",
-        "check-and-build-run": "npm run check && npm run build-run",
         "eslint": "eslint src; exit 0",
         "flow": "flow; exit 0",
         "flow-typed-install": "flow-typed install -s"
@@ -29,6 +28,7 @@
     "devDependencies": {
         "@babel/cli": "^7.16.8",
         "@babel/core": "^7.16.7",
+        "@babel/eslint-parser": "^7.16.5",
         "@babel/node": "^7.16.8",
         "@babel/preset-env": "^7.16.8",
         "@babel/preset-flow": "^7.16.7",
