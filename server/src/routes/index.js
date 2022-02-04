@@ -1,7 +1,7 @@
 /** @flow */
 
 import expressPromiseRouter from 'express-promise-router';
-import { Router } from 'express';
+import type { $Router, $Request } from 'express';
 
 import { UserRouter } from './user';
 import { SpecialtyRouter } from './specialty';
@@ -9,7 +9,7 @@ import { StudentRouter } from './student';
 import { GroupRouter } from './group';
 
 
-const router: Router = expressPromiseRouter();
+const router: $Router = expressPromiseRouter();
 
 router.use('/api/users', UserRouter);
 router.use('/api/groups', GroupRouter);

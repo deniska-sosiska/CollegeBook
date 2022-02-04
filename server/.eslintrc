@@ -1,15 +1,19 @@
 {
     "parser": "@babel/eslint-parser",
-    "extends": "airbnb-base",
+    "extends": ["airbnb-base"],
     "env": {
         "node": true
     },
     "root": true,
+    "ignorePatterns": ["/flow-typed", "/dist"],
     "plugins": [
-        "import"
+        "import",
+        "flowtype"
     ],
     "rules": {
         "indent": ["error", 4],
+        "curly": "error",
+
         "no-unused-vars": ["warn"],
         "no-multi-spaces": ["error", {
             "ignoreEOLComments": false
@@ -30,14 +34,18 @@
                 "_id"
             ]
         }],
-        "curly": "error",
         "no-restricted-syntax": [
             "error",
             "ForInStatement",
             "LabeledStatement",
             "WithStatement"
         ],
+
         "import/no-default-export": "error",
-        "import/prefer-default-export": "off"
+        "import/prefer-default-export": "off",
+
+        "flowtype/require-valid-file-annotation": [2, "never", {
+            "annotationStyle": "block"
+        }]
     }
 }

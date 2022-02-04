@@ -51,6 +51,7 @@ declare type express$RequestParams = { [param: string]: string, ... };
     foo: string | void;
   }
 */
+// express$Request
 declare class express$Request extends http$IncomingMessage mixins express$RequestResponseBase {
   baseUrl: string;
   body: mixed;
@@ -218,6 +219,8 @@ declare type express$RouterUseable<Req: express$Request, Res: express$Response> 
   | express$Router<Req, Res>
   | $ReadOnlyArray<express$Middleware<Req, Res> | express$Router<Req, Res>>;
 
+
+//express$Router
 declare class express$Router<
   Req: express$Request = express$Request,
   Res: express$Response = express$Response,
@@ -353,6 +356,8 @@ declare module "express" {
     Req: express$Request = express$Request,
     Res: express$Response = express$Response,
   > = express$Application<Req, Res>;
+  declare export type $Router = express$Router;
+
 
   declare module.exports: {
     // If you try to call like a function, it will use this signature
