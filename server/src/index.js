@@ -16,12 +16,14 @@ app.use(json());
 app.use(express.static(join(__dirname, '../public')));
 app.use(router);
 
-var hui = 5;
-
 async function start() {
+    // Here, code praying to the GOD for protecting our open project from bugs and other things.
+    // This is really crucial step! Be adviced to not remove it, even if you don't believer.
+    console.log("\n Rahman ve Rahim olan Allah'ın adıyla.\n");
+
     // Database settings
     await connect(mongoUrlConnect, DataBaseOptions).then(
-        () => { console.log('\nMongoDB connection successful'); },
+        () => { console.log('MongoDB connection successful'); },
         (err) => { errorHandler(err); },
     );
 
