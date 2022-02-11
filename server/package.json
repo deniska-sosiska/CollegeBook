@@ -2,32 +2,42 @@
     "name": "collegebook-server",
     "description": "automated-system-for-recording-student-attendance",
     "version": "1.0.0",
-    "main": "index.js",
+    "main": "src/index.js",
     "author": "Berkov Denis <denchikarabik@gmail.com>",
+    "homepage": "https://github.com/deniska-sosiska/CollegeBook-MEVN-stack#readme",
+    "license": "ISC",
     "scripts": {
-        "dev": "nodemon index.js"
+        "start": "nodemon --watch src --exec yarn build-run",
+        "serve": "babel-node --require dotenv/config dist/index.js",
+        "build": "rimraf ./dist && babel src/ -d dist/",
+        "build-run": "yarn build && yarn eslint-check && yarn serve",
+        "eslint-check": "yarn eslint src || exit 0"
     },
     "dependencies": {
-        "body-parser": "^1.19.0",
         "boom": "^7.3.0",
         "cors": "^2.8.5",
         "dotenv": "^9.0.2",
-        "eslint-config-airbnb-base": "^15.0.0",
         "express": "^4.17.1",
         "express-promise-router": "^4.0.1",
         "mongoose": "^6.0.10",
         "nodemon": "^2.0.6"
     },
+    "devDependencies": {
+        "@babel/cli": "^7.16.8",
+        "@babel/core": "^7.16.7",
+        "@babel/eslint-parser": "^7.16.5",
+        "@babel/node": "^7.16.8",
+        "@babel/preset-env": "^7.16.8",
+        "eslint": "^8.6.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-plugin-import": "^2.25.4",
+        "rimraf": "^3.0.2"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/deniska-sosiska/CollegeBook-MEVN-stack.git"
     },
-    "license": "ISC",
     "bugs": {
         "url": "https://github.com/deniska-sosiska/CollegeBook-MEVN-stack/issues"
-    },
-    "homepage": "https://github.com/deniska-sosiska/CollegeBook-MEVN-stack#readme",
-    "devDependencies": {
-        "eslint": "^8.2.0"
     }
 }

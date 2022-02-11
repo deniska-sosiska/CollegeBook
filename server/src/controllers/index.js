@@ -1,6 +1,4 @@
-module.exports = {
-  specialty: require('./specialty'),
-  student: require('./student'),
-  group: require('./group'),
-  user: require('./user')
-}
+export { SpecialtyController } from './specialty';
+export { StudentController } from './student';
+export { GroupController } from './group';
+export { UserController } from './user';

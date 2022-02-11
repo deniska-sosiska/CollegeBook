@@ -1,20 +1,21 @@
-const MongoDB_URL = `${process.env.MONGODB_domen}${process.env.MONGODB_user}${process.env.MONGODB_options}`
+/* eslint-disable no-console */
 
-const DataBaseOptions = {
+export const serverPort = String(process.env.SERVER_PORT);
+
+const mongoDBDomen = String(process.env.MONGODB_DOMEN);
+const mongoDBUser = String(process.env.MONGODB_USER);
+const mongoDBOptions = String(process.env.MONGODB_OPTIONS);
+
+export const mongoUrlConnect = `${mongoDBDomen}${mongoDBUser}${mongoDBOptions}`;
+export const DataBaseOptions = {
     useUnifiedTopology: true,
-}
+};
 
-const errorHandler = function(errorMessage, error) {
+export const errorHandler = (error) => {
     console.error(`
-        ===================ERROR=========================\n
-        ${errorMessage}\n
+        ========================ERROR==============================\n
+        MongoDB connection unsuccessful\n
         Reason: ${error}\n
-        =================================================
+        ===========================================================
     `);
-}
-
-module.exports = {
-    MongoDB_URL,
-    DataBaseOptions,
-    errorHandler
-}
+};
