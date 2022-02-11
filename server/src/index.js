@@ -1,4 +1,3 @@
-/** @flow */
 /* eslint-disable no-console */
 
 import cors from 'cors';
@@ -9,7 +8,6 @@ import { createServer } from 'http';
 import { router } from './routes';
 import { mongoUrlConnect, serverPort, DataBaseOptions, errorHandler } from './config';
 
-
 // Application initialization
 const app = express();
 
@@ -18,13 +16,18 @@ app.use(json());
 app.use(express.static(join(__dirname, '../public')));
 app.use(router);
 
-// Database settings
-connect(mongoUrlConnect, DataBaseOptions).then(
-    () => { console.log('MongoDB connection successful'); },
-    (err) => { errorHandler(err); },
-);
 
-// Starting and listening
-createServer(app).listen(serverPort, () => {
-    console.log(`Server running at http://localhost:${serverPort}/`);
-});
+async function start() {
+    // Database settings
+    await connect(mongoUrlConnect, DataBaseOptions).then(
+        () => { console.log('MongoDB connection successful'); },
+        (err) => { errorHandler(err); },
+    );
+
+    // Starting and listening
+    createServer(app).listen(serverPort, () => {
+        console.log(`Server running at http://localhost:${serverPort}/`);
+    });
+}
+
+start();
