@@ -16,11 +16,12 @@ app.use(json());
 app.use(express.static(join(__dirname, '../public')));
 app.use(router);
 
+var hui = 5;
 
 async function start() {
     // Database settings
     await connect(mongoUrlConnect, DataBaseOptions).then(
-        () => { console.log('MongoDB connection successful'); },
+        () => { console.log('\nMongoDB connection successful'); },
         (err) => { errorHandler(err); },
     );
 
